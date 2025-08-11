@@ -1,6 +1,12 @@
 @import 'tailwindcss';
-
 @import 'tailwindcss/utilities';
+
+@theme {
+  /* Define your custom colors here */
+  --color-primary: #33cccc; /* Example: A custom primary color */
+  --color-secondary: #0b3e5c; /* Example: A custom secondary color */
+  --color-chocolate: #d2691e; /* Example: A custom color named chocolate */
+}
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-rgb: 255, 255, 255;

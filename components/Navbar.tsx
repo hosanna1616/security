@@ -17,14 +17,6 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false)
   const [darkMode, setDarkMode] = useState(false)
 
-  // Toggle dark mode and persist in localStorage
-  const toggleDarkMode = () => {
-    const newMode = !darkMode
-    setDarkMode(newMode)
-    document.documentElement.classList.toggle('dark', newMode)
-    localStorage.setItem('darkMode', String(newMode))
-  }
-
   // Initialize dark mode from localStorage or system preference
   useEffect(() => {
     const savedMode = localStorage.getItem('darkMode')
@@ -74,7 +66,7 @@ const Navbar = () => {
               <Link
                 key={item.name}
                 href={item.href}
-                className='text-sm font-medium text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors'
+                className='text-sm font-medium  dark:text-gray-100 text-primary hover:text-gray-100 dark:hover:text-primary sition-colors'
               >
                 {item.name}
               </Link>
@@ -90,7 +82,7 @@ const Navbar = () => {
             {theme === 'dark' ? (
               <SunIcon className='h-5 w-5 text-yellow-300' />
             ) : (
-              <MoonIcon className='h-5 w-5 text-gray-700' />
+              <MoonIcon className='h-5 w-5 text-gray-200' />
             )}
           </button>
         </div>
@@ -98,7 +90,7 @@ const Navbar = () => {
         {/* Mobile menu button */}
         <button
           type='button'
-          className='lg:hidden p-2 rounded-md text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400'
+          className='lg:hidden p-2 rounded-md text-gray-900 dark:text-gray-100 hover:text-primary dark:hover:text-primary'
           onClick={() => setMobileMenuOpen(true)}
         >
           <span className='sr-only'>Open menu</span>
@@ -127,15 +119,17 @@ const Navbar = () => {
               </Link>
               <div className='flex items-center gap-4'>
                 <button
-                  onClick={toggleDarkMode}
-                  className='p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                  className='p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors'
+                  aria-label='Toggle theme'
                 >
-                  {darkMode ? (
+                  {theme === 'dark' ? (
                     <SunIcon className='h-6 w-6' />
                   ) : (
                     <MoonIcon className='h-6 w-6' />
                   )}
                 </button>
+
                 <button
                   type='button'
                   className='-m-2.5 rounded-md p-2.5 text-gray-700 dark:text-gray-300'
@@ -154,7 +148,7 @@ const Navbar = () => {
                       key={item.name}
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className='-mx-3 block py-2 text-base font-medium text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400'
+                      className='-mx-3 block py-2 text-base font-medium text-gray-900 dark:text-gray-100 hover:text-primary dark:hover:text-primary'
                     >
                       {item.name}
                     </Link>
