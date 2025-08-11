@@ -7,6 +7,7 @@ import {
   MoonIcon,
   SunIcon,
 } from '@heroicons/react/24/outline'
+import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import Image from 'next/image'
 import logo from '../public/image/logo.png'
@@ -53,7 +54,7 @@ const Navbar = () => {
     { name: 'Biometrics', href: '/Biometrics' },
     { name: 'Contact us', href: '/Contact_us' },
   ]
-
+  const { theme, setTheme } = useTheme()
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
@@ -82,14 +83,14 @@ const Navbar = () => {
 
           {/* Dark Mode Toggle */}
           <button
-            onClick={toggleDarkMode}
-            className='p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors'
-            aria-label='Toggle dark mode'
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className='p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors'
+            aria-label='Toggle theme'
           >
-            {darkMode ? (
-              <SunIcon className='h-5 w-5' />
+            {theme === 'dark' ? (
+              <SunIcon className='h-5 w-5 text-yellow-300' />
             ) : (
-              <MoonIcon className='h-5 w-5' />
+              <MoonIcon className='h-5 w-5 text-gray-700' />
             )}
           </button>
         </div>
