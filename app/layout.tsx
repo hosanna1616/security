@@ -4,6 +4,7 @@ import './globals.css'
 import Navbar from '@/components/Navbar'
 import { Providers } from './providers'
 import VideoBackground from '@/components/VideoBackground'
+import ThemeInitializer from '@/components/ThemeInitializer'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -27,9 +28,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                const storedTheme = localStorage.getItem('secure-shield-theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const theme = storedTheme || (prefersDark ? 'dark' : 'dark'); // Force dark
+                document.documentElement.classList.toggle('dark', theme === 'dark');
+                if (!storedTheme) localStorage.setItem('secure-shield-theme', 'dark');
+              } catch (e) {}
+            `,
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <ThemeInitializer />
         <Providers>
           <VideoBackground />
           <Navbar />
