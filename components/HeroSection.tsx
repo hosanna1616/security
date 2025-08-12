@@ -66,24 +66,30 @@ export default function HeroSection() {
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className={`text-6xl sm:text-5xl md:text-6xl font-bold tracking-tight ${
-              isDarkMode ? 'text-white' : 'text-primary'
+            transition={{ duration: 0.8 }}
+            className={`text-6xl sm:text-5xl md:text-6xl  tracking-tight font-extrabold ${
+              isDarkMode
+                ? ' bg-gradient-to-r from-primary via-white to-primary text-transparent bg-clip-text'
+                : 'bg-gradient-to-r from-primary via-white to-[#00E0FF] text-transparent bg-clip-text'
             }`}
           >
             <span className='block'>Secure Your</span>
             <span className='block'>Systems with</span>
             <span
-              className={`block ${isDarkMode ? 'text-primary' : 'text-white'}`}
+              className={`block ${
+                isDarkMode
+                  ? ' bg-gradient-to-r from-primary via-white to-primary text-transparent bg-clip-text'
+                  : '  bg-gradient-to-r from-white via-primary to-white text-transparent bg-clip-text'
+              }`}
             >
-              Advanced <br /> Solutions
+              Advanced Solutions
             </span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
             className='mt-6 text-lg sm:text-xl text-gray-300'
           >
             Trust our homegrown solutions to secure your systems.
@@ -92,7 +98,7 @@ export default function HeroSection() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.4 }}
+            transition={{ delay: 0.6, duration: 0.5 }}
             className='mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start'
           >
             <button className='rounded-md px-6 py-3 text-sm font-semibold shadow-sm transition-colors duration-200 bg-primary text-white hover:bg-secondary'>
