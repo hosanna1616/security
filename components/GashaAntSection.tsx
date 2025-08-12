@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { gsap } from 'gsap'
 import GashaAntivirus from '../public/image/GashAntivirus.png'
 
-function MainSection() {
+function GashaAntSection() {
   const sectionRef = useRef(null)
 
   useEffect(() => {
@@ -21,18 +21,6 @@ function MainSection() {
 
   return (
     <div className='relative w-full h-screen overflow-hidden' ref={sectionRef}>
-      {/* 🔹 Background Video */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className='absolute top-0 left-0 w-full h-full object-cover z-0'
-      >
-        <source src='/videos/security-dark.mp4' type='video/mp4' />
-        Your browser does not support the video tag.
-      </video>
-
       {/* 🔹 Overlay Content */}
       <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-6 md:px-20 lg:px-32'>
         <section className='bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-xl w-full max-w-6xl text-white'>
@@ -94,4 +82,4 @@ function MainSection() {
   )
 }
 
-export default MainSection
+export default GashaAntSection

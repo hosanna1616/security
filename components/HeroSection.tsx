@@ -36,45 +36,30 @@ export default function HeroSection() {
     <section
       className={`'relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8 ' ${
         theme === 'dark' ? 'dark-theme-styles' : 'light-theme-styles'
-      }`}
+      } `}
     >
-      {/* Video Background - Changes based on theme */}
-      <div className='absolute inset-0 z-0'>
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className='w-full h-full object-cover'
-          key={isDarkMode ? 'dark' : 'light'} // Force re-render on theme change
-        >
-          <source
-            src={isDarkMode ? videoSources.dark : videoSources.light}
-            type='video/mp4'
-          />
-        </video>
-        <div
-          className={`absolute inset-0 ${
-            isDarkMode ? 'bg-black/50' : 'bg-white/10'
-          }`}
-        ></div>
-      </div>
-
-      <div className='relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mt-10'>
+      <div
+        className={`relative w-full h-full z-10 max-w-7xl m-20 mx-auto  grid grid-cols-1 lg:grid-cols-2 gap-1 items-center mt-10 pr-20 ${
+          isDarkMode
+            ? 'bg-transparent'
+            : 'bg-white/10 backdrop-blur-md p-15 mt-32 pt-1'
+        }`}
+      >
         {/* Text Content */}
-        <div className='text-center lg:text-left'>
+        <div className='text-center lg:text-left space-y-5'>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className={`text-6xl sm:text-5xl md:text-6xl  tracking-tight font-extrabold ${
+            className={`text-9xl sm:text-5xl md:text-6xl  tracking-widest sm:tracking-tight font-extrabold  ${
               isDarkMode
-                ? ' bg-gradient-to-r from-primary via-white to-primary text-transparent bg-clip-text'
-                : 'bg-gradient-to-r from-primary via-white to-[#00E0FF] text-transparent bg-clip-text'
+                ? ' bg-gradient-to-r from-primary via-white to-primary text-transparent bg-clip-text leading-18'
+                : 'bg-gradient-to-r from-primary via-white to-primary text-transparent bg-clip-text text-shadow-black leading-16'
             }`}
           >
-            <span className='block'>Secure Your</span>
+            <span className='block '>Secure Your</span>
             <span className='block'>Systems with</span>
+
             <span
               className={`block ${
                 isDarkMode
@@ -108,7 +93,14 @@ export default function HeroSection() {
         </div>
 
         {/* Animated Image */}
-        <motion.div animate={controls} className='hidden lg:block relative'>
+        <motion.div
+          animate={controls}
+          className={`${
+            isDarkMode
+              ? 'hidden w-full lg:w-3/2 lg:block'
+              : 'block w-full lg:w-3/2'
+          } `}
+        >
           <Image
             src={Security}
             alt='Animated Image'

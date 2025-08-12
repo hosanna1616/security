@@ -1,28 +1,26 @@
 import HeroSection from '@/components/HeroSection'
-import MainSection from '@/components/MainSection'
-import GashaWAFSection from "@/components/GashaWAFSection";
-import GashaVPNSection from "@/components/GashaVPNSection";
-import NisirSIEMSection from "@/components/NisirSIEMSection"
-import  EnyumaSection from "@/components/EnyumaSection"
-import CodeProSection from "@/components/CodeProSection"
-import BiometricSection from "@/components/BiometricSection "
-import ContactSection from "@/components/ContactSection "
-import footer from "@/components/Footer "
-import Footer from '@/components/Footer ';
+import GashaWAFSection from '@/components/GashaWAFSection'
+import GashaVPNSection from '@/components/GashaVPNSection'
+import NisirSIEMSection from '@/components/NisirSIEMSection'
+import EnyumaSection from '@/components/EnyumaSection'
+import CodeProSection from '@/components/CodeProSection'
+import BiometricSection from '@/components/BiometricSection '
+import ContactSection from '@/components/ContactSection '
+import Footer from '@/components/Footer '
+import GashaAntSection from '@/components/GashaAntSection'
 export default function Gasha() {
   return (
     <>
       <HeroSection />
-      <MainSection />
+      <GashaAntSection />
       <GashaWAFSection />
-      <GashaVPNSection/>
-      <NisirSIEMSection/>
-      < EnyumaSection/>
-      <CodeProSection/>
-      <BiometricSection/>
-      <ContactSection/>
-      <Footer/>
-    
+      <GashaVPNSection />
+      <NisirSIEMSection />
+      <EnyumaSection />
+      <CodeProSection />
+      <BiometricSection />
+      <ContactSection />
+      <Footer />
     </>
-  );
+  )
 }
