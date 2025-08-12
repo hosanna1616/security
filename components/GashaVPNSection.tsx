@@ -58,7 +58,7 @@ function GashaVPNSection() {
       <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-6 py-16'>
         <div className='w-full max-w-6xl vpn-fade p-8 rounded-xl shadow-xl flex flex-col lg:flex-row items-center lg:items-start gap-10 bg-black/60 backdrop-blur-md'>
           {/* 🖼️ Image Section (Left) with floating animation */}
-          <div className='w-full lg:w-1/2 animate-[float_4s_ease-in-out_infinite]'>
+          <div className='w-full sm:hidden lg:w-1/2  animate-[float_4s_ease-in-out_infinite]'>
             <Image
               src='/image/GashVPN.png'
               alt='Gasha VPN'

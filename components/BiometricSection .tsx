@@ -115,7 +115,7 @@ const BiometricSection = () => {
         {/* 🖼️ Image Section */}
         <div
           ref={imageRef}
-          className='w-full lg:w-1/2 flex justify-center items-center'
+          className='w-full lg:w-1/2 flex justify-center items-center lg:block sm:hidden'
         >
           <Image
             src='/image/abis.png'

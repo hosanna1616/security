@@ -117,7 +117,7 @@ const ProductSection = () => {
         {/* 🖼️ Image Section */}
         <div
           ref={imageRef}
-          className='w-full lg:w-1/2 flex justify-center items-center'
+          className='w-full lg:w-1/2 flex justify-center items-center sm:hidden lg:block'
         >
           <Image
             src='/image/Code Protection.png'

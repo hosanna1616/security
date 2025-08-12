@@ -10,12 +10,6 @@ export default function HeroSection() {
   const controls = useAnimation()
   const [isDarkMode, setIsDarkMode] = useState(false)
 
-  // Video sources for light/dark modes
-  const videoSources = {
-    dark: '/videos/security-dark.mp4',
-    light: '/videos/security-light.mp4',
-  }
-
   // Image animation sequence
   useEffect(() => {
     const sequence = async () => {
@@ -95,7 +89,7 @@ export default function HeroSection() {
         {/* Animated Image */}
         <motion.div
           animate={controls}
-          className={`${
+          className={`sm:hidden lg:block ${
             isDarkMode
               ? 'hidden w-full lg:w-3/2 lg:block'
               : 'block w-full lg:w-3/2'
@@ -124,7 +118,7 @@ export default function HeroSection() {
           repeat: Infinity,
           ease: 'easeInOut',
         }}
-        className='absolute bottom-8 left-1/2 -translate-x-1/2 z-10'
+        className='absolute bottom-8 left-1/2 -translate-x-1/2 z-10 sm:hidden lg:block'
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'
