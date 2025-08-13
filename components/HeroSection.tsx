@@ -45,10 +45,10 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className={`text-9xl sm:text-5xl md:text-6xl  tracking-widest sm:tracking-tight font-extrabold  ${
+            className={`text-4xl sm:text-4xl md:text-5xl  md:tracking-widest sm:tracking-tight font-extrabold leading-10 '  ${
               isDarkMode
-                ? ' bg-gradient-to-r from-primary via-white to-primary text-transparent bg-clip-text leading-18'
-                : 'bg-gradient-to-r from-primary via-white to-primary text-transparent bg-clip-text text-shadow-black leading-16'
+                ? ' bg-gradient-to-r from-primary via-white to-primary text-transparent bg-clip-text md:leading-16'
+                : 'bg-gradient-to-r from-primary via-white to-primary text-transparent bg-clip-text text-shadow-black md:leading-14'
             }`}
           >
             <span className='block '>Secure Your</span>
@@ -80,7 +80,7 @@ export default function HeroSection() {
             transition={{ delay: 0.6, duration: 0.5 }}
             className='mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start'
           >
-            <button className='rounded-md px-6 py-3 text-sm font-semibold shadow-sm transition-colors duration-200 bg-primary text-white hover:bg-secondary'>
+            <button className='rounded-md px-6 py-3 text-sm font-semibold shadow-sm transition-colors duration-200 bg-primary hover:from-[#00E0FF] hover:to-black text-white '>
               Get Protected Today
             </button>
           </motion.div>
