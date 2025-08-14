@@ -39,14 +39,15 @@ const Navbar = () => {
   }, [])
 
   const navigation = [
-    { name: "Gasha", href: "/" },
-    { name: "Nisir", href: "/Nisir" },
-    { name: "Enyuma IAM", href: "/Enyuma_IAM" },
-    { name: "Code Protection", href: "/Code Protection" },
-    { name: "Biometrics", href: "/Biometrics" },
-    { name: "Contact us", href: "/Contact_us" },
-    { name: "Login", href: "/login" },
-  ];
+    { name: 'Home', href: '/' },
+    { name: 'Gasha', href: '/Gasha' },
+    { name: 'Nisir', href: '/Nisir' },
+    { name: 'Enyuma IAM', href: '/Enyuma_IAM' },
+    { name: 'Code Protection', href: '/Code Protection' },
+    { name: 'Biometrics', href: '/Biometrics' },
+    { name: 'Contact us', href: '/Contact_us' },
+    { name: 'Login', href: '/login' },
+  ]
   const { theme, setTheme } = useTheme()
   return (
     <header

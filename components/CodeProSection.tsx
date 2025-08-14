@@ -120,7 +120,7 @@ const ProductSection = () => {
           className='w-full lg:w-1/2 flex justify-center items-center sm:hidden lg:block'
         >
           <Image
-            src='/image/Code Protection.png'
+            src={codeprotection}
             alt='Cyber Defense'
             width={400}
             height={400}
