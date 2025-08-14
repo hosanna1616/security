@@ -29,3 +29,8 @@ body {
     text-wrap: balance;
   }
 }
+.clerk-powered-by,
+.clerk-footer,
+.clerk-header-subtitle {
+  display: none !important;
+}

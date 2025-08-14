@@ -79,7 +79,7 @@ const ContactSection = () => {
             digital future.
           </p>
 
-          {/* 📩 Email Input + Send Button */}
+          {/* Email Input + Send Button */}
           <div className="flex justify-center items-center gap-4 pt-4">
             <input
               type="email"

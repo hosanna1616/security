@@ -46,7 +46,7 @@ function NisirSIEMSection() {
       {/* 🔹 Content Overlay */}
       <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-6 py-10'>
         <div className='w-full max-w-6xl siem-fade p-6 rounded-xl shadow-xl flex flex-col lg:flex-row items-center gap-8 bg-black/60 backdrop-blur-md'>
-          {/* 🖼️ Image Section */}
+          {/* Image Section */}
           <div className='w-full lg:w-1/2 flex justify-center items-center sm:hidden lg:block'>
             <div className='max-w-md w-full rotate-animation sm:hidden lg:block'>
               <Image
@@ -59,7 +59,7 @@ function NisirSIEMSection() {
             </div>
           </div>
 
-          {/* 📄 Text Section */}
+          {/*  Text Section */}
           <div className='w-full lg:w-1/2 text-white space-y-4'>
             {/* 🔹 Heading with larger image in front of SIEM */}
             <h2 className='text-4xl font-bold text-white flex items-center gap-4'>
@@ -76,7 +76,7 @@ function NisirSIEMSection() {
               send Request
             </button>
 
-            {/* 🏷️ Icon + Paragraphs */}
+            {/*  Icon + Paragraphs */}
             <div className='space-y-4 pt-4'>
               {paragraphOptions.map((text, index) => (
                 <div key={index} className='flex items-start gap-3'>
@@ -98,7 +98,7 @@ function NisirSIEMSection() {
         </div>
       </div>
 
-      {/* 🔧 Custom Animation Keyframes */}
+      {/*  Custom Animation Keyframes */}
       <style jsx>{`
         @keyframes rotateLR {
           0% {

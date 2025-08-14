@@ -30,7 +30,7 @@ const Footer = () => {
           </p>
         </div>
 
-        {/* 🔹 Column 2: Quick Links */}
+        {/*  Column 2: Quick Links */}
         <div className="space-y-4">
           <div className="flex items-center gap-2">
             {/* Compass Icon */}

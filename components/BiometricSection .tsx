@@ -76,12 +76,12 @@ const BiometricSection = () => {
 
   return (
     <div className='relative w-full flex justify-center items-center py-20 overflow-hidden bg-transparent'>
-      {/* 🔹 Overlay Content */}
+      {/*  Overlay Content */}
       <div
         ref={containerRef}
         className='relative z-10 w-full max-w-6xl bg-black/60 backdrop-blur-md rounded-xl shadow-xl p-8 flex flex-col lg:flex-row items-center gap-10 transition-all duration-700'
       >
-        {/* 🧠 Text Section */}
+        {/* Text Section */}
         <div ref={textRef} className='w-full lg:w-1/2 space-y-6 text-white'>
           <h2 className='text-4xl font-bold flex items-center gap-3 group'>
             Biometric Identity Protection
@@ -112,7 +112,7 @@ const BiometricSection = () => {
           </button>
         </div>
 
-        {/* 🖼️ Image Section */}
+        {/*  Image Section */}
         <div
           ref={imageRef}
           className='w-full lg:w-1/2 flex justify-center items-center lg:block sm:hidden'
