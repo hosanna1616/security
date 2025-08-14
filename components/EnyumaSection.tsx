@@ -94,7 +94,7 @@ function EnyumaSection() {
           </div>
 
           {/* 🖼️ Image Section (right) */}
-          <div className='w-full sm:hidden lg:w-1/2 flex justify-center items-center'>
+          <div className='w-full lg:w-1/2 flex justify-center items-center'>
             <div className='max-w-md w-full'>
               <Image
                 ref={imageRef}
