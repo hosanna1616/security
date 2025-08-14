@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
-import EnyumaIAM from '../public/image/EnyumaIAM.png'
+import EnyumaIAM from '../../public/image/EnyumaIAM.png'
 
 gsap.registerPlugin(ScrollTrigger)
 

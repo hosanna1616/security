@@ -6,7 +6,6 @@ import EnyumaSection from '@/components/EnyumaSection'
 import CodeProSection from '@/components/CodeProSection'
 import BiometricSection from '@/components/BiometricSection '
 import ContactSection from '@/components/ContactSection '
-import Footer from '@/components/Footer '
 import GashaAntSection from '@/components/GashaAntSection'
 export default function Gasha() {
   return (
@@ -20,7 +19,6 @@ export default function Gasha() {
       <CodeProSection />
       <BiometricSection />
       <ContactSection />
-      <Footer />
     </>
   )
 }
