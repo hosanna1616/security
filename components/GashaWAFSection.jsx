@@ -50,7 +50,7 @@ function GashaWAFSection() {
       ref={sectionRef}
       className='relative w-full min-h-screen overflow-hidden'
     >
-      {/* 🔹 Content Overlay */}
+      {/* Content Overlay */}
       <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-6 py-16'>
         <div className='w-full max-w-6xl waf-fade bg-black/60 backdrop-blur-md p-8 rounded-xl shadow-xl flex flex-col lg:flex-row items-center gap-10'>
           {/* Image Section */}

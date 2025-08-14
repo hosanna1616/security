@@ -55,21 +55,21 @@ function EnyumaSection() {
       {/* 🔹 Content Overlay */}
       <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-6 py-10'>
         <div className='w-full max-w-6xl p-6 rounded-xl shadow-xl flex flex-col lg:flex-row items-center gap-8 bg-black/60 backdrop-blur-md'>
-          {/* 📄 Text Section (left) */}
+          {/*  Text Section (left) */}
           <div className='w-full lg:w-1/2 text-white space-y-4'>
             {/* 🔹 Gradient Heading */}
             <h2 className='text-5xl font-extrabold bg-gradient-to-r from-[#00E0FF] via-white to-[#00E0FF] text-transparent bg-clip-text'>
               Enyuma IAM
             </h2>
 
-            {/* 📩 Styled Button */}
+            {/* Styled Button */}
             <div className='mt-4'>
               <button className='px-6 py-3 border border-[#00E0FF] text-[#00E0FF] font-semibold rounded-[2px] bg-transparent hover:bg-[#00E0FF] hover:text-black transition duration-300'>
                 show product
               </button>
             </div>
 
-            {/* 🏷️ Paragraphs */}
+            {/*  Paragraphs */}
             <div className='space-y-4 pt-4'>
               {paragraphOptions.map((text, index) => (
                 <div
@@ -93,7 +93,7 @@ function EnyumaSection() {
             </div>
           </div>
 
-          {/* 🖼️ Image Section (right) */}
+          {/*  Image Section (right) */}
           <div className='w-full lg:w-1/2 flex justify-center items-center'>
             <div className='max-w-md w-full'>
               <Image
@@ -109,7 +109,7 @@ function EnyumaSection() {
         </div>
       </div>
 
-      {/* 🔧 Custom Styles */}
+      {/*  Custom Styles */}
       <style jsx>{`
         .enyuma-fade {
           will-change: transform, opacity;

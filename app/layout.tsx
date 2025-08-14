@@ -5,7 +5,14 @@ import Navbar from '@/components/Navbar'
 import { Providers } from './providers'
 import VideoBackground from '@/components/VideoBackground'
 import ThemeInitializer from '@/components/ThemeInitializer'
-import Footer from '@/components/Footer '
+import {
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";import Footer from '@/components/Footer '
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -28,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang='en'>
+    <html lang="en">
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -51,10 +58,24 @@ export default function RootLayout({
         <Providers>
           <VideoBackground />
           <Navbar />
+          <ClerkProvider>
+            <SignedOut>
+              <SignInButton />
+              <SignUpButton>
+                <button className="bg-[#6c47ff] text-ceramic-white rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 cursor-pointer">
+                  login
+                </button>
+              </SignUpButton>
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+          </ClerkProvider>
+
           {children}
           <Footer/>
         </Providers>
       </body>
     </html>
-  )
+  );
 }

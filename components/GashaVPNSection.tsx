@@ -54,10 +54,10 @@ function GashaVPNSection() {
       ref={sectionRef}
       className='relative w-full min-h-screen overflow-hidden mt-24'
     >
-      {/* 🔹 Content Overlay */}
+      {/*  Content Overlay */}
       <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-6 py-16'>
         <div className='w-full max-w-6xl vpn-fade p-8 rounded-xl shadow-xl flex flex-col lg:flex-row items-center lg:items-start gap-10 bg-black/60 backdrop-blur-md'>
-          {/* 🖼️ Image Section (Left) with floating animation */}
+          {/* Image Section (Left) with floating animation */}
           <div className='w-full lg:w-1/2  animate-[float_4s_ease-in-out_infinite]'>
             <Image
               src='/image/GashVPN.png'
@@ -68,7 +68,7 @@ function GashaVPNSection() {
             />
           </div>
 
-          {/* 📄 Text Section (Right) */}
+          {/* Text Section (Right) */}
           <div className='w-full lg:w-1/2 text-white space-y-6'>
             {/* 🔷 Mixed Color Heading */}
             <h2 className='text-4xl font-bold transition duration-300'>
@@ -76,7 +76,7 @@ function GashaVPNSection() {
               <span className='text-[#00E0FF] hover:text-[#38BDF8]'>VPN</span>
             </h2>
 
-            {/* 🔄 Paragraph with fade transition */}
+            {/*  Paragraph with fade transition */}
             <p
               ref={textRef}
               className='text-lg text-gray-300 leading-relaxed transition-opacity duration-500'
@@ -84,9 +84,9 @@ function GashaVPNSection() {
               {paragraphOptions[currentTextIndex]}
             </p>
 
-            {/* 🔘 Button Row */}
+            {/*  Button Row */}
             <div className='pt-4 flex flex-wrap gap-4'>
-              {/* ➡ Arrow Button */}
+              {/* Arrow Button */}
               <button
                 onClick={handleNextText}
                 className='text-white border border-white rounded-full px-4 py-2 hover:bg-gradient-to-r hover:from-[#00E0FF] hover:to-gray-800 hover:text-black transition duration-300'
@@ -94,12 +94,12 @@ function GashaVPNSection() {
                 →
               </button>
 
-              {/* 📥 Download Button */}
+              {/* Download Button */}
               <button className='text-white border border-white rounded-md px-6 py-3 text-sm font-semibold shadow-sm hover:bg-gradient-to-r hover:from-[#00E0FF] hover:to-gray-800 hover:text-black transition duration-300'>
                 Download
               </button>
 
-              {/* 📤 Send Request Button */}
+              {/* Send Request Button */}
               <button className='text-white border border-white rounded-md px-6 py-3 text-sm font-semibold shadow-sm hover:bg-gradient-to-r hover:from-[#00E0FF] hover:to-gray-800 hover:text-black transition duration-300'>
                 Send Request
               </button>
@@ -108,7 +108,7 @@ function GashaVPNSection() {
         </div>
       </div>
 
-      {/* 🔧 Custom Animation Keyframes */}
+      {/*  Custom Animation Keyframes */}
       <style jsx>{`
         @keyframes float {
           0% {
