@@ -7,7 +7,7 @@ import VideoBackground from '@/components/VideoBackground'
 import ThemeInitializer from '@/components/ThemeInitializer'
 import Footer from '@/components/Footer '
 // import Footer from '@/components/Footer'
-import { ClerkProvider, ClerkLoaded } from "@clerk/nextjs";
+
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -30,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <ClerkProvider>
+    
       <html lang="en">
         <head>
           <script
@@ -53,14 +53,14 @@ export default function RootLayout({
           <ThemeInitializer />
           <Providers>
             <VideoBackground />
-            <ClerkProvider>
+          
               <Navbar />
               {children}
               <Footer />
-            </ClerkProvider>
+            
           </Providers>
         </body>
       </html>
-    </ClerkProvider>
+   
   );
 }
