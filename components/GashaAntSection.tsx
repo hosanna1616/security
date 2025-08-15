@@ -20,10 +20,10 @@ function GashaAntSection() {
   }, [])
 
   return (
-    <div className='relative w-full h-screen overflow-hidden' ref={sectionRef}>
+    <div className='relative w-full h-screen  overflow-hidden' ref={sectionRef}>
       {/* 🔹 Overlay Content */}
-      <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-6 md:px-20 lg:px-32'>
-        <section className='bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-xl w-full max-w-6xl text-white'>
+      <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-6 py-16'>
+        <section className='bg-black/60 backdrop-blur-md rounded-xl p-8 shadow-xl w-full max-w-6xl text-white'>
           <div className='flex flex-col lg:flex-row items-center gap-12'>
             {/* Image Section */}
             <div className='w-full lg:w-1/2  fade-in'>

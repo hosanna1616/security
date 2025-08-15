@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import Security from '../public/image/Security.png' // Adjust the path as necessary
+import Link from 'next/link'
 export default function HeroSection() {
   const { theme } = useTheme()
   const controls = useAnimation()
@@ -73,17 +74,6 @@ export default function HeroSection() {
           >
             Trust our homegrown solutions to secure your systems.
           </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.5 }}
-            className='mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start'
-          >
-            <button className=' border border-white rounded-md px-6 py-3 text-sm font-semibold shadow-sm bg-gradient-to-r from-[#00E0FF] to-transparent text-white transition duration-300 hover:bg-transparent'>
-              Get Protected Today
-            </button>
-          </motion.div>
         </div>
 
         {/* Animated Image */}
