@@ -42,7 +42,7 @@ const Navbar = () => {
     { name: 'Gasha', href: '/Gasha' },
     { name: 'Nisir', href: '/Nisir' },
     { name: 'Enyuma IAM', href: '/Enyuma_IAM' },
-    { name: 'Code Protection', href: '/Code Protection' },
+    { name: 'Code Protection', href: '/Code_Protection' },
     { name: 'Biometrics', href: '/Biometrics' },
     { name: 'Contact us', href: '/Contact_us' },
     { name: 'Login', href: '/login' },
