@@ -157,16 +157,14 @@ const Footer = () => {
             <a href="#" className="hover:text-primary transition duration-300">
               LinkedIn
             </a>
-            <a href="#" className="hover:text-primary transition duration-300">
-              GitHub
-            </a>
+            
           </div>
         </div>
       </div>
 
       {/* 🔹 Bottom Bar */}
       <div className="mt-10 text-center text-gray-500 text-xs">
-        &copy; {new Date().getFullYear()} CyberSecure. All rights reserved.
+        &copy; {new Date().getFullYear()} SecureSystem. All rights reserved.
       </div>
     </footer>
   );
