@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { gsap } from 'gsap'
 import GashaAntivirus from '../public/image/GashAntivirus.png'
+import Link from 'next/link'
 
 function GashaAntSection() {
   const sectionRef = useRef(null)
@@ -20,10 +21,13 @@ function GashaAntSection() {
   }, [])
 
   return (
-    <div className='relative w-full h-screen  overflow-hidden' ref={sectionRef}>
-      {/* 🔹 Overlay Content */}
-      <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-6 py-16'>
-        <section className='bg-black/60 backdrop-blur-md rounded-xl p-8 shadow-xl w-full max-w-6xl text-white'>
+    <div
+      ref={sectionRef}
+      className='relative w-full min-h-screen overflow-hidden '
+    >
+      {/* Content Overlay */}
+      <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-6 py-16 '>
+        <section className='bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-xl w-full max-w-6xl text-white'>
           <div className='flex flex-col lg:flex-row items-center gap-12'>
             {/* Image Section */}
             <div className='w-full lg:w-1/2  fade-in'>
@@ -47,30 +51,17 @@ function GashaAntSection() {
                 privacy, and devices stay secure.
               </p>
 
-              <ul className='list-disc list-inside space-y-2 text-md text-gray-200'>
-                <li>
-                  <strong>Real-Time Protection:</strong> Keeps desktops,
-                  laptops, downloads, and external devices safe.
-                </li>
-                <li>
-                  <strong>AI-Powered Detection:</strong> Protects against known
-                  and unknown threats using artificial intelligence.
-                </li>
-                <li>
-                  <strong>Up-to-Date Database:</strong> Regular virus definition
-                  updates to counter emerging threats.
-                </li>
-                <li>
-                  <strong>Tamper Protection:</strong> Secures your Windows
-                  registry from unauthorized changes.
-                </li>
-              </ul>
-
               <div className='mt-8 flex gap-4 fade-in'>
                 <button className='bg-primary text-white px-6 py-2 rounded hover:bg-secondary transition'>
                   Download
                 </button>
                 <button className='border border-primary text-primary px-6 py-2 rounded hover:bg-secondary hover:text-white transition'>
+                  {/*<Link
+                    href="/Request"
+                    className="text-blue-400 underline hover:text-blue-200 transition"
+                  >
+                    send request
+                  </Link> */}
                   Send Request
                 </button>
               </div>
