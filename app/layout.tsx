@@ -6,8 +6,8 @@ import { Providers } from './providers'
 import VideoBackground from '@/components/VideoBackground'
 import ThemeInitializer from '@/components/ThemeInitializer'
 import Footer from '@/components/Footer '
+import { ClerkProvider } from '@clerk/nextjs'
 // import Footer from '@/components/Footer'
-import { ClerkProvider, ClerkLoaded } from "@clerk/nextjs";
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -30,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -60,5 +60,5 @@ export default function RootLayout({
         </Providers>
       </body>
     </html>
-  );
+  )
 }

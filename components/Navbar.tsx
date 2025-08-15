@@ -39,7 +39,6 @@ const Navbar = () => {
   }, [])
 
   const navigation = [
-    { name: 'Home', href: '/' },
     { name: 'Gasha', href: '/Gasha' },
     { name: 'Nisir', href: '/Nisir' },
     { name: 'Enyuma IAM', href: '/Enyuma_IAM' },
