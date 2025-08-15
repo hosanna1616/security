@@ -30,11 +30,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
+    <ClerkProvider>
+      <html lang="en">
+        <head>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
               try {
                 const storedTheme = localStorage.getItem('secure-shield-theme');
                 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -43,22 +44,23 @@ export default function RootLayout({
                 if (!storedTheme) localStorage.setItem('secure-shield-theme', 'dark');
               } catch (e) {}
             `,
-          }}
-        />
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <ThemeInitializer />
-        <Providers>
-          <VideoBackground />
-          <ClerkProvider>
-            <Navbar />
-            {children}
-            <Footer />
-          </ClerkProvider>
-        </Providers>
-      </body>
-    </html>
+            }}
+          />
+        </head>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <ThemeInitializer />
+          <Providers>
+            <VideoBackground />
+            <ClerkProvider>
+              <Navbar />
+              {children}
+              <Footer />
+            </ClerkProvider>
+          </Providers>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

@@ -1,13 +1,10 @@
-
-"use client "
-import { ClerkProvider, SignIn } from "@clerk/nextjs";
+"use client";
+import { SignIn } from "@clerk/nextjs";
 
 export default function LoginPage() {
   return (
-    <ClerkProvider>
-      <div className="flex justify-center items-center h-screen">
-        <SignIn path="/login" routing="path" signUpUrl="/signup" />
-      </div>
-    </ClerkProvider>
+    <div className="flex justify-center items-center h-screen">
+      <SignIn path="/login" routing="path" signUpUrl="/signup" />
+    </div>
   );
 }
