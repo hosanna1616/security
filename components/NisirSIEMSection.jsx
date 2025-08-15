@@ -44,6 +44,7 @@ function NisirSIEMSection() {
     >
       {/* Content Overlay */}
       <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-6 py-10'>
+        {/*transparent background*/}
         <div className='w-full max-w-6xl siem-fade p-6 rounded-xl shadow-xl flex flex-col lg:flex-row items-center gap-8 bg-black/60 backdrop-blur-md'>
           {/*  Image Section */}
           <div className='w-full lg:w-1/2 flex justify-center items-center sm:hidden lg:block'>
