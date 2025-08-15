@@ -6,8 +6,6 @@ import { Providers } from './providers'
 import VideoBackground from '@/components/VideoBackground'
 import ThemeInitializer from '@/components/ThemeInitializer'
 import Footer from '@/components/Footer '
-// import Footer from '@/components/Footer'
-import { ClerkProvider, ClerkLoaded } from "@clerk/nextjs";
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -30,12 +28,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <head>
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
+    <html lang='en'>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
               try {
                 const storedTheme = localStorage.getItem('secure-shield-theme');
                 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -44,23 +41,20 @@ export default function RootLayout({
                 if (!storedTheme) localStorage.setItem('secure-shield-theme', 'dark');
               } catch (e) {}
             `,
-            }}
-          />
-        </head>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          <ThemeInitializer />
-          <Providers>
-            <VideoBackground />
-            <ClerkProvider>
-              <Navbar />
-              {children}
-              <Footer />
-            </ClerkProvider>
-          </Providers>
-        </body>
-      </html>
-    </ClerkProvider>
-  );
+          }}
+        />
+      </head>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <ThemeInitializer />
+        <Providers>
+          <VideoBackground />
+          <Navbar />
+          {children}
+          <Footer />
+        </Providers>
+      </body>
+    </html>
+  )
 }
