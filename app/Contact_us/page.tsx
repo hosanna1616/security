@@ -59,9 +59,9 @@ const ContactSection = () => {
   return (
     <div
       ref={containerRef}
-      className='relative w-full py-20 flex justify-center items-center bg-gray-950 overflow-hidden'
+      className='relative w-full py-20 flex justify-center items-center bg-gray-950 overflow-hidden mt-4'
     >
-      {/* 🔹 Glowing Border Container */}
+      {/*  Glowing Border Container */}
       <div
         className='relative z-10 max-w-3xl w-full px-8 py-12 bg-black/80 backdrop-blur-md rounded-xl border border-primary group transition-all duration-500'
         style={{
