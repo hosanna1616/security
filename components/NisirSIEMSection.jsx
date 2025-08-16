@@ -64,7 +64,7 @@ function NisirSIEMSection() {
             {/* 🔹 Heading with larger image in front of SIEM */}
             <h2 className="text-4xl font-bold text-white flex items-center gap-4">
               <img
-                src="/image/nisir_dark.png" // Replace with your actual image path
+                src="/image/nisir_dark.png" // image
                 alt="SIEM Icon"
                 className="w-[2em] h-[em] object-contain"
                 style={{ verticalAlign: "middle" }}
