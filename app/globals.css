@@ -1,6 +1,15 @@
 @import 'tailwindcss';
 @import 'tailwindcss/utilities';
 
+/* Hide scrollbar but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 @theme {
   /* Define your custom colors here */
   --color-primary: #33cccc; /* Example: A custom primary color */
