@@ -54,7 +54,7 @@ const Navbar = () => {
         scrolled ? 'backdrop-blur-md' : ''
       }`}
     >
-      <nav className='max-w-7xl mx-auto flex items-center justify-between p-6 lg:px-8'>
+      <nav className='max-w-7xl mx-auto flex items-center justify-between p-3 lg:px-8'>
         {/* Logo */}
         <Link href='/' className='flex items-center'>
           <Image src={logo} alt='Logo' className='h-28 w-28 mr-2' />
