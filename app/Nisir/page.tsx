@@ -1,11 +1,21 @@
 'use client'
 
+<<<<<<< HEAD
+import React, { useEffect, useRef } from "react";
+import Image from "next/image";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import nisir_dark from "../../public/image/nisir_dark.png";
+import Nisir from "../../public/image/Nisir.png";
+
+=======
 import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import nisir_dark from '../../public/image/nisir_dark.png'
 import Nisir from '../../public/image/Nisir.png'
+>>>>>>> 8866c93e0da21cf40e0deaf7482373bb7b51c7e9
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -437,8 +447,13 @@ function NisirSIEMSection() {
             </h2>
 
             <button
+<<<<<<< HEAD
+            
+              className="rounded-md px-6 py-3 text-sm font-semibold shadow-sm transition-colors duration-200 bg-primary text-white hover:bg-secondary"
+=======
               onClick={() => setShowRequestForm(true)}
               className='rounded-md px-6 py-3 text-sm font-semibold shadow-sm transition-colors duration-200 bg-primary text-white hover:bg-secondary'
+>>>>>>> 8866c93e0da21cf40e0deaf7482373bb7b51c7e9
             >
               Send Request
             </button>
