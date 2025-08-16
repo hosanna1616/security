@@ -52,18 +52,12 @@ function GashaAntSection() {
               </p>
 
               <div className='mt-8 flex gap-4 fade-in'>
-                <button className='bg-primary text-white px-6 py-2 rounded hover:bg-secondary transition'>
-                  Download
-                </button>
-                <button className='border border-primary text-primary px-6 py-2 rounded hover:bg-secondary hover:text-white transition'>
-                  {/*<Link
-                    href="/Request"
-                    className="text-blue-400 underline hover:text-blue-200 transition"
-                  >
-                    send request
-                  </Link> */}
-                  Send Request
-                </button>
+                <Link
+                  href='/Gasha'
+                  className='text-white border border-white rounded-md px-4 py-2 hover:bg-gradient-to-r hover:from-[#00E0FF] hover:to-gray-800 hover:text-black transition duration-300'
+                >
+                  View Page
+                </Link>
               </div>
             </div>
           </div>

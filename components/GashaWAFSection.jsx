@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import GashaWaf from '../public/image/GashWAF.png'
+import Link from 'next/link'
 gsap.registerPlugin(ScrollTrigger)
 
 function GashaWAFSection() {
@@ -48,40 +49,43 @@ function GashaWAFSection() {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full min-h-screen overflow-hidden mt-27 "
+      className='relative w-full min-h-screen overflow-hidden mt-27 '
     >
       {/* Content Overlay */}
-      <div className="absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-6 py-16 ">
-        <div className="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-xl w-full max-w-6xl text-white">
+      <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-6 py-16 '>
+        <div className='bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-xl w-full max-w-6xl text-white'>
           {/* Image Section */}
-          <div className="flex flex-col lg:flex-row items-center gap-12">
-            {" "}
-            <div className="w-full lg:w-1/3  fade-in">
+          <div className='flex flex-col lg:flex-row items-center gap-12'>
+            {' '}
+            <div className='w-full lg:w-1/3  fade-in'>
               <Image
-                src="/image/GashWAF.png"
-                alt="Gasha WAF"
+                src='/image/GashWAF.png'
+                alt='Gasha WAF'
                 width={300}
                 height={300}
-                className="w-full rounded-lg shadow-lg"
+                className='w-full rounded-lg shadow-lg'
               />
             </div>
             {/* Text Section */}
-            <div className="w-full lg:w-1/2 text-white space-y-6">
-              <h2 className="text-4xl font-bold text-primary transition duration-300 hover:text-[#38BDF8]">
-                Gasha WAF{" "}
+            <div className='w-full lg:w-1/2 text-white space-y-6'>
+              <h2 className='text-4xl font-bold text-primary transition duration-300 hover:text-[#38BDF8]'>
+                Gasha WAF{' '}
               </h2>
-              <p className="text-lg text-gray-300 leading-relaxed transition-opacity duration-500">
+              <p className='text-lg text-gray-300 leading-relaxed transition-opacity duration-500'>
                 {paragraphOptions[currentTextIndex]}
               </p>
-              <button className="rounded-md px-6 py-3 text-sm font-semibold shadow-sm transition-colors duration-200 bg-primary text-white hover:bg-secondary">
-                send Request
-              </button>
+              <Link
+                href='/Gasha'
+                className='text-white border border-white rounded-md px-4 py-2 hover:bg-gradient-to-r hover:from-[#00E0FF] hover:to-gray-800 hover:text-black transition duration-300'
+              >
+                View Page
+              </Link>
             </div>
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 export default GashaWAFSection
