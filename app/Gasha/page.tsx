@@ -241,7 +241,7 @@ function Gasha() {
                 <h2 className="text-3xl font-bold my-10 pt-10 text-primary transition duration-300 hover:text-[#38BDF8]">
                   Gasha Antivirus
                 </h2>
-                <p className="mb-6 text-lg leading-relaxed text-gray-100">
+                <p className="mb-6 text-lg leading-8 text-gray-100">
                   A robust and intelligent defense system designed to safeguard
                   your digital world from viruses, malware, ransomware, and
                   evolving cyber threats. With cutting-edge technology,
@@ -249,28 +249,28 @@ function Gasha() {
                   ensures your data, privacy, and devices stay secure.
                 </p>
 
-                <p className="text-gray-300 flex items-start text-large">
+                <p className="text-gray-300  leading-8 flex items-start text-large">
                   <ShieldIcon />
                   <div>
                     <strong> Real-Time Protection: </strong> Keeps desktops,
                     laptops, downloads, and external devices safe.
                   </div>
                 </p>
-                <p className="text-gray-300 flex items-start text-large">
+                <p className="text-gray-300 leading-8 flex items-start text-large">
                   <ShieldIcon />
                   <div>
                     <strong>AI-Powered Detection:</strong> Protects against
                     known and unknown threats using artificial intelligence.
                   </div>
                 </p>
-                <p className="text-gray-300 flex items-start text-large">
+                <p className="text-gray-300 leading-8 flex items-start text-large">
                   <ShieldIcon />
                   <div>
                     <strong>Up-to-Date Database:</strong> Regular virus
                     definition updates to counter emerging threats.
                   </div>
                 </p>
-                <p className="text-gray-300 flex items-start text-large">
+                <p className="text-gray-300  flex items-start text-large">
                   <ShieldIcon />
                   <div>
                     <strong>Tamper Protection:</strong> Secures your Windows
@@ -380,7 +380,7 @@ function Gasha() {
 
       {/* Floating Modal Form */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4  no-scrollbar">
+        <div className="fixed inset-0  bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 p-4  no-scrollbar">
           <div
             ref={modalRef}
             className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg shadow-xl max-w-2xl w-full p-6 relative border border-gray-700 overflow-y-auto no-scrollbar"
