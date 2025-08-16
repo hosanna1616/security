@@ -34,7 +34,7 @@ function EnyumaSection() {
         stagger: 0.2,
       })
 
-      // 🔄 Image rotation
+      //  Image rotation
       gsap.to(imageRef.current, {
         rotation: 360,
         duration: 10,
@@ -42,7 +42,9 @@ function EnyumaSection() {
         ease: 'linear',
         transformOrigin: '50% 50%',
       })
+      
     }, sectionRef)
+
 
     return () => ctx.revert()
   }, [])
