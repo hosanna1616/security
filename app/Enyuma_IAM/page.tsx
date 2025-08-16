@@ -5,7 +5,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
 import EnyumaIAM from '../../public/image/EnyumaIAM.png'
-
+import Link from 'next/link'
 gsap.registerPlugin(ScrollTrigger)
 
 function EnyumaSection() {
@@ -50,41 +50,46 @@ function EnyumaSection() {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full min-h-screen overflow-hidden mt-24"
+      className='relative w-full min-h-screen overflow-hidden mt-24'
     >
       {/*  Content Overlay */}
-      <div className="absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-6 py-10">
-        <div className="w-full max-w-6xl p-6 rounded-xl shadow-xl flex flex-col lg:flex-row items-center gap-8 bg-white/10 backdrop-blur-md">
+      <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-6 py-10'>
+        <div className='w-full max-w-6xl p-6 rounded-xl shadow-xl flex flex-col lg:flex-row items-center gap-8 bg-white/10 backdrop-blur-md'>
           {/* 📄 Text Section (left) */}
-          <div className="w-full lg:w-1/2 text-white space-y-4">
+          <div className='w-full lg:w-1/2 text-white space-y-4'>
             {/* 🔹 Gradient Heading */}
-            <h2 className="text-5xl font-extrabold bg-gradient-to-r from-[#00E0FF] via-white to-[#00E0FF] text-transparent bg-clip-text">
+            <h2 className='text-5xl font-extrabold bg-gradient-to-r from-[#00E0FF] via-white to-[#00E0FF] text-transparent bg-clip-text'>
               Enyuma IAM
             </h2>
 
-            {/* Styled Button */}
-            <div className="mt-4">
-              <button className="px-6 py-3 border border-[#00E0FF] text-[#00E0FF] font-semibold rounded-[2px] bg-transparent hover:bg-[#00E0FF] hover:text-black transition duration-300">
+            {/* Styled Button refer to the link */}
+            <div className='mt-4 py-3'>
+              <Link
+                href='https://enyumaiam.insa.gov.et/index'
+                target='_blank'
+                rel='noopener noreferrer' //protects against security vulnerabilities.
+                className='px-6 py-3 border border-[#00E0FF]  text-[#00E0FF] font-semibold rounded-[2px] bg-transparent hover:bg-[#00E0FF] hover:text-black transition duration-300'
+              >
                 show product
-              </button>
+              </Link>
             </div>
 
             {/*  Paragraphs */}
-            <div className="space-y-4 pt-4">
+            <div className='space-y-4 pt-4'>
               {paragraphOptions.map((text, index) => (
                 <div
                   key={index}
-                  className="enyuma-fade flex items-start gap-3 text-base text-gray-300 leading-relaxed"
+                  className='enyuma-fade flex items-start gap-3 text-base text-gray-300 leading-relaxed'
                 >
                   <svg
-                    className="w-6 h-6 text-[#00E0FF] flex-shrink-0"
-                    focusable="false"
-                    aria-hidden="true"
-                    viewBox="0 0 24 24"
+                    className='w-6 h-6 text-[#00E0FF] flex-shrink-0'
+                    focusable='false'
+                    aria-hidden='true'
+                    viewBox='0 0 24 24'
                   >
                     <path
-                      fill="currentColor"
-                      d="M12 11.55C9.64 9.35 6.48 8 3 8v11c3.48 0 6.64 1.35 9 3.55 2.36-2.19 5.52-3.55 9-3.55V8c-3.48 0-6.64 1.35-9 3.55zM12 8c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z"
+                      fill='currentColor'
+                      d='M12 11.55C9.64 9.35 6.48 8 3 8v11c3.48 0 6.64 1.35 9 3.55 2.36-2.19 5.52-3.55 9-3.55V8c-3.48 0-6.64 1.35-9 3.55zM12 8c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z'
                     />
                   </svg>
                   <p>{text}</p>
@@ -94,15 +99,15 @@ function EnyumaSection() {
           </div>
 
           {/*  Image Section (right) */}
-          <div className="w-full lg:w-1/2 flex justify-center items-center">
-            <div className="max-w-md w-full">
+          <div className='w-full lg:w-1/2 flex justify-center items-center'>
+            <div className='max-w-md w-full'>
               <Image
                 ref={imageRef}
                 src={EnyumaIAM}
-                alt="Enyuma"
+                alt='Enyuma'
                 width={500}
                 height={300}
-                className="w-full rounded-lg shadow-lg"
+                className='w-full rounded-lg shadow-lg'
               />
             </div>
           </div>
@@ -116,7 +121,7 @@ function EnyumaSection() {
         }
       `}</style>
     </div>
-  );
+  )
 }
 
 export default EnyumaSection

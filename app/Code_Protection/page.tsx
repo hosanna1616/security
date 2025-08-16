@@ -5,6 +5,7 @@ import Image from 'next/image'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import codeprotection from '../../public/image/Code Protection.png'
+import Link from 'next/link'
 gsap.registerPlugin(ScrollTrigger)
 
 const ProductSection = () => {
@@ -75,7 +76,7 @@ const ProductSection = () => {
   )
 
   return (
-    <div className='relative w-full flex justify-center items-center py-20 overflow-hidden bg-transparent'>
+    <div className='relative w-full flex justify-center items-center py-20 mt-16 overflow-hidden bg-transparent'>
       {/*  Overlay Content */}
       <div
         ref={containerRef}
@@ -109,9 +110,14 @@ const ProductSection = () => {
             empowers CISOs and CIOs to manage cyber risk, ensure compliance, and
             strengthen resilience across IT-OT workloads.
           </p>
-          <button className='rounded-md px-6 py-3 text-sm font-semibold shadow-sm transition-colors duration-200 bg-primary text-white hover:bg-secondary'>
-            showproduct
-          </button>
+          <Link
+            href='https://codepro.insa.gov.et/'
+            target='_blank'
+            rel='noopener noreferrer' //protects against security vulnerabilities.
+            className='px-6 py-3 border border-[#00E0FF]  text-[#00E0FF] font-semibold rounded-[2px] bg-transparent hover:bg-[#00E0FF] hover:text-black transition duration-300'
+          >
+            show product
+          </Link>
         </div>
 
         {/* Image Section */}
