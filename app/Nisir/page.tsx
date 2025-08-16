@@ -6,7 +6,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import nisir_dark from "../../public/image/nisir_dark.png";
 import Nisir from "../../public/image/Nisir.png";
-import Request from "@/app/GashAnti_Request.tsx/page";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -74,7 +74,7 @@ function NisirSIEMSection() {
             </h2>
 
             <button
-              onClick={Request}
+            
               className="rounded-md px-6 py-3 text-sm font-semibold shadow-sm transition-colors duration-200 bg-primary text-white hover:bg-secondary"
             >
               send Request

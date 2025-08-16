@@ -12,7 +12,16 @@ gsap.registerPlugin(ScrollTrigger);
 interface FormData {
   name: string;
   email: string;
-  company: string;
+  companyName: string;
+  totalComputers: number;
+  linuxOS: string;
+  windowsOS: string;
+  contactPerson: string;
+  contactPhone: string;
+  jobTitle: string;
+  officeNumber: string;
+  department: string;
+  architecture: string;
   message: string;
   product: string;
 }
@@ -24,7 +33,16 @@ function Gasha() {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
-    company: "",
+    companyName: "",
+    totalComputers: 0,
+    linuxOS: "",
+    windowsOS: "",
+    contactPerson: "",
+    contactPhone: "",
+    jobTitle: "",
+    officeNumber: "",
+    department: "",
+    architecture: "",
     message: "",
     product: "",
   });
@@ -52,18 +70,40 @@ function Gasha() {
 
   // Form handlers
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: name === "totalComputers" ? parseInt(value) || 0 : value,
     }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Form submitted:", { ...formData, product: currentProduct });
+    closeModal();
+  };
+
+  const handleCancel = () => {
+    setFormData({
+      name: "",
+      email: "",
+      companyName: "",
+      totalComputers: 0,
+      linuxOS: "",
+      windowsOS: "",
+      contactPerson: "",
+      contactPhone: "",
+      jobTitle: "",
+      officeNumber: "",
+      department: "",
+      architecture: "",
+      message: "",
+      product: "",
+    });
     closeModal();
   };
 
@@ -340,13 +380,14 @@ function Gasha() {
 
       {/* Floating Modal Form */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4  no-scrollbar">
           <div
             ref={modalRef}
-            className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg shadow-xl max-w-md w-full p-6 relative border border-gray-700"
+            className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg shadow-xl max-w-2xl w-full p-6 relative border border-gray-700 overflow-y-auto no-scrollbar"
+            style={{ maxHeight: "calc(100vh - 2rem)" }}
           >
             <button
-              onClick={closeModal}
+              onClick={handleCancel}
               className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
             >
               <svg
@@ -369,80 +410,202 @@ function Gasha() {
             </h3>
 
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label htmlFor="name" className="block text-gray-300 mb-2">
-                  Full Name *
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
-                  required
-                />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Personal Information */}
+                <div>
+                  <label className="block text-gray-300 mb-2">
+                    Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-gray-300 mb-2">Email *</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                    required
+                  />
+                </div>
+
+                {/* Company Information */}
+                <div>
+                  <label className="block text-gray-300 mb-2">
+                    Company Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="companyName"
+                    value={formData.companyName}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-gray-300 mb-2">
+                    Total Computers
+                  </label>
+                  <input
+                    type="number"
+                    name="totalComputers"
+                    value={formData.totalComputers}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                    min="0"
+                  />
+                </div>
+
+                {/* Operating Systems */}
+                <div>
+                  <label className="block text-gray-300 mb-2">
+                    Windows OS Version
+                  </label>
+                  <input
+                    type="text"
+                    name="windowsOS"
+                    value={formData.windowsOS}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                    placeholder="e.g., Windows 10, 11"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-gray-300 mb-2">
+                    Linux OS Version
+                  </label>
+                  <input
+                    type="text"
+                    name="linuxOS"
+                    value={formData.linuxOS}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                    placeholder="e.g., Ubuntu 20.04, CentOS 7"
+                  />
+                </div>
+
+                {/* Contact Information */}
+                <div>
+                  <label className="block text-gray-300 mb-2">
+                    Contact Person
+                  </label>
+                  <input
+                    type="text"
+                    name="contactPerson"
+                    value={formData.contactPerson}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-gray-300 mb-2">
+                    Contact Phone
+                  </label>
+                  <input
+                    type="tel"
+                    name="contactPhone"
+                    value={formData.contactPhone}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+
+                {/* Job Information */}
+                <div>
+                  <label className="block text-gray-300 mb-2">Job Title</label>
+                  <input
+                    type="text"
+                    name="jobTitle"
+                    value={formData.jobTitle}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-gray-300 mb-2">
+                    Office Number
+                  </label>
+                  <input
+                    type="text"
+                    name="officeNumber"
+                    value={formData.officeNumber}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+
+                {/* Additional Information */}
+                <div>
+                  <label className="block text-gray-300 mb-2">Department</label>
+                  <input
+                    type="text"
+                    name="department"
+                    value={formData.department}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-gray-300 mb-2">
+                    System Architecture
+                  </label>
+                  <select
+                    name="architecture"
+                    value={formData.architecture}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    <option value="">Select architecture</option>
+                    <option value="32-bit">32-bit</option>
+                    <option value="64-bit">64-bit</option>
+                  </select>
+                </div>
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-gray-300 mb-2">
-                  Email *
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
-                  required
-                />
-              </div>
-
-              <div>
-                <label htmlFor="company" className="block text-gray-300 mb-2">
-                  Company
-                </label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-gray-300 mb-2">
-                  Message
+                <label className="block text-gray-300 mb-2">
+                  Additional Message
                 </label>
                 <textarea
-                  id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleInputChange}
                   rows={4}
                   className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
                   placeholder="Tell us about your needs..."
-                ></textarea>
+                />
               </div>
 
               <input type="hidden" name="product" value={currentProduct} />
 
-              <div className="flex justify-end gap-3 pt-2">
+              <div className="flex justify-end gap-3 pt-4">
                 <button
                   type="button"
-                  onClick={closeModal}
-                  className="px-4 py-2 text-gray-300 border border-gray-600 rounded-md hover:bg-gray-700 transition-colors"
+                  onClick={handleCancel}
+                  className="px-6 py-2 text-gray-300 border border-gray-600 rounded-md hover:bg-gray-700 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-primary text-white rounded-md hover:bg-secondary transition-colors"
+                  className="px-6 py-2 bg-primary text-white rounded-md hover:bg-secondary transition-colors"
                 >
-                  Submit Request
+                  Send Request
                 </button>
               </div>
             </form>
