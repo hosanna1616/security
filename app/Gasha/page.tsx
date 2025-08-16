@@ -1,140 +1,207 @@
-'use client'
-import React, { useEffect, useRef, useState } from 'react'
-import Image from 'next/image'
-import { gsap } from 'gsap'
-import GashaAntivirus from '../../public/image/GashAntivirus.png'
-import GashVPN from '../../public/image/GashVPN.png'
-import GashaWAF from '../../public/image/GashWAF.png'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+"use client";
+import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { gsap } from "gsap";
+import GashaAntivirus from "../../public/image/GashAntivirus.png";
+import GashVPN from "../../public/image/GashVPN.png";
+import GashaWAF from "../../public/image/GashWAF.png";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger);
+
+interface FormData {
+  name: string;
+  email: string;
+  company: string;
+  message: string;
+  product: string;
+}
 
 function Gasha() {
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        '.fade-in',
-        { opacity: 0, y: 50 },
-        { opacity: 1, y: 0, duration: 1.2, stagger: 0.3, ease: 'power3.out' }
-      )
-    }, sectionRef)
+  // Modal state
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [currentProduct, setCurrentProduct] = useState<string>("");
+  const [formData, setFormData] = useState<FormData>({
+    name: "",
+    email: "",
+    company: "",
+    message: "",
+    product: "",
+  });
 
-    return () => ctx.revert()
-  }, [])
+  // Refs
+  const modalRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLParagraphElement>(null);
 
-  const sectionRef = useRef(null)
-  const textRef = useRef(null)
-  const [currentTextIndex, setCurrentTextIndex] = useState(0)
+  // Text rotation
+  const [currentTextIndex, setCurrentTextIndex] = useState<number>(0);
 
-  const paragraphOptions = [
+  // Product descriptions
+  const paragraphOptions: string[] = [
     `Gasha VPN is a secure tunneling solution designed to safeguard your digital footprint. It encrypts your internet traffic, masks your IP address, and ensures complete anonymity while browsing. Whether you're accessing public Wi-Fi or working remotely, Gasha VPN provides a fortified shield against cyber threats and surveillance.`,
-
     `Our advanced protocols protect you from data interception, ISP tracking, and geo-restrictions. With Gasha VPN, you can stream content, access restricted websites, and communicate freely—without compromising your privacy. It's the ultimate tool for digital freedom in an increasingly monitored world.`,
-
     `Powered by high-speed servers and military-grade encryption, Gasha VPN delivers a seamless experience across all devices. Enjoy lightning-fast connections, zero-logging policies, and intuitive controls that make security effortless. Whether you're a casual user or a cybersecurity professional, Gasha VPN adapts to your needs with precision and reliability.`,
-  ]
+  ];
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('.vpn-fade', {
-        y: 50,
-        opacity: 0,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: '.vpn-fade',
-          start: 'top 80%',
-          toggleActions: 'play none none none',
-        },
-      })
-    }, sectionRef)
-
-    return () => ctx.revert()
-  }, [])
-
-  const handleNextText = () => {
-    gsap.to(textRef.current, {
-      opacity: 0,
-      duration: 0.3,
-      onComplete: () => {
-        setCurrentTextIndex((prev) => (prev + 1) % paragraphOptions.length)
-        gsap.to(textRef.current, { opacity: 1, duration: 0.3 })
-      },
-    })
-  }
-
-  //   Gash WAF Section
-
-  const paragraphOptionsGASHWAF = [
+  const paragraphOptionsGASHWAF: string[] = [
     `Gasha Web Application Firewall (WAF) is a security solution that protects web applications by filtering and monitoring HTTP traffic. It acts as a shield between your web server and the internet.`,
     `It defends against common attacks such as cross-site scripting (XSS), SQL injection, and other OWASP Top 10 threats. Gasha WAF intelligently blocks malicious requests before they reach your application.`,
     `With real-time monitoring and adaptive threat detection, Gasha WAF ensures your web services remain secure, reliable, and compliant with modern cybersecurity standards.`,
-  ]
+  ];
 
+  // Form handlers
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Form submitted:", { ...formData, product: currentProduct });
+    closeModal();
+  };
+
+  // Modal handlers
+  const openModal = (product: string) => {
+    setCurrentProduct(product);
+    setShowModal(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    document.body.style.overflow = "auto";
+  };
+
+  // Text rotation handler
+  const handleNextText = () => {
+    if (textRef.current) {
+      gsap.to(textRef.current, {
+        opacity: 0,
+        duration: 0.3,
+        onComplete: () => {
+          setCurrentTextIndex((prev) => (prev + 1) % paragraphOptions.length);
+          gsap.to(textRef.current, { opacity: 1, duration: 0.3 });
+        },
+      });
+    }
+  };
+
+  // GSAP animations
   useEffect(() => {
-    // GSAP scroll animation
     const ctx = gsap.context(() => {
-      gsap.from('.waf-fade', {
+      gsap.fromTo(
+        ".fade-in",
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 1.2, stagger: 0.3, ease: "power3.out" }
+      );
+
+      gsap.from(".vpn-fade", {
         y: 50,
         opacity: 0,
         duration: 1,
-        ease: 'power3.out',
+        ease: "power3.out",
         scrollTrigger: {
-          trigger: '.waf-fade',
-          start: 'top 80%',
-          toggleActions: 'play none none none',
+          trigger: ".vpn-fade",
+          start: "top 80%",
+          toggleActions: "play none none none",
         },
-      })
-    }, sectionRef)
+      });
 
-    return () => ctx.revert()
-  }, [])
+      gsap.from(".waf-fade", {
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".waf-fade",
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+      });
 
+      if (showModal && modalRef.current) {
+        gsap.from(modalRef.current, {
+          y: 50,
+          opacity: 0,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, [showModal]);
+
+  // Auto-rotate text
   useEffect(() => {
-    // Paragraph rotation every 3 seconds
     const interval = setInterval(() => {
-      setCurrentTextIndex((prev) => (prev + 1) % paragraphOptions.length)
-    }, 3000)
+      setCurrentTextIndex((prev) => (prev + 1) % paragraphOptions.length);
+    }, 3000);
 
-    return () => clearInterval(interval)
-  }, [])
+    return () => clearInterval(interval);
+  }, []);
+
+  // Close modal when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        closeModal();
+      }
+    };
+
+    if (showModal) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showModal]);
 
   const ShieldIcon = () => (
     <svg
-      className='w-6 h-6 text-[#00E0FF] flex-shrink-0'
-      focusable='false'
-      aria-hidden='true'
-      viewBox='0 0 24 24'
+      className="w-6 h-6 text-[#00E0FF] flex-shrink-0"
+      focusable="false"
+      aria-hidden="true"
+      viewBox="0 0 24 24"
     >
       <path
-        fill='currentColor'
-        d='M12 11.55C9.64 9.35 6.48 8 3 8v11c3.48 0 6.64 1.35 9 3.55 2.36-2.19 5.52-3.55 9-3.55V8c-3.48 0-6.64 1.35-9 3.55zM12 8c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z'
+        fill="currentColor"
+        d="M12 11.55C9.64 9.35 6.48 8 3 8v11c3.48 0 6.64 1.35 9 3.55 2.36-2.19 5.52-3.55 9-3.55V8c-3.48 0-6.64 1.35-9 3.55zM12 8c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z"
       />
     </svg>
-  )
+  );
+
   return (
-    <div>
-      {/*  ************ Gasha Antivirus ********** */}
-      <div className='relative w-full min-h-screen overflow-hidden mt-35'>
-        {/*  Overlay Content */}
-        <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-6 pb-20 '>
-          <section className='bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-xl w-full max-w-6xl text-white   '>
-            <div className='flex flex-col lg:flex-row items-center gap-12 '>
-              {/* Image Section */}
-              <div className='w-full lg:w-1/3 fade-in'>
+    <div ref={sectionRef}>
+      {/* ************ Gasha Antivirus ********** */}
+      <div className="relative w-full min-h-screen overflow-hidden mt-35">
+        <div className="absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-6 pb-20">
+          <section className="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-xl w-full max-w-6xl text-white">
+            <div className="flex flex-col lg:flex-row items-center gap-12">
+              <div className="w-full lg:w-1/3 fade-in">
                 <Image
                   src={GashaAntivirus}
-                  alt='Gasha Antivirus'
-                  className='w-full rounded-lg shadow-lg'
+                  alt="Gasha Antivirus"
+                  className="w-full rounded-lg shadow-lg"
                 />
               </div>
 
-              {/* Text Content */}
-              <div className='w-full lg:w-1/2 fade-in'>
-                <h2 className='text-3xl font-bold my-10 pt-10 text-primary transition duration-300 hover:text-[#38BDF8]'>
+              <div className="w-full lg:w-1/2 fade-in">
+                <h2 className="text-3xl font-bold my-10 pt-10 text-primary transition duration-300 hover:text-[#38BDF8]">
                   Gasha Antivirus
                 </h2>
-                <p className='mb-6 text-lg leading-relaxed text-gray-100'>
+                <p className="mb-6 text-lg leading-relaxed text-gray-100">
                   A robust and intelligent defense system designed to safeguard
                   your digital world from viruses, malware, ransomware, and
                   evolving cyber threats. With cutting-edge technology,
@@ -142,29 +209,28 @@ function Gasha() {
                   ensures your data, privacy, and devices stay secure.
                 </p>
 
-                <p className='text-gray-300 flex items-start text-large '>
+                <p className="text-gray-300 flex items-start text-large">
                   <ShieldIcon />
                   <div>
                     <strong> Real-Time Protection: </strong> Keeps desktops,
                     laptops, downloads, and external devices safe.
                   </div>
                 </p>
-                <p className='text-gray-300 flex items-start text-large '>
+                <p className="text-gray-300 flex items-start text-large">
                   <ShieldIcon />
                   <div>
                     <strong>AI-Powered Detection:</strong> Protects against
-                    known and unknown threats using artificial intelpgence.
+                    known and unknown threats using artificial intelligence.
                   </div>
                 </p>
-                <p className='text-gray-300 flex items-start text-large '>
+                <p className="text-gray-300 flex items-start text-large">
                   <ShieldIcon />
                   <div>
-                    {' '}
                     <strong>Up-to-Date Database:</strong> Regular virus
                     definition updates to counter emerging threats.
                   </div>
                 </p>
-                <p className='text-gray-300 flex items-start text-large '>
+                <p className="text-gray-300 flex items-start text-large">
                   <ShieldIcon />
                   <div>
                     <strong>Tamper Protection:</strong> Secures your Windows
@@ -172,11 +238,14 @@ function Gasha() {
                   </div>
                 </p>
 
-                <div className='mt-8 flex gap-4 fade-in'>
-                  <button className='bg-primary text-white px-6 py-2 rounded hover:bg-secondary transition'>
+                <div className="mt-8 flex gap-4 fade-in">
+                  <button className="bg-primary text-white px-6 py-2 rounded hover:bg-secondary transition">
                     Download
                   </button>
-                  <button className='border border-primary text-primary px-6 py-2 rounded hover:bg-secondary hover:text-white transition'>
+                  <button
+                    onClick={() => openModal("Gasha Antivirus")}
+                    className="border border-primary text-primary px-6 py-2 rounded hover:bg-secondary hover:text-white transition"
+                  >
                     Send Request
                   </button>
                 </div>
@@ -186,119 +255,216 @@ function Gasha() {
         </div>
       </div>
 
-      {/*  ************ Gasha VPN ********** */}
-
-      <div
-        ref={sectionRef}
-        className='relative w-full min-h-screen overflow-hidden mt-24'
-      >
-        {/* 🔹 Content Overlay */}
-        <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-6 py-16'>
-          <div className='w-full max-w-6xl vpn-fade p-8 rounded-xl shadow-xl flex flex-col lg:flex-row items-center lg:items-start gap-10 bg-white/10 backdrop-blur-md '>
-            {/*  Image Section (Left) with floating animation */}
-            <div className='w-full lg:w-1/2  animate-[float_4s_ease-in-out_infinite]'>
+      {/* ************ Gasha VPN ********** */}
+      <div className="relative w-full min-h-screen overflow-hidden mt-24">
+        <div className="absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-6 py-16">
+          <div className="w-full max-w-6xl vpn-fade p-8 rounded-xl shadow-xl flex flex-col lg:flex-row items-center lg:items-start gap-10 bg-white/10 backdrop-blur-md">
+            <div className="w-full lg:w-1/2 animate-[float_4s_ease-in-out_infinite]">
               <Image
                 src={GashVPN}
-                alt='Gasha VPN'
+                alt="Gasha VPN"
                 width={600}
                 height={400}
-                className='w-full rounded-lg shadow-lg'
+                className="w-full rounded-lg shadow-lg"
               />
             </div>
 
-            {/*  Text Section (Right) */}
-            <div className='w-full lg:w-1/2 text-white space-y-6'>
-              {/* 🔷 Mixed Color Heading */}
-              <h2 className='text-4xl font-bold transition duration-300'>
-                <span className='text-white'>Gasha </span>
-                <span className='text-[#00E0FF] hover:text-[#38BDF8]'>VPN</span>
+            <div className="w-full lg:w-1/2 text-white space-y-6">
+              <h2 className="text-4xl font-bold transition duration-300">
+                <span className="text-white">Gasha </span>
+                <span className="text-[#00E0FF] hover:text-[#38BDF8]">VPN</span>
               </h2>
 
-              {/*  Paragraph with fade transition */}
               <p
                 ref={textRef}
-                className='text-lg text-gray-300 leading-relaxed transition-opacity duration-500'
+                className="text-lg text-gray-300 leading-relaxed transition-opacity duration-500"
               >
                 {paragraphOptions[currentTextIndex]}
               </p>
 
-              {/*  Button Row */}
-              <div className='pt-4 flex flex-wrap gap-4'>
-                {/*  Arrow Button */}
+              <div className="pt-4 flex flex-wrap gap-4">
                 <button
                   onClick={handleNextText}
-                  className='text-white border border-white rounded-full px-4 py-2 hover:bg-gradient-to-r hover:from-[#00E0FF] hover:to-gray-800 hover:text-black transition duration-300'
+                  className="text-white border border-white rounded-full px-4 py-2 hover:bg-gradient-to-r hover:from-[#00E0FF] hover:to-gray-800 hover:text-black transition duration-300"
                 >
                   →
                 </button>
 
-                {/*  Download Button */}
-                <button className='text-white border border-white rounded-md px-6 py-3 text-sm font-semibold shadow-sm hover:bg-gradient-to-r hover:from-[#00E0FF] hover:to-gray-800 hover:text-black transition duration-300'>
+                <button className="text-white border border-white rounded-md px-6 py-3 text-sm font-semibold shadow-sm hover:bg-gradient-to-r hover:from-[#00E0FF] hover:to-gray-800 hover:text-black transition duration-300">
                   Download
                 </button>
 
-                {/* Send Request Button */}
-                <button className='text-white border border-white rounded-md px-6 py-3 text-sm font-semibold shadow-sm hover:bg-gradient-to-r hover:from-[#00E0FF] hover:to-gray-800 hover:text-black transition duration-300'>
+                <button
+                  onClick={() => openModal("Gasha VPN")}
+                  className="text-white border border-white rounded-md px-6 py-3 text-sm font-semibold shadow-sm hover:bg-gradient-to-r hover:from-[#00E0FF] hover:to-gray-800 hover:text-black transition duration-300"
+                >
                   Send Request
                 </button>
               </div>
             </div>
           </div>
         </div>
-
-        {/* 🔧 Custom Animation Keyframes */}
-        <style jsx>{`
-          @keyframes float {
-            0% {
-              transform: translateY(0px);
-            }
-            50% {
-              transform: translateY(-20px);
-            }
-            100% {
-              transform: translateY(0px);
-            }
-          }
-        `}</style>
       </div>
 
       {/* ************ Gash WAF ************ */}
-
-      <div
-        ref={sectionRef}
-        className='relative w-full min-h-screen overflow-hidden'
-      >
-        {/* 🔹 Content Overlay */}
-        <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-6 py-16'>
-          <div className='w-full max-w-6xl waf-fade bg-white/10 backdrop-blur-md  p-8 rounded-xl shadow-xl flex flex-col lg:flex-row items-center gap-10'>
-            {/* Image Section */}
-            <div className='w-full lg:w-1/3 animate-[float_4s_ease-in-out_infinite]'>
+      <div className="relative w-full min-h-screen overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-6 py-16">
+          <div className="w-full max-w-6xl waf-fade bg-white/10 backdrop-blur-md p-8 rounded-xl shadow-xl flex flex-col lg:flex-row items-center gap-10">
+            <div className="w-full lg:w-1/3 animate-[float_4s_ease-in-out_infinite]">
               <Image
                 src={GashaWAF}
-                alt='Gasha WAF'
+                alt="Gasha WAF"
                 width={300}
                 height={300}
-                className='w-full rounded-lg shadow-lg'
+                className="w-full rounded-lg shadow-lg"
               />
             </div>
 
-            {/* Text Section */}
-            <div className='w-full lg:w-1/2 text-white space-y-6'>
-              <h2 className='text-4xl font-bold text-primary transition duration-300 hover:text-[#38BDF8]'>
+            <div className="w-full lg:w-1/2 text-white space-y-6">
+              <h2 className="text-4xl font-bold text-primary transition duration-300 hover:text-[#38BDF8]">
                 Gasha WAF
               </h2>
-              <p className='text-lg text-gray-300 leading-relaxed transition-opacity duration-500'>
+              <p className="text-lg text-gray-300 leading-relaxed transition-opacity duration-500">
                 {paragraphOptionsGASHWAF[currentTextIndex]}
               </p>
-              <button className='rounded-md px-6 py-3 text-sm font-semibold shadow-sm transition-colors duration-200 bg-primary text-white hover:bg-secondary'>
-                send Request
+              <button
+                onClick={() => openModal("Gasha WAF")}
+                className="rounded-md px-6 py-3 text-sm font-semibold shadow-sm transition-colors duration-200 bg-primary text-white hover:bg-secondary"
+              >
+                Send Request
               </button>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Floating Modal Form */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div
+            ref={modalRef}
+            className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg shadow-xl max-w-md w-full p-6 relative border border-gray-700"
+          >
+            <button
+              onClick={closeModal}
+              className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+
+            <h3 className="text-2xl font-bold text-white mb-6">
+              Request {currentProduct}
+            </h3>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label htmlFor="name" className="block text-gray-300 mb-2">
+                  Full Name *
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                  required
+                />
+              </div>
+
+              <div>
+                <label htmlFor="email" className="block text-gray-300 mb-2">
+                  Email *
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                  required
+                />
+              </div>
+
+              <div>
+                <label htmlFor="company" className="block text-gray-300 mb-2">
+                  Company
+                </label>
+                <input
+                  type="text"
+                  id="company"
+                  name="company"
+                  value={formData.company}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="message" className="block text-gray-300 mb-2">
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  rows={4}
+                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="Tell us about your needs..."
+                ></textarea>
+              </div>
+
+              <input type="hidden" name="product" value={currentProduct} />
+
+              <div className="flex justify-end gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={closeModal}
+                  className="px-4 py-2 text-gray-300 border border-gray-600 rounded-md hover:bg-gray-700 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-primary text-white rounded-md hover:bg-secondary transition-colors"
+                >
+                  Submit Request
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      <style jsx>{`
+        @keyframes float {
+          0% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-20px);
+          }
+          100% {
+            transform: translateY(0px);
+          }
+        }
+      `}</style>
     </div>
-  )
+  );
 }
 
-export default Gasha
+export default Gasha;
