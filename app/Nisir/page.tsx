@@ -150,7 +150,7 @@ function NisirSIEMSection() {
           </div>
 
           {/* Scrollable Form Content */}
-          <div className='overflow-y-auto p-6 flex-1 no-scrollbar'>
+          <div className='overflow-y-auto max-w-5xl  w-full relative p-6 flex-1 no-scrollbar'>
             <form onSubmit={handleSubmit} className='space-y-6'>
               {/* Basic Information */}
               <div className='space-y-4'>
@@ -384,14 +384,14 @@ function NisirSIEMSection() {
               <button
                 type='button'
                 onClick={() => setShowRequestForm(false)}
-                className='px-4 py-2  focus:border-secondary  border border-gray-400 rounded-md text-sm font-medium text-gray-500 bg-white hover:bg-gray-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary'
+                className='px-6 py-2 text-gray-300 border border-gray-600 rounded-md hover:bg-gray-700 transition-colors'
               >
                 Cancel
               </button>
               <button
                 type='submit'
                 onClick={handleSubmit}
-                className='px-4 py-2 border border-transparent rounded-md text-sm font-medium text-white bg-secondary hover:bg-secondary-600  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary hover:bg-gray-600'
+                className='px-6 py-2 bg-primary text-white rounded-md hover:bg-secondary transition-colors'
               >
                 Submit Request
               </button>

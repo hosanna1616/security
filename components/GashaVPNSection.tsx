@@ -1,10 +1,10 @@
 'use client'
-
 import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Link from 'next/link'
+import GashaVPN from '../public/image/GashVPN.png'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -15,9 +15,7 @@ function GashaVPNSection() {
 
   const paragraphOptions = [
     `Gasha VPN is a secure tunneling solution designed to safeguard your digital footprint. It encrypts your internet traffic, masks your IP address, and ensures complete anonymity while browsing. Whether you're accessing public Wi-Fi or working remotely, Gasha VPN provides a fortified shield against cyber threats and surveillance.`,
-
     `Our advanced protocols protect you from data interception, ISP tracking, and geo-restrictions. With Gasha VPN, you can stream content, access restricted websites, and communicate freely—without compromising your privacy. It's the ultimate tool for digital freedom in an increasingly monitored world.`,
-
     `Powered by high-speed servers and military-grade encryption, Gasha VPN delivers a seamless experience across all devices. Enjoy lightning-fast connections, zero-logging policies, and intuitive controls that make security effortless. Whether you're a casual user or a cybersecurity professional, Gasha VPN adapts to your needs with precision and reliability.`,
   ]
 
@@ -53,56 +51,59 @@ function GashaVPNSection() {
   return (
     <div
       ref={sectionRef}
-      className='relative w-full min-h-screen overflow-hidden mt-24'
+      className='relative w-full min-h-screen overflow-hidden'
     >
-      {/*  Content Overlay */}
-      <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-6 py-16'>
-        <div className='w-full max-w-6xl vpn-fade p-8 rounded-xl shadow-xl flex flex-col lg:flex-row items-center lg:items-start gap-10 bg-white/10 backdrop-blur-md'>
-          {/* Image Section (Left) with floating animation */}
-          <div className='w-full lg:w-1/2  animate-[float_4s_ease-in-out_infinite]'>
-            <Image
-              src='/image/GashVPN.png'
-              alt='Gasha VPN'
-              width={600}
-              height={400}
-              className='w-full rounded-lg shadow-lg'
-            />
+      {/* Content Overlay */}
+      <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-4 sm:px-6 py-12 md:py-16 lg:py-20'>
+        <div className='w-full max-w-6xl vpn-fade p-6 sm:p-8 lg:p-10 rounded-xl shadow-xl flex flex-col lg:flex-row items-center gap-8 lg:gap-12 bg-white/10 backdrop-blur-md mx-4'>
+          {/* Image Section - Updated to match other components */}
+          <div className='w-full lg:w-1/2 animate-[float_4s_ease-in-out_infinite]'>
+            <div className='relative aspect-video lg:aspect-square lg:h-[350px] rounded-lg overflow-hidden shadow-lg'>
+              <Image
+                src={GashaVPN}
+                alt='Gasha VPN'
+                fill
+                className='object-contain'
+                sizes='(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 400px'
+                priority
+              />
+            </div>
           </div>
 
-          {/* Text Section (Right) */}
-          <div className='w-full lg:w-1/2 text-white space-y-6'>
-            {/* 🔷 Mixed Color Heading */}
-            <h2 className='text-4xl font-bold transition duration-300'>
+          {/* Text Section - Updated for consistency */}
+          <div className='w-full lg:w-1/2 text-white space-y-4 sm:space-y-6'>
+            <h2 className='text-2xl sm:text-3xl md:text-4xl font-bold transition-colors duration-300'>
               <span className='text-white'>Gasha </span>
               <span className='text-[#00E0FF] hover:text-[#38BDF8]'>VPN</span>
             </h2>
 
-            {/*  Paragraph with fade transition */}
             <p
               ref={textRef}
-              className='text-lg text-gray-300 leading-relaxed transition-opacity duration-500'
+              className='text-base sm:text-lg text-gray-300 leading-relaxed transition-opacity duration-500 min-h-[120px] sm:min-h-[150px]'
             >
               {paragraphOptions[currentTextIndex]}
             </p>
 
-            <Link
-              href='/Gasha'
-              className='text-white border border-white rounded-md px-4 py-2 hover:bg-gradient-to-r hover:from-[#00E0FF] hover:to-gray-800 hover:text-black transition duration-300'
-            >
-              View Page
-            </Link>
+            <div className='mt-4 sm:mt-6'>
+              <Link
+                href='/Gasha'
+                className='text-white border border-white rounded-md px-3 py-1.5 sm:px-4 sm:py-2 hover:bg-gradient-to-r hover:from-[#00E0FF] hover:to-gray-800 hover:text-black transition-all duration-300 text-sm sm:text-base inline-block'
+              >
+                View Page
+              </Link>
+            </div>
           </div>
         </div>
       </div>
 
-      {/*  Custom Animation Keyframes */}
+      {/* Custom Animation Keyframes */}
       <style jsx>{`
         @keyframes float {
           0% {
             transform: translateY(0px);
           }
           50% {
-            transform: translateY(-20px);
+            transform: translateY(-15px);
           }
           100% {
             transform: translateY(0px);

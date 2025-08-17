@@ -13,7 +13,14 @@ function GashaAntSection() {
       gsap.fromTo(
         '.fade-in',
         { opacity: 0, y: 50 },
-        { opacity: 1, y: 0, duration: 1.2, stagger: 0.3, ease: 'power3.out' }
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.2,
+          stagger: 0.3,
+          ease: 'power3.out',
+          overwrite: 'auto',
+        }
       )
     }, sectionRef)
 
@@ -23,27 +30,32 @@ function GashaAntSection() {
   return (
     <div
       ref={sectionRef}
-      className='relative w-full min-h-screen overflow-hidden '
+      className='relative w-full min-h-screen overflow-hidden'
     >
       {/* Content Overlay */}
-      <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-6 py-16 '>
-        <section className='bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-xl w-full max-w-6xl text-white'>
-          <div className='flex flex-col lg:flex-row items-center gap-12'>
-            {/* Image Section */}
-            <div className='w-full lg:w-1/2  fade-in'>
-              <Image
-                src={GashaAntivirus}
-                alt='Gasha Antivirus'
-                className='w-full rounded-lg shadow-lg'
-              />
+      <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-4 sm:px-6 py-12 md:py-16 lg:py-20'>
+        <section className='bg-white/10 backdrop-blur-md rounded-xl p-6 sm:p-8 lg:p-10 shadow-xl w-full max-w-6xl mx-4 text-white'>
+          <div className='flex flex-col lg:flex-row items-center gap-8 lg:gap-12'>
+            {/* Image Section - Adjusted sizing */}
+            <div className='w-full lg:w-1/2 fade-in'>
+              <div className='relative aspect-video lg:aspect-square lg:h-[350px] rounded-lg overflow-hidden shadow-lg'>
+                <Image
+                  src={GashaAntivirus}
+                  alt='Gasha Antivirus'
+                  fill
+                  className='object-contain' // Changed to contain for better visibility
+                  sizes='(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 400px'
+                  priority
+                />
+              </div>
             </div>
 
             {/* Text Content */}
             <div className='w-full lg:w-1/2 fade-in'>
-              <h2 className='text-3xl font-bold mb-4 text-primary transition duration-300 hover:text-[#38BDF8]'>
+              <h2 className='text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-primary hover:text-[#38BDF8] transition-colors duration-300'>
                 Gasha Antivirus
               </h2>
-              <p className='mb-6 text-lg leading-relaxed text-gray-100'>
+              <p className='mb-4 sm:mb-6 text-base sm:text-lg leading-relaxed text-gray-100'>
                 A robust and intelligent defense system designed to safeguard
                 your digital world from viruses, malware, ransomware, and
                 evolving cyber threats. With cutting-edge technology, real-time
@@ -51,10 +63,10 @@ function GashaAntSection() {
                 privacy, and devices stay secure.
               </p>
 
-              <div className='mt-8 flex gap-4 fade-in'>
+              <div className='mt-6 sm:mt-8 flex gap-3 sm:gap-4 fade-in'>
                 <Link
                   href='/Gasha'
-                  className='text-white border border-white rounded-md px-4 py-2 hover:bg-gradient-to-r hover:from-[#00E0FF] hover:to-gray-800 hover:text-black transition duration-300'
+                  className='text-white border border-white rounded-md px-3 py-1.5 sm:px-4 sm:py-2 hover:bg-gradient-to-r hover:from-[#00E0FF] hover:to-gray-800 hover:text-black transition-all duration-300 text-sm sm:text-base'
                 >
                   View Page
                 </Link>
