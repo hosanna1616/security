@@ -42,11 +42,11 @@ function NisirSIEMSection() {
       className='relative w-full min-h-screen overflow-hidden'
     >
       {/* Content Overlay */}
-      <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-4 sm:px-6 md:px-8 py-8 sm:py-10 md:py-12 '>
-        <div className='w-full max-w-6xl siem-fade p-6 sm:p-8 md:p-10  shadow-xl flex flex-col lg:flex-row items-center gap-6 md:gap-10 bg-white/10 backdrop-blur-md mx-4 sm:my-5 md:my-5 sm:rounded-xl'>
+      <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-4 sm:px-6 md:px-8 py-8 sm:py-10 md:py-12 mt-5'>
+        <div className='w-full max-w-6xl siem-fade p-6 sm:p-8 md:p-10  shadow-xl flex flex-col lg:flex-row items-center gap-6 md:gap-10 bg-white/10 backdrop-blur-md m-4 sm:my-5 md:my-5 sm:rounded-xl '>
           {/* Image Section with precise sizing */}
           <div className='w-full lg:w-1/2 flex justify-center items-center'>
-            <div className='relative w-[280px] h-[210px] sm:w-[320px] sm:h-[240px] md:w-[360px] md:h-[270px] lg:w-[400px] lg:h-[300px] rotate-animation'>
+            <div className='relative w-[280px] h-[210px] sm:w-[320px] sm:h-[240px] md:w-[400px] md:h-[300px] lg:w-[450px] lg:h-[350px] rotate-animation bg-transparent'>
               <Image
                 src={NisirImage}
                 alt='Nisir SIEM'
@@ -60,15 +60,14 @@ function NisirSIEMSection() {
 
           {/* Text Section */}
           <div className='w-full lg:w-1/2 text-white space-y-4 md:space-y-6'>
-            <h2 className='text-3xl sm:text-4xl md:text-5xl font-bold text-white flex items-center gap-3 md:gap-4'>
-              <div className='relative w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14'>
-                <Image
-                  src={nisir_dark}
-                  alt='SIEM Icon'
-                  fill
-                  className='object-contain'
-                />
-              </div>
+            {/* 🔹 Heading with larger image in front of SIEM */}
+            <h2 className='text-4xl font-bold text-white flex items-center gap-3'>
+              <img
+                src='/image/nisir_dark.png' // Replace with your actual image path
+                alt='SIEM Icon'
+                className='w-[2em] h-[em] object-contain'
+                style={{ verticalAlign: 'middle' }}
+              />
               SIEM
             </h2>
 

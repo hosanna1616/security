@@ -1,5 +1,4 @@
 'use client'
-
 import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -21,7 +20,7 @@ function EnyumaSection() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // 🔹 Paragraph fade-in
+      // Paragraph fade-in
       gsap.from('.enyuma-fade', {
         x: -100,
         opacity: 0,
@@ -35,7 +34,7 @@ function EnyumaSection() {
         stagger: 0.2,
       })
 
-      //  Image rotation
+      // Image rotation
       gsap.to(imageRef.current, {
         rotation: 360,
         duration: 10,
@@ -51,37 +50,37 @@ function EnyumaSection() {
   return (
     <div
       ref={sectionRef}
-      className='relative w-full min-h-screen overflow-hidden mt-24'
+      className='relative w-full min-h-screen overflow-hidden'
     >
-      {/* 🔹 Content Overlay */}
-      <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-6 py-10'>
-        <div className='w-full max-w-6xl p-6 rounded-xl shadow-xl flex flex-col lg:flex-row items-center gap-8 bg-white/10 backdrop-blur-md'>
-          {/*  Text Section (left) */}
-          <div className='w-full lg:w-1/2 text-white space-y-4'>
-            {/* 🔹 Gradient Heading */}
-            <h2 className='text-5xl font-extrabold bg-gradient-to-r from-[#00E0FF] via-white to-[#00E0FF] text-transparent bg-clip-text'>
+      {/* Content Overlay with responsive padding */}
+      <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-4 sm:px-6 md:px-8 py-8  sm:py-10 md:py-10 mt-5'>
+        <div className='w-full max-w-6xl p-6 sm:p-8 md:p-10 rounded-xl shadow-xl flex flex-col lg:flex-row items-center gap-6 md:gap-10 bg-white/10 backdrop-blur-md m-4 sm:my-5 md:my-5  '>
+          {/* Text Section (left) */}
+          <div className='w-full lg:w-1/2 text-white space-y-4 md:space-y-6'>
+            {/* Gradient Heading with responsive sizing */}
+            <h2 className='text-3xl sm:text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-[#00E0FF] via-white to-[#00E0FF] text-transparent bg-clip-text'>
               Enyuma IAM
             </h2>
 
-            {/* Styled Button */}
-            <div className='mt-4'>
+            {/* Styled Button with responsive sizing */}
+            <div className='mt-4 md:mt-6'>
               <Link
                 href='/Enyuma_IAM'
-                className='text-white border border-white rounded-md px-4 py-2 hover:bg-gradient-to-r hover:from-[#00E0FF] hover:to-gray-800 hover:text-black transition duration-300'
+                className='text-white border border-white rounded-md px-3 py-1.5 sm:px-4 sm:py-2 md:px-5 md:py-2.5 hover:bg-gradient-to-r hover:from-[#00E0FF] hover:to-gray-800 hover:text-black transition-all duration-300 text-sm sm:text-base md:text-lg'
               >
                 View Page
               </Link>
             </div>
 
-            {/*  Paragraphs */}
-            <div className='space-y-4 pt-4'>
+            {/* Paragraphs with responsive spacing */}
+            <div className='space-y-4 sm:space-y-6 pt-4 sm:pt-6'>
               {paragraphOptions.map((text, index) => (
                 <div
                   key={index}
-                  className='enyuma-fade flex items-start gap-3 text-base text-gray-300 leading-relaxed'
+                  className='enyuma-fade flex items-start gap-3 md:gap-4 text-sm sm:text-base md:text-lg text-gray-300 leading-6 sm:leading-7 md:leading-8'
                 >
                   <svg
-                    className='w-6 h-6 text-[#00E0FF] flex-shrink-0'
+                    className='w-5 h-5 sm:w-6 sm:h-6 text-[#00E0FF] flex-shrink-0 mt-0.5'
                     focusable='false'
                     aria-hidden='true'
                     viewBox='0 0 24 24'
@@ -97,23 +96,24 @@ function EnyumaSection() {
             </div>
           </div>
 
-          {/*  Image Section (right) */}
-          <div className='w-full lg:w-1/2 flex justify-center items-center'>
-            <div className='max-w-md w-full'>
+          {/* Image Section (right) - Always visible with responsive sizing */}
+          <div className='w-full lg:w-1/2 flex justify-center items-center order-first lg:order-none mb-6 lg:mb-0'>
+            <div className='relative w-full max-w-[280px] h-[168px] sm:max-w-[350px] sm:h-[210px] md:max-w-[450px] md:h-[300px] lg:max-w-[550px] lg:h-[350px] bg-transparent'>
               <Image
                 ref={imageRef}
                 src={EnyumaIAM}
                 alt='Enyuma'
-                width={500}
-                height={300}
-                className='w-full rounded-lg shadow-lg'
+                fill
+                className='object-contain rounded-lg shadow-lg'
+                sizes='(max-width: 640px) 280px, (max-width: 768px) 350px, (max-width: 1024px) 400px, 500px'
+                priority
               />
             </div>
           </div>
         </div>
       </div>
 
-      {/*  Custom Styles */}
+      {/* Custom Styles */}
       <style jsx>{`
         .enyuma-fade {
           will-change: transform, opacity;

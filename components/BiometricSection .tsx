@@ -80,7 +80,7 @@ const BiometricSection = () => {
       {/*  Overlay Content */}
       <div
         ref={containerRef}
-        className='relative z-10 w-full max-w-6xl  bg-white/10 backdrop-blur-md rounded-xl shadow-xl p-8 flex flex-col lg:flex-row items-center gap-10 transition-all duration-700'
+        className='relative z-10 w-full max-w-6xl  bg-white/10 backdrop-blur-md rounded-xl shadow-xl p-8 flex flex-col lg:flex-row items-center gap-10 transition-all duration-700 mx-6'
       >
         {/* Text Section */}
         <div ref={textRef} className='w-full lg:w-1/2 space-y-6 text-white'>
