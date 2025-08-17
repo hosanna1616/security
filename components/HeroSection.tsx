@@ -64,7 +64,9 @@ export default function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className='mt-6 text-lg sm:text-xl text-gray-300'
+            className={`mt-6 text-lg sm:text-xl text-gray-300 ${
+              isDarkMode ? 'text-gray-300' : 'text-white'
+            }`}
           >
             Trust our homegrown solutions to secure your systems.
           </motion.p>
@@ -76,7 +78,7 @@ export default function HeroSection() {
           className={`sm:hidden lg:block ${
             isDarkMode
               ? 'hidden w-full lg:w-3/2 lg:block'
-              : 'block w-full lg:w-3/2'
+              : 'hidden w-full lg:w-3/2 lg:block'
           } `}
         >
           <Image

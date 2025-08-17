@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import INSAlogo from '../public/image/INSA_Logo.png'
+import Link from 'next/link'
 const Footer = () => {
   return (
     <footer
@@ -32,9 +33,11 @@ const Footer = () => {
           </p>
           <div className='flex items-center gap-2'>
             {/* INSA LOGO */}
-            <Image src={INSAlogo} alt='INSA Logo' width={60} height={60} />
+            <Link href='https://www.insa.gov.et/' target='_blank'>
+              <Image src={INSAlogo} alt='INSA Logo' width={60} height={60} />
+            </Link>
             <p className='hover:text-primary transition duration-300'>
-              Information Network Security Agency (INSA)
+              Information Network Security Agency
             </p>
           </div>
         </div>
@@ -56,36 +59,36 @@ const Footer = () => {
           </div>
           <ul className='space-y-2'>
             <li>
-              <a
+              <Link
                 href='#products'
                 className='hover:text-primary transition duration-300'
               >
                 Products
-              </a>
+              </Link>
             </li>
             <li>
-              <a
+              <Link
                 href='#solutions'
                 className='hover:text-primary transition duration-300'
               >
                 Solutions
-              </a>
+              </Link>
             </li>
             <li>
-              <a
+              <Link
                 href='#contact'
                 className='hover:text-primary transition duration-300'
               >
                 Contact
-              </a>
+              </Link>
             </li>
             <li>
-              <a
+              <Link
                 href='#privacy'
                 className='hover:text-primary transition duration-300'
               >
                 Privacy Policy
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -131,12 +134,12 @@ const Footer = () => {
               >
                 <path d='M22 16.92V21a2 2 0 01-2.18 2A19.86 19.86 0 013 5.18 2 2 0 015 3h4.09a2 2 0 012 1.72c.12.81.37 1.6.72 2.34a2 2 0 01-.45 2.11l-1.27 1.27a16 16 0 006.29 6.29l1.27-1.27a2 2 0 012.11-.45c.74.35 1.53.6 2.34.72a2 2 0 011.72 2z' />
               </svg>
-              <a
+              <Link
                 href='tel:+251911123456'
                 className='hover:text-primary transition duration-300'
               >
                 +251 123 456 789
-              </a>
+              </Link>
             </div>
             <div className='flex items-center gap-2'>
               {/* Mail Icon */}
@@ -149,23 +152,29 @@ const Footer = () => {
               >
                 <path d='M4 4h16v16H4V4zm0 0l8 8 8-8' />
               </svg>
-              <a
+              <Link
                 href='mailto:support@cybersecure.com'
                 className='hover:text-primary transition duration-300'
               >
                 info@insa.gov.et
-              </a>
+              </Link>
             </div>
           </div>
 
           {/* Social Links */}
           <div className='flex gap-4 mt-2'>
-            <a href='#' className='hover:text-primary transition duration-300'>
+            <Link
+              href='#'
+              className='hover:text-primary transition duration-300'
+            >
               Twitter
-            </a>
-            <a href='#' className='hover:text-primary transition duration-300'>
+            </Link>
+            <Link
+              href='#'
+              className='hover:text-primary transition duration-300'
+            >
               LinkedIn
-            </a>
+            </Link>
           </div>
         </div>
       </div>
