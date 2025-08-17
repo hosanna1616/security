@@ -17,15 +17,15 @@ export default function VideoBackground() {
         <source
           src={
             theme === 'dark'
-              ? '/videos/security-dark.mp4'
-              : '/videos/security-light.mp4'
+              ? '/videos/security-dark.webm'
+              : '/videos/security-light.webm'
           }
-          type='video/mp4'
+          type='video/webm'
         />
       </video>
       <div
         className={`absolute inset-0 ${
-          theme === 'dark' ? 'bg-black/50' : 'bg-white/40'
+          theme === 'dark' ? 'bg-black/50' : 'bg-black/50'
         }`}
       ></div>
     </div>
