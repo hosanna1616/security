@@ -25,7 +25,7 @@ export default function VideoBackground() {
       </video>
       <div
         className={`absolute inset-0 ${
-          theme === 'dark' ? 'bg-black/50' : 'bg-black/50'
+          theme === 'dark' ? 'bg-black/50' : 'bg-black/10'
         }`}
       ></div>
     </div>

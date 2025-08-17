@@ -33,13 +33,7 @@ export default function HeroSection() {
         theme === 'dark' ? 'dark-theme-styles' : 'light-theme-styles'
       } `}
     >
-      <div
-        className={`relative w-full h-full z-10 max-w-7xl m-20 mx-auto  grid grid-cols-1 lg:grid-cols-2 gap-1 items-center mt-10 pr-20 ${
-          isDarkMode
-            ? 'bg-transparent'
-            : 'bg-white/10 backdrop-blur-md p-15 mt-32 pt-1'
-        }`}
-      >
+      <div className='relative w-full h-full z-10 max-w-7xl m-20 mx-auto  grid grid-cols-1 lg:grid-cols-2 gap-1 items-center mt-10 pr-20 bg-transparent'>
         {/* Text Content */}
         <div className='text-center lg:text-left space-y-5'>
           <motion.h1
@@ -49,7 +43,7 @@ export default function HeroSection() {
             className={`text-4xl sm:text-4xl md:text-5xl  md:tracking-widest sm:tracking-tight font-extrabold leading-10 '  ${
               isDarkMode
                 ? ' bg-gradient-to-r from-primary via-white to-primary text-transparent bg-clip-text md:leading-16'
-                : 'bg-gradient-to-r from-primary via-white to-primary text-transparent bg-clip-text text-shadow-black md:leading-14'
+                : 'bg-gradient-to-r from-primary via-white to-primary text-transparent bg-clip-text text-shadow-black md:leading-16'
             }`}
           >
             <span className='block '>Secure Your</span>
