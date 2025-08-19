@@ -77,30 +77,6 @@ function NisirSIEMSection() {
       setShowRequestForm(false)
     }
 
-    // const handleSubmit = async (e: React.FormEvent) => {
-    //   e.preventDefault()
-
-    //   try {
-    //     const response = await fetch('/api/submit-form', {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //       body: JSON.stringify(formData),
-    //     })
-
-    //     if (!response.ok) throw new Error('Submission failed')
-
-    //     const result = await response.json()
-    //     console.log('Success:', result)
-    //     setShowRequestForm(false)
-    //     // Optionally show a success message to the user
-    //   } catch (error) {
-    //     console.error('Error:', error)
-    //     // Optionally show an error message to the user
-    //   }
-    // }
-
     useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
         if (
@@ -118,23 +94,23 @@ function NisirSIEMSection() {
     }, [])
 
     return (
-      <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm'>
+      <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm p-2 sm:p-4 my-24'>
         <div
           ref={formRef}
-          className='relative w-full max-w-max mx-2 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg shadow-xl overflow-hidden max-h-[90vh] flex flex-col'
+          className='relative w-full max-w-4xl mx-2 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg shadow-xl overflow-hidden max-h-[90vh] flex flex-col'
         >
           {/* Form Header with Close Button */}
-          <div className='p-6 pb-0 flex justify-between items-start sticky top-0 bg-gradient-to-br from-gray-800 to-gray-900 z-10'>
-            <h2 className='text-2xl font-bold text-white'>
-              Request Gasha Antivirus
+          <div className='p-4 sm:p-6 pb-0 flex justify-between items-start sticky top-0 bg-gradient-to-br from-gray-800 to-gray-900 z-10'>
+            <h2 className='text-xl sm:text-2xl font-bold text-white'>
+              Request Nisir SIEM
             </h2>
             <button
               onClick={() => setShowRequestForm(false)}
-              className='text-gray-500 hover:text-gray-500 focus:outline-none'
+              className='text-gray-500 hover:text-gray-300 focus:outline-none'
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
-                className='h-6 w-6'
+                className='h-5 w-5 sm:h-6 sm:w-6'
                 fill='none'
                 viewBox='0 0 24 24'
                 stroke='currentColor'
@@ -150,13 +126,15 @@ function NisirSIEMSection() {
           </div>
 
           {/* Scrollable Form Content */}
-          <div className='overflow-y-auto max-w-5xl  w-full relative p-6 flex-1 no-scrollbar'>
-            <form onSubmit={handleSubmit} className='space-y-6'>
+          <div className='overflow-y-auto w-full relative p-4 sm:p-6 flex-1 no-scrollbar'>
+            <form onSubmit={handleSubmit} className='space-y-4 sm:space-y-6'>
               {/* Basic Information */}
-              <div className='space-y-4'>
-                <h3 className='font-medium text-white'>Basic Information</h3>
+              <div className='space-y-3 sm:space-y-4'>
+                <h3 className='font-medium text-white text-sm sm:text-base'>
+                  Basic Information
+                </h3>
                 <div className='space-y-2'>
-                  <label className='block text-sm font-medium text-gray-500'>
+                  <label className='block text-xs sm:text-sm font-medium text-gray-500'>
                     Full Name *
                   </label>
                   <input
@@ -164,13 +142,13 @@ function NisirSIEMSection() {
                     name='fullName'
                     value={formData.fullName}
                     onChange={handleChange}
-                    className='w-full p-2 rounded-md focus:ring-secondary focus:border-secondary bg-gray-700 border border-gray-400'
+                    className='w-full p-2 text-sm sm:text-base rounded-md focus:ring-secondary focus:border-secondary bg-gray-700 border border-gray-400'
                     required
                   />
                 </div>
 
                 <div className='space-y-2'>
-                  <label className='block text-sm font-medium text-gray-500'>
+                  <label className='block text-xs sm:text-sm font-medium text-gray-500'>
                     Email *
                   </label>
                   <input
@@ -178,13 +156,13 @@ function NisirSIEMSection() {
                     name='email'
                     value={formData.email}
                     onChange={handleChange}
-                    className='w-full p-2 bg-gray-700 border border-gray-400 rounded-md focus:ring-secondary focus:border-secondary'
+                    className='w-full p-2 text-sm sm:text-base bg-gray-700 border border-gray-400 rounded-md focus:ring-secondary focus:border-secondary'
                     required
                   />
                 </div>
 
                 <div className='space-y-2'>
-                  <label className='block text-sm font-medium text-gray-500'>
+                  <label className='block text-xs sm:text-sm font-medium text-gray-500'>
                     Company
                   </label>
                   <input
@@ -192,16 +170,18 @@ function NisirSIEMSection() {
                     name='company'
                     value={formData.company}
                     onChange={handleChange}
-                    className='w-full p-2  bg-gray-700 border border-gray-400 rounded-md focus:ring-secondary focus:border-secondary'
+                    className='w-full p-2 text-sm sm:text-base bg-gray-700 border border-gray-400 rounded-md focus:ring-secondary focus:border-secondary'
                   />
                 </div>
               </div>
 
               {/* Company Information */}
-              <div className='space-y-4'>
-                <h3 className='font-medium text-gray-300'>Company Details</h3>
+              <div className='space-y-3 sm:space-y-4'>
+                <h3 className='font-medium text-gray-300 text-sm sm:text-base'>
+                  Company Details
+                </h3>
                 <div className='space-y-2'>
-                  <label className='block text-sm font-medium text-gray-500'>
+                  <label className='block text-xs sm:text-sm font-medium text-gray-500'>
                     Company Name
                   </label>
                   <input
@@ -209,13 +189,13 @@ function NisirSIEMSection() {
                     name='companyName'
                     value={formData.companyName}
                     onChange={handleChange}
-                    className='w-full p-2   focus:ring-secondary focus:border-secondary bg-gray-700 border border-gray-400 rounded-md'
+                    className='w-full p-2 text-sm sm:text-base focus:ring-secondary focus:border-secondary bg-gray-700 border border-gray-400 rounded-md'
                   />
                 </div>
 
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                <div className='grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4'>
                   <div className='space-y-2'>
-                    <label className='block text-sm font-medium text-gray-500'>
+                    <label className='block text-xs sm:text-sm font-medium text-gray-500'>
                       Total Agentless
                     </label>
                     <input
@@ -223,12 +203,12 @@ function NisirSIEMSection() {
                       name='totalAgentless'
                       value={formData.totalAgentless}
                       onChange={handleChange}
-                      className='w-full p-2  bg-gray-700 border border-gray-400 rounded-md focus:ring-secondary focus:border-secondary'
+                      className='w-full p-2 text-sm sm:text-base bg-gray-700 border border-gray-400 rounded-md focus:ring-secondary focus:border-secondary'
                     />
                   </div>
 
                   <div className='space-y-2'>
-                    <label className='block text-sm font-medium text-gray-500'>
+                    <label className='block text-xs sm:text-sm font-medium text-gray-500'>
                       Contact Name
                     </label>
                     <input
@@ -236,20 +216,22 @@ function NisirSIEMSection() {
                       name='contactName'
                       value={formData.contactName}
                       onChange={handleChange}
-                      className='w-full p-2  bg-gray-700 border border-gray-400 rounded-md focus:ring-secondary focus:border-secondary'
+                      className='w-full p-2 text-sm sm:text-base bg-gray-700 border border-gray-400 rounded-md focus:ring-secondary focus:border-secondary'
                     />
                   </div>
                 </div>
               </div>
 
               {/* Technical Information */}
-              <div className='space-y-4'>
-                <h3 className='font-medium text-gray-300'>Technical Details</h3>
+              <div className='space-y-3 sm:space-y-4'>
+                <h3 className='font-medium text-gray-300 text-sm sm:text-base'>
+                  Technical Details
+                </h3>
                 <div className='space-y-2'>
-                  <label className='block text-sm font-medium text-gray-500'>
+                  <label className='block text-xs sm:text-sm font-medium text-gray-500'>
                     Operating System
                   </label>
-                  <div className='flex flex-wrap gap-4'>
+                  <div className='flex flex-wrap gap-3 sm:gap-4'>
                     {['Windows', 'Mac', 'Linux'].map((os) => (
                       <label key={os} className='flex items-center space-x-2'>
                         <input
@@ -260,17 +242,19 @@ function NisirSIEMSection() {
                           onChange={handleChange}
                           className='h-4 w-4 text-secondary-600 focus:border-secondary bg-gray-700 border border-gray-400'
                         />
-                        <span className='text-sm text-gray-500'>{os}</span>
+                        <span className='text-xs sm:text-sm text-gray-500'>
+                          {os}
+                        </span>
                       </label>
                     ))}
                   </div>
                 </div>
 
                 <div className='space-y-2'>
-                  <label className='block text-sm font-medium text-gray-500'>
+                  <label className='block text-xs sm:text-sm font-medium text-gray-500'>
                     OS Architecture
                   </label>
-                  <div className='flex gap-4'>
+                  <div className='flex gap-3 sm:gap-4'>
                     {['32-bit', '64-bit'].map((bit) => (
                       <label key={bit} className='flex items-center space-x-2'>
                         <input
@@ -279,9 +263,11 @@ function NisirSIEMSection() {
                           value={bit}
                           checked={formData.osDetails === bit}
                           onChange={handleChange}
-                          className='h-4 w-4 text-secondary-600   focus:ring-secondary focus:border-secondary bg-gray-700 border border-gray-400'
+                          className='h-4 w-4 text-secondary-600 focus:ring-secondary focus:border-secondary bg-gray-700 border border-gray-400'
                         />
-                        <span className='text-sm text-gray-500'>{bit}</span>
+                        <span className='text-xs sm:text-sm text-gray-500'>
+                          {bit}
+                        </span>
                       </label>
                     ))}
                   </div>
@@ -289,13 +275,13 @@ function NisirSIEMSection() {
               </div>
 
               {/* Contact Information */}
-              <div className='space-y-4'>
-                <h3 className='font-medium text-gray-300'>
+              <div className='space-y-3 sm:space-y-4'>
+                <h3 className='font-medium text-gray-300 text-sm sm:text-base'>
                   Additional Information
                 </h3>
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                <div className='grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4'>
                   <div className='space-y-2'>
-                    <label className='block text-sm font-medium text-gray-500'>
+                    <label className='block text-xs sm:text-sm font-medium text-gray-500'>
                       Phone Number
                     </label>
                     <input
@@ -303,12 +289,12 @@ function NisirSIEMSection() {
                       name='contactPhone'
                       value={formData.contactPhone}
                       onChange={handleChange}
-                      className='w-full p-2  bg-gray-700 border border-gray-400 rounded-md focus:ring-secondary focus:border-secondary'
+                      className='w-full p-2 text-sm sm:text-base bg-gray-700 border border-gray-400 rounded-md focus:ring-secondary focus:border-secondary'
                     />
                   </div>
 
                   <div className='space-y-2'>
-                    <label className='block text-sm font-medium text-gray-500'>
+                    <label className='block text-xs sm:text-sm font-medium text-gray-500'>
                       Website
                     </label>
                     <input
@@ -316,12 +302,12 @@ function NisirSIEMSection() {
                       name='website'
                       value={formData.website}
                       onChange={handleChange}
-                      className='w-full p-2 border   bg-gray-700 border border-gray-400 rounded-md focus:ring-secondary focus:border-secondary'
+                      className='w-full p-2 text-sm sm:text-base border bg-gray-700 border border-gray-400 rounded-md focus:ring-secondary focus:border-secondary'
                     />
                   </div>
 
                   <div className='space-y-2'>
-                    <label className='block text-sm font-medium text-gray-500'>
+                    <label className='block text-xs sm:text-sm font-medium text-gray-500'>
                       Office Number
                     </label>
                     <input
@@ -329,12 +315,12 @@ function NisirSIEMSection() {
                       name='officeNumber'
                       value={formData.officeNumber}
                       onChange={handleChange}
-                      className='w-full p-2  bg-gray-700 border border-gray-400 rounded-md focus:ring-secondary focus:border-secondary'
+                      className='w-full p-2 text-sm sm:text-base bg-gray-700 border border-gray-400 rounded-md focus:ring-secondary focus:border-secondary'
                     />
                   </div>
 
                   <div className='space-y-2'>
-                    <label className='block text-sm font-medium text-gray-500'>
+                    <label className='block text-xs sm:text-sm font-medium text-gray-500'>
                       Job Title
                     </label>
                     <input
@@ -342,12 +328,12 @@ function NisirSIEMSection() {
                       name='jobTitle'
                       value={formData.jobTitle}
                       onChange={handleChange}
-                      className='w-full p-2  bg-gray-700 border border-gray-400 rounded-md focus:ring-secondary focus:border-secondary'
+                      className='w-full p-2 text-sm sm:text-base bg-gray-700 border border-gray-400 rounded-md focus:ring-secondary focus:border-secondary'
                     />
                   </div>
 
                   <div className='space-y-2'>
-                    <label className='block text-sm font-medium text-gray-500'>
+                    <label className='block text-xs sm:text-sm font-medium text-gray-500'>
                       Department
                     </label>
                     <input
@@ -355,7 +341,7 @@ function NisirSIEMSection() {
                       name='department'
                       value={formData.department}
                       onChange={handleChange}
-                      className='w-full p-2  bg-gray-700 border border-gray-400 rounded-md focus:ring-secondary focus:border-secondary'
+                      className='w-full p-2 text-sm sm:text-base bg-gray-700 border border-gray-400 rounded-md focus:ring-secondary focus:border-secondary'
                     />
                   </div>
                 </div>
@@ -363,7 +349,7 @@ function NisirSIEMSection() {
 
               {/* Message */}
               <div className='space-y-2'>
-                <label className='block text-sm font-medium text-gray-500'>
+                <label className='block text-xs sm:text-sm font-medium text-gray-500'>
                   Message
                 </label>
                 <textarea
@@ -372,26 +358,26 @@ function NisirSIEMSection() {
                   onChange={handleChange}
                   placeholder='Tell us about your needs...'
                   rows={4}
-                  className='w-full p-2  bg-gray-700 border border-gray-400 rounded-md focus:ring-secondary focus:border-secondary'
+                  className='w-full p-2 text-sm sm:text-base bg-gray-700 border border-gray-400 rounded-md focus:ring-secondary focus:border-secondary'
                 />
               </div>
             </form>
           </div>
 
           {/* Form Footer */}
-          <div className='p-4 border-t bg-gradient-to-br from-gray-800 to-gray-900 sticky bottom-0'>
-            <div className='flex justify-end space-x-4'>
+          <div className='p-3 sm:p-4 border-t bg-gradient-to-br from-gray-800 to-gray-900 sticky bottom-0'>
+            <div className='flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-4'>
               <button
                 type='button'
                 onClick={() => setShowRequestForm(false)}
-                className='px-6 py-2 text-gray-300 border border-gray-600 rounded-md hover:bg-gray-700 transition-colors'
+                className='px-4 py-2 text-xs sm:text-sm text-gray-300 border border-gray-600 rounded-md hover:bg-gray-700 transition-colors'
               >
                 Cancel
               </button>
               <button
                 type='submit'
                 onClick={handleSubmit}
-                className='px-6 py-2 bg-primary text-white rounded-md hover:bg-secondary transition-colors'
+                className='px-4 py-2 text-xs sm:text-sm bg-primary text-white rounded-md hover:bg-secondary transition-colors'
               >
                 Submit Request
               </button>
@@ -405,32 +391,35 @@ function NisirSIEMSection() {
   return (
     <div
       ref={sectionRef}
-      className='relative w-full min-h-screen overflow-hidden mt-34'
+      className='relative w-full min-h-screen overflow-hidden mt-12 md:mt-24'
     >
       {/* 🔹 Content Overlay */}
-      <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-6 py-10'>
-        <div className='w-full max-w-6xl siem-fade p-6 rounded-xl shadow-xl flex flex-col lg:flex-row items-center gap-8 bg-white/10 backdrop-blur-md'>
-          {/* Image Section */}
-          <div className='w-full lg:w-1/3 flex justify-center items-center sm:hidden lg:block'>
-            <div className='max-w-md w-full rotate-animation sm:hidden lg:block'>
+      <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-4 sm:px-6 py-8 md:py-10'>
+        <div className='w-full max-w-6xl siem-fade p-4 sm:p-6 rounded-xl shadow-xl flex flex-col lg:flex-row items-center gap-6 md:gap-8 bg-white/10 backdrop-blur-md'>
+          {/* Image Section - Hidden on mobile, visible on larger screens */}
+          <div className='w-full lg:w-2/5 flex justify-center items-center'>
+            <div className='max-w-xs sm:max-w-sm md:max-w-md w-full rotate-animation'>
               <Image
                 src={Nisir}
                 alt='Nisir SIEM'
                 width={500}
                 height={300}
                 className='w-full rounded-lg shadow-lg'
+                priority={false}
               />
             </div>
           </div>
 
-          {/*  Text Section */}
-          <div className='w-full lg:w-1/2 text-white space-y-4'>
+          {/* Text Section */}
+          <div className='w-full lg:w-3/5 text-white space-y-4'>
             {/* 🔹 Heading with larger image in front of SIEM */}
-            <h2 className='text-4xl font-bold text-white flex items-center gap-4'>
+            <h2 className='text-3xl sm:text-4xl md:text-5xl font-bold text-white flex items-center gap-3 sm:gap-4'>
               <Image
                 src={nisir_dark}
                 alt='SIEM Icon'
-                className='w-[2em] h-[em] object-contain'
+                width={40}
+                height={40}
+                className='w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-contain'
                 style={{ verticalAlign: 'middle' }}
               />
               SIEM
@@ -438,24 +427,24 @@ function NisirSIEMSection() {
 
             <button
               onClick={() => setShowRequestForm(true)}
-              className='rounded-md px-6 py-3 text-sm font-semibold shadow-sm transition-colors duration-200 bg-primary text-white hover:bg-secondary'
+              className='rounded-md px-4 py-2 sm:px-6 sm:py-3 text-xs sm:text-sm font-semibold shadow-sm transition-colors duration-200 bg-primary text-white hover:bg-secondary'
             >
               Send Request
             </button>
 
-            {/*  Icon + Paragraphs */}
-            <div className='space-y-4 pt-4'>
+            {/* Icon + Paragraphs */}
+            <div className='space-y-3 sm:space-y-4 pt-2 sm:pt-4'>
               {paragraphOptions.map((text, index) => (
-                <div key={index} className='flex items-start gap-3'>
+                <div key={index} className='flex items-start gap-2 sm:gap-3'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
-                    className='w-5 h-5 text-[#00E0FF] flex-shrink-0 mt-1'
+                    className='w-4 h-4 sm:w-5 sm:h-5 text-[#00E0FF] flex-shrink-0 mt-1'
                     fill='currentColor'
                     viewBox='0 0 24 24'
                   >
                     <path d='M12 11.55C9.64 9.35 6.48 8 3 8v11c3.48 0 6.64 1.35 9 3.55 2.36-2.19 5.52-3.55 9-3.55V8c-3.48 0-6.64 1.35-9 3.55zM12 8c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z'></path>
                   </svg>
-                  <p className='text-base text-gray-300 leading-relaxed'>
+                  <p className='text-sm sm:text-base text-gray-300 leading-relaxed'>
                     {text}
                   </p>
                 </div>
@@ -468,7 +457,7 @@ function NisirSIEMSection() {
       {/* Show the request form when state is true */}
       {showRequestForm && <RequestForm />}
 
-      {/*  Custom Animation Keyframes */}
+      {/* Custom Animation Keyframes */}
       <style jsx>{`
         @keyframes rotateLR {
           0% {
@@ -484,6 +473,12 @@ function NisirSIEMSection() {
 
         .rotate-animation {
           animation: rotateLR 6s ease-in-out infinite;
+        }
+
+        @media (max-width: 640px) {
+          .absolute {
+            position: relative;
+          }
         }
       `}</style>
     </div>
