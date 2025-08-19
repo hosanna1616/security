@@ -26,6 +26,12 @@ interface FormData {
   product: string;
 }
 
+// Rate limiting state
+interface RateLimitState {
+  count: number;
+  lastRequest: number;
+}
+
 function Gasha() {
   // Modal state
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -46,6 +52,14 @@ function Gasha() {
     message: "",
     product: "",
   });
+
+  // Security state
+  const [formErrors, setFormErrors] = useState<
+    Partial<Record<keyof FormData, string>>
+  >({});
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const rateLimitRef = useRef<RateLimitState>({ count: 0, lastRequest: 0 });
+  const [csrfToken, setCsrfToken] = useState<string>("");
 
   // Refs
   const modalRef = useRef<HTMLDivElement>(null);
@@ -68,10 +82,98 @@ function Gasha() {
     `With real-time monitoring and adaptive threat detection, Gasha WAF ensures your web services remain secure, reliable, and compliant with modern cybersecurity standards.`,
   ];
 
+  // Generate CSRF token on component mount
+  useEffect(() => {
+    
+    const token =
+      Math.random().toString(36).substring(2, 15) +
+      Math.random().toString(36).substring(2, 15);
+    setCsrfToken(token);
+
+    // Store in session storage for verification
+    sessionStorage.setItem("csrfToken", token);
+  }, []);
+
+  // Input validation functions
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePhone = (phone: string): boolean => {
+    const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+    return phone === "" || phoneRegex.test(phone.replace(/\D/g, ""));
+  };
+
+  const validateText = (text: string, maxLength: number = 100): boolean => {
+    return text.length <= maxLength;
+  };
+
+  const validateForm = (): boolean => {
+    const errors: Partial<Record<keyof FormData, string>> = {};
+
+    // Required fields validation
+    if (!formData.name.trim()) errors.name = "Name is required";
+    if (!formData.email.trim()) errors.email = "Email is required";
+    if (!formData.companyName.trim())
+      errors.companyName = "Company name is required";
+
+    // Format validation
+    if (formData.email && !validateEmail(formData.email)) {
+      errors.email = "Please enter a valid email address";
+    }
+
+    if (formData.contactPhone && !validatePhone(formData.contactPhone)) {
+      errors.contactPhone = "Please enter a valid phone number";
+    }
+
+    // Length validation
+    if (formData.name && !validateText(formData.name, 50)) {
+      errors.name = "Name must be less than 50 characters";
+    }
+
+    if (formData.companyName && !validateText(formData.companyName, 100)) {
+      errors.companyName = "Company name must be less than 100 characters";
+    }
+
+    if (formData.message && !validateText(formData.message, 500)) {
+      errors.message = "Message must be less than 500 characters";
+    }
+
+    // Number validation
+    if (formData.totalComputers < 0 || formData.totalComputers > 10000) {
+      errors.totalComputers =
+        "Please enter a valid number of computers (0-10000)";
+    }
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  // Rate limiting check
+  const checkRateLimit = (): boolean => {
+    const now = Date.now();
+    const { count, lastRequest } = rateLimitRef.current;
+
+    // Reset count if more than 1 minute has passed
+    if (now - lastRequest > 60000) {
+      rateLimitRef.current = { count: 1, lastRequest: now };
+      return true;
+    }
+
+    // Allow up to 5 requests per minute
+    if (count < 5) {
+      rateLimitRef.current = { count: count + 1, lastRequest: now };
+      return true;
+    }
+
+    return false;
+  };
+
   // PDF download handlers
   const downloadAntivirusPDF = () => {
-    // In a real app, you would fetch the PDF from your server
-    const pdfUrl = "/pdfs/gasha-antivirus.pdf"; // Update this path to your actual PDF
+    
+    const pdfUrl = "/pdfs/gasha-antivirus.pdf"; 
     const link = document.createElement("a");
     link.href = pdfUrl;
     link.download = "Gasha-Antivirus-Documentation.pdf";
@@ -81,8 +183,7 @@ function Gasha() {
   };
 
   const downloadVPNPDF = () => {
-    // In a real app, you would fetch the PDF from your server
-    const pdfUrl = "/pdfs/gasha-vpn.pdf"; // Update this path to your actual PDF
+    const pdfUrl = "/pdfs/gasha-vpn.pdf";
     const link = document.createElement("a");
     link.href = pdfUrl;
     link.download = "Gasha-VPN-Documentation.pdf";
@@ -98,16 +199,74 @@ function Gasha() {
     >
   ) => {
     const { name, value } = e.target;
+
+    // Sanitize input to prevent XSS
+    const sanitizeInput = (input: string): string => {
+      return input.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    };
+
+    const sanitizedValue =
+      typeof value === "string" ? sanitizeInput(value) : value;
+
     setFormData((prev) => ({
       ...prev,
-      [name]: name === "totalComputers" ? parseInt(value) || 0 : value,
+      [name]:
+        name === "totalComputers"
+          ? parseInt(sanitizedValue as string) || 0
+          : sanitizedValue,
     }));
+
+    // Clear error when user starts typing
+    if (formErrors[name as keyof FormData]) {
+      setFormErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[name as keyof FormData];
+        return newErrors;
+      });
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", { ...formData, product: currentProduct });
-    closeModal();
+
+    // Check rate limiting
+    if (!checkRateLimit()) {
+      alert("Too many requests. Please try again in a minute.");
+      return;
+    }
+
+    // Validate form
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // an API call to your backend
+      console.log("Form submitted:", {
+        ...formData,
+        product: currentProduct,
+        // Add timestamp for additional security tracking
+        timestamp: new Date().toISOString(),
+      });
+
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Show success message
+      alert("Thank you for your request! We'll get back to you soon.");
+
+      closeModal();
+    } catch (error) {
+      // Generic error message to avoid leaking sensitive information
+      console.error("Form submission error:", error);
+      alert(
+        "An error occurred while submitting your request. Please try again later."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleCancel = () => {
@@ -127,6 +286,7 @@ function Gasha() {
       message: "",
       product: "",
     });
+    setFormErrors({});
     closeModal();
   };
 
@@ -439,6 +599,9 @@ function Gasha() {
             </h3>
 
             <form onSubmit={handleSubmit} className="space-y-4">
+              {/* CSRF Protection (hidden field) */}
+              <input type="hidden" name="csrfToken" value={csrfToken} />
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Personal Information */}
                 <div>
@@ -452,7 +615,13 @@ function Gasha() {
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
                     required
+                    maxLength={50}
                   />
+                  {formErrors.name && (
+                    <p className="text-red-400 text-sm mt-1">
+                      {formErrors.name}
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -465,6 +634,11 @@ function Gasha() {
                     className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
                     required
                   />
+                  {formErrors.email && (
+                    <p className="text-red-400 text-sm mt-1">
+                      {formErrors.email}
+                    </p>
+                  )}
                 </div>
 
                 {/* Company Information */}
@@ -479,7 +653,13 @@ function Gasha() {
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
                     required
+                    maxLength={100}
                   />
+                  {formErrors.companyName && (
+                    <p className="text-red-400 text-sm mt-1">
+                      {formErrors.companyName}
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -493,7 +673,13 @@ function Gasha() {
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
                     min="0"
+                    max="10000"
                   />
+                  {formErrors.totalComputers && (
+                    <p className="text-red-400 text-sm mt-1">
+                      {formErrors.totalComputers}
+                    </p>
+                  )}
                 </div>
 
                 {/* Operating Systems */}
@@ -508,6 +694,7 @@ function Gasha() {
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
                     placeholder="e.g., Windows 10, 11"
+                    maxLength={50}
                   />
                 </div>
 
@@ -522,6 +709,7 @@ function Gasha() {
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
                     placeholder="e.g., Ubuntu 20.04, CentOS 7"
+                    maxLength={50}
                   />
                 </div>
 
@@ -536,6 +724,7 @@ function Gasha() {
                     value={formData.contactPerson}
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                    maxLength={50}
                   />
                 </div>
 
@@ -550,6 +739,11 @@ function Gasha() {
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
                   />
+                  {formErrors.contactPhone && (
+                    <p className="text-red-400 text-sm mt-1">
+                      {formErrors.contactPhone}
+                    </p>
+                  )}
                 </div>
 
                 {/* Job Information */}
@@ -561,6 +755,7 @@ function Gasha() {
                     value={formData.jobTitle}
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                    maxLength={50}
                   />
                 </div>
 
@@ -574,6 +769,7 @@ function Gasha() {
                     value={formData.officeNumber}
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                    maxLength={20}
                   />
                 </div>
 
@@ -586,6 +782,7 @@ function Gasha() {
                     value={formData.department}
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                    maxLength={50}
                   />
                 </div>
 
@@ -618,10 +815,17 @@ function Gasha() {
                   rows={4}
                   className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
                   placeholder="Tell us about your needs..."
+                  maxLength={500}
                 />
+                {formErrors.message && (
+                  <p className="text-red-400 text-sm mt-1">
+                    {formErrors.message}
+                  </p>
+                )}
               </div>
 
               <input type="hidden" name="product" value={currentProduct} />
+
               {/* Form Footer */}
               <div className="flex justify-end gap-3 pt-4">
                 <button
@@ -633,9 +837,10 @@ function Gasha() {
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2 bg-primary text-white rounded-md hover:bg-secondary transition-colors"
+                  disabled={isSubmitting}
+                  className="px-6 py-2 bg-primary text-white rounded-md hover:bg-secondary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Send Request
+                  {isSubmitting ? "Submitting..." : "Send Request"}
                 </button>
               </div>
             </form>
