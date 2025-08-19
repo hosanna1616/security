@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { Textarea } from '@headlessui/react'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -77,7 +78,11 @@ const ContactSection = () => {
             Reach out to us and let’s explore how we can help secure your
             digital future.
           </p>
-
+          <Textarea
+            className='px-8 py-8 w-full rounded-lg bg-gray-950 border 
+            text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary border-primary'
+            placeholder='Your message...'
+          />
           {/* Email Input + Send Button */}
           <div className='flex justify-center items-center gap-4 pt-4'>
             <input

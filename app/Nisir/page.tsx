@@ -94,10 +94,10 @@ function NisirSIEMSection() {
     }, [])
 
     return (
-      <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm p-2 sm:p-4 my-24'>
+      <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm p-2 sm:p-4 '>
         <div
           ref={formRef}
-          className='relative w-full max-w-4xl mx-2 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg shadow-xl overflow-hidden max-h-[90vh] flex flex-col'
+          className='relative w-full max-w-4xl mx-2 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg shadow-xl overflow-hidden max-h-[90vh] flex flex-col '
         >
           {/* Form Header with Close Button */}
           <div className='p-4 sm:p-6 pb-0 flex justify-between items-start sticky top-0 bg-gradient-to-br from-gray-800 to-gray-900 z-10'>
@@ -391,7 +391,7 @@ function NisirSIEMSection() {
   return (
     <div
       ref={sectionRef}
-      className='relative w-full min-h-screen overflow-hidden mt-12 md:mt-24'
+      className='relative w-full min-h-screen overflow-hidden rounded-md mb-20 mt-28'
     >
       {/* 🔹 Content Overlay */}
       <div className='absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-4 sm:px-6 py-8 md:py-10'>

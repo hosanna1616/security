@@ -76,7 +76,7 @@ const ProductSection = () => {
   )
 
   return (
-    <div className='relative w-full flex justify-center items-center py-20 mt-16 overflow-hidden bg-transparent'>
+    <div className='relative w-full flex justify-center items-center py-20 mt-16 overflow-hidden bg-transparent sm:mr-4 sm:ml-4'>
       {/*  Overlay Content */}
       <div
         ref={containerRef}
