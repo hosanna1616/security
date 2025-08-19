@@ -164,7 +164,8 @@ const Footer = () => {
           {/* Social Links */}
           <div className='flex gap-4 mt-2'>
             <Link
-              href='#'
+              href='https://www.linkedin.com/company/information-network-security-agency/posts/?feedView=all'
+              target='_blank'
               className='hover:text-primary transition duration-300'
             >
               Twitter
