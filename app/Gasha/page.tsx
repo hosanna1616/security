@@ -454,7 +454,7 @@ function Gasha() {
         <div className="absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center px-6 pb-20">
           <section className="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-xl w-full max-w-6xl text-white">
             <div className="flex flex-col lg:flex-row items-center gap-12">
-              <div className="w-full lg:w-1/3 fade-in ">
+              <div className="w-full lg:w-1/3 fade-in">
                 <Image
                   src={GashaAntivirus}
                   alt="Gasha Antivirus"
@@ -601,7 +601,7 @@ function Gasha() {
               <div className="flex gap-4">
                 <button
                   onClick={downloadWAFPDF}
-                  className="rounded-md px-6 py-3 text-sm font-semibold shadow-sm transition-colors duration-200 bg-primary text-white hover:bg-secondary"
+                  className="text-white border border-white rounded-md px-6 py-3 text-sm font-semibold shadow-sm hover:bg-gradient-to-r hover:from-[#00E0FF] hover:to-gray-800 hover:text-black transition duration-300"
                 >
                   Download
                 </button>
@@ -915,4 +915,4 @@ function Gasha() {
   );
 }
 
-export default Gasha;
+export default Gasha; 
