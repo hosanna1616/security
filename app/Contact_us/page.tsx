@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Textarea } from '@headlessui/react'
-
+import GlitchText from "../../components/GlitchText";
 gsap.registerPlugin(ScrollTrigger)
 
 const ContactSection = () => {
@@ -70,10 +70,17 @@ const ContactSection = () => {
         }}
       >
         <div ref={contentRef} className='space-y-6 text-white text-center'>
-          <h2 className='text-3xl font-bold flex justify-center items-center gap-3 group'>
+          {/* <h2 className='text-3xl font-bold flex justify-center items-center gap-3 group'>
             We’d love to hear from you
-          </h2>
-
+          </h2> */}
+<GlitchText
+            speed={1}
+            enableShadows={true}
+            enableOnHover={true}
+            className="custom-class"
+          >
+            We’d love to hear from you
+          </GlitchText>
           <p className='text-lg text-gray-300 flex justify-center items-start gap-3 group'>
             Reach out to us and let’s explore how we can help secure your
             digital future.
