@@ -181,7 +181,7 @@ const TextType = ({
       className: `inline-block whitespace-pre-wrap tracking-tight ${className}`,
       ...props,
     },
-    <span className="inline" style={{ color: "#ADD8E6", fontSize: "40px" }}>
+    <span className="inline" style={{ color: " bg-gradient-to-r from-primary via-white to-primary text-transparent", fontSize: "40px" }}>
       {displayedText}
     </span>,
     showCursor && (
