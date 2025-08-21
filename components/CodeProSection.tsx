@@ -102,17 +102,17 @@ const ProductSection = () => {
             </p> */}
             {/* DecryptedText*/}
             <DecryptedText
+              
               text=" Secure your cyber estate while building a resilient, future-ready
               business. In todays rapidly evolving digital landscape, cyber
               defense must continuously adapt to new vulnerabilities and attack
               vectors.
+
                 The TCS Cyber Defense Suite offers integrated services tailored to
               modern enterprise needs. It provides enhanced visibility,
               protection, detection, response, recovery, and governance all
               aligned with industry standards like NIST CSF and CIS. The TCS Cyber Defense Suite offers integrated services tailored to
-              modern enterprise needs. It provides enhanced visibility,
-              protection, detection, response, recovery, and governance all
-              aligned with industry standards like NIST CSF and CIS."
+              modern enterprise needs."
               speed={100}
               maxIterations={20}
               characters="AB&*1234!$%#?"
@@ -127,7 +127,7 @@ const ProductSection = () => {
               protection, detection, response, recovery, and governance — all
               aligned with industry standards like NIST CSF and CIS.
             </p> */}
-{/* 
+            {/* 
             <p className="text-sm sm:text-base md:text-lg text-gray-300 flex items-start gap-3 group">
               <ShieldIcon />
                The TCS Cyber Defense Suite offers integrated services tailored to

@@ -6,6 +6,7 @@ import GashaAntivirus from "../../public/image/GashAntivirus.png";
 import GashVPN from "../../public/image/GashVPN.png";
 import GashaWAF from "../../public/image/GashWAF.png";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import jsPDF from "jspdf";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -69,7 +70,7 @@ function Gasha() {
   // Text rotation
   const [currentTextIndex, setCurrentTextIndex] = useState<number>(0);
 
-  // Product descriptions
+  // Product descriptions (VPN + WAF on-screen copy)
   const paragraphOptions: string[] = [
     `Gasha VPN is a secure tunneling solution designed to safeguard your digital footprint. It encrypts your internet traffic, masks your IP address, and ensures complete anonymity while browsing. Whether you're accessing public Wi-Fi or working remotely, Gasha VPN provides a fortified shield against cyber threats and surveillance.`,
     `Our advanced protocols protect you from data interception, ISP tracking, and geo-restrictions. With Gasha VPN, you can stream content, access restricted websites, and communicate freely—without compromising your privacy. It's the ultimate tool for digital freedom in an increasingly monitored world.`,
@@ -84,13 +85,10 @@ function Gasha() {
 
   // Generate CSRF token on component mount
   useEffect(() => {
-    
     const token =
       Math.random().toString(36).substring(2, 15) +
       Math.random().toString(36).substring(2, 15);
     setCsrfToken(token);
-
-    // Store in session storage for verification
     sessionStorage.setItem("csrfToken", token);
   }, []);
 
@@ -101,7 +99,7 @@ function Gasha() {
   };
 
   const validatePhone = (phone: string): boolean => {
-    const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+    const phoneRegex = /^[\+]?[^\D][\d]{0,15}$/;
     return phone === "" || phoneRegex.test(phone.replace(/\D/g, ""));
   };
 
@@ -112,13 +110,11 @@ function Gasha() {
   const validateForm = (): boolean => {
     const errors: Partial<Record<keyof FormData, string>> = {};
 
-    // Required fields validation
     if (!formData.name.trim()) errors.name = "Name is required";
     if (!formData.email.trim()) errors.email = "Email is required";
     if (!formData.companyName.trim())
       errors.companyName = "Company name is required";
 
-    // Format validation
     if (formData.email && !validateEmail(formData.email)) {
       errors.email = "Please enter a valid email address";
     }
@@ -127,7 +123,6 @@ function Gasha() {
       errors.contactPhone = "Please enter a valid phone number";
     }
 
-    // Length validation
     if (formData.name && !validateText(formData.name, 50)) {
       errors.name = "Name must be less than 50 characters";
     }
@@ -140,7 +135,6 @@ function Gasha() {
       errors.message = "Message must be less than 500 characters";
     }
 
-    // Number validation
     if (formData.totalComputers < 0 || formData.totalComputers > 10000) {
       errors.totalComputers =
         "Please enter a valid number of computers (0-10000)";
@@ -155,13 +149,11 @@ function Gasha() {
     const now = Date.now();
     const { count, lastRequest } = rateLimitRef.current;
 
-    // Reset count if more than 1 minute has passed
     if (now - lastRequest > 60000) {
       rateLimitRef.current = { count: 1, lastRequest: now };
       return true;
     }
 
-    // Allow up to 5 requests per minute
     if (count < 5) {
       rateLimitRef.current = { count: count + 1, lastRequest: now };
       return true;
@@ -170,26 +162,82 @@ function Gasha() {
     return false;
   };
 
-  // PDF download handlers
+  // ==============================
+  // PDF Generators (client-side using jsPDF)
+  // ==============================
   const downloadAntivirusPDF = () => {
-    
-    const pdfUrl = "/pdfs/gasha-antivirus.pdf"; 
-    const link = document.createElement("a");
-    link.href = pdfUrl;
-    link.download = "Gasha-Antivirus-Documentation.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const doc = new jsPDF();
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(18);
+    doc.text("Gasha Antivirus Documentation", 20, 20);
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+    doc.text(
+      "Gasha Antivirus is a robust and intelligent defense system designed to safeguard your digital world from viruses, malware, ransomware, and evolving cyber threats.",
+      20,
+      40,
+      { maxWidth: 170 }
+    );
+
+    doc.text("Key Features:", 20, 70);
+    doc.text("- Real-Time Protection", 25, 80);
+    doc.text("- AI-Powered Detection", 25, 90);
+    doc.text("- Up-to-Date Database", 25, 100);
+    doc.text("- Tamper Protection", 25, 110);
+
+    const pdfBlob = doc.output("blob");
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+    window.open(pdfUrl);
   };
 
   const downloadVPNPDF = () => {
-    const pdfUrl = "/pdfs/gasha-vpn.pdf";
-    const link = document.createElement("a");
-    link.href = pdfUrl;
-    link.download = "Gasha-VPN-Documentation.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const doc = new jsPDF();
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(18);
+    doc.text("Gasha VPN Documentation", 20, 20);
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+    // include the currently visible VPN paragraph
+    doc.text(paragraphOptions[currentTextIndex], 20, 40, { maxWidth: 170 });
+
+    doc.text("Benefits:", 20, 80);
+    doc.text("- Protects from data interception", 25, 90);
+    doc.text("- Avoids ISP tracking", 25, 100);
+    doc.text("- Bypasses geo-restrictions", 25, 110);
+    doc.text("- High-speed, reliable encryption", 25, 120);
+
+    const pdfBlob = doc.output("blob");
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+    window.open(pdfUrl);
+  };
+
+  const downloadWAFPDF = () => {
+    const doc = new jsPDF();
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(18);
+    doc.text("Gasha WAF Documentation", 20, 20);
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+    // include the currently visible WAF paragraph
+    doc.text(paragraphOptionsGASHWAF[currentTextIndex], 20, 40, {
+      maxWidth: 170,
+    });
+
+    doc.text("Highlights:", 20, 80);
+    doc.text("- Blocks SQL Injection", 25, 90);
+    doc.text("- Prevents Cross-Site Scripting", 25, 100);
+    doc.text("- Real-time threat detection", 25, 110);
+    doc.text("- Ensures compliance & security", 25, 120);
+
+    const pdfBlob = doc.output("blob");
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+    window.open(pdfUrl);
   };
 
   // Form handlers
@@ -216,10 +264,11 @@ function Gasha() {
           : sanitizedValue,
     }));
 
-    // Clear error when user starts typing
     if (formErrors[name as keyof FormData]) {
       setFormErrors((prev) => {
-        const newErrors = { ...prev };
+        const newErrors = { ...prev } as Partial<
+          Record<keyof FormData, string>
+        >;
         delete newErrors[name as keyof FormData];
         return newErrors;
       });
@@ -229,13 +278,11 @@ function Gasha() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Check rate limiting
     if (!checkRateLimit()) {
       alert("Too many requests. Please try again in a minute.");
       return;
     }
 
-    // Validate form
     if (!validateForm()) {
       return;
     }
@@ -243,23 +290,18 @@ function Gasha() {
     setIsSubmitting(true);
 
     try {
-      // an API call to your backend
       console.log("Form submitted:", {
         ...formData,
         product: currentProduct,
-        // Add timestamp for additional security tracking
         timestamp: new Date().toISOString(),
       });
 
-      // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      // Show success message
       alert("Thank you for your request! We'll get back to you soon.");
 
       closeModal();
     } catch (error) {
-      // Generic error message to avoid leaking sensitive information
       console.error("Form submission error:", error);
       alert(
         "An error occurred while submitting your request. Please try again later."
@@ -302,7 +344,7 @@ function Gasha() {
     document.body.style.overflow = "auto";
   };
 
-  // Text rotation handler
+  // Text rotation handler (for VPN section only button)
   const handleNextText = () => {
     if (textRef.current) {
       gsap.to(textRef.current, {
@@ -310,7 +352,7 @@ function Gasha() {
         duration: 0.3,
         onComplete: () => {
           setCurrentTextIndex((prev) => (prev + 1) % paragraphOptions.length);
-          gsap.to(textRef.current, { opacity: 1, duration: 0.3 });
+          gsap.to(textRef.current!, { opacity: 1, duration: 0.3 });
         },
       });
     }
@@ -362,7 +404,7 @@ function Gasha() {
     return () => ctx.revert();
   }, [showModal]);
 
-  // Auto-rotate text
+  // Auto-rotate text (drives both VPN + WAF descriptions)
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTextIndex((prev) => (prev + 1) % paragraphOptions.length);
@@ -464,13 +506,13 @@ function Gasha() {
                 <div className="mt-8 flex gap-4 fade-in">
                   <button
                     onClick={downloadAntivirusPDF}
-                    className="bg-primary text-white px-6 py-2 rounded hover:bg-secondary transition"
+                    className="text-white border border-white rounded-md px-6 py-3 text-sm font-semibold shadow-sm hover:bg-gradient-to-r hover:from-[#00E0FF] hover:to-gray-800 hover:text-black transition duration-300"
                   >
                     Download
                   </button>
                   <button
                     onClick={() => openModal("Gasha Antivirus")}
-                    className="border border-primary text-primary px-6 py-2 rounded hover:bg-secondary hover:text-white transition"
+                    className="text-white border border-white rounded-md px-6 py-3 text-sm font-semibold shadow-sm hover:bg-gradient-to-r hover:from-[#00E0FF] hover:to-gray-800 hover:text-black transition duration-300"
                   >
                     Send Request
                   </button>
@@ -556,12 +598,20 @@ function Gasha() {
               <p className="text-lg text-gray-300 leading-relaxed transition-opacity duration-500">
                 {paragraphOptionsGASHWAF[currentTextIndex]}
               </p>
-              <button
-                onClick={() => openModal("Gasha WAF")}
-                className="rounded-md px-6 py-3 text-sm font-semibold shadow-sm transition-colors duration-200 bg-primary text-white hover:bg-secondary"
-              >
-                Send Request
-              </button>
+              <div className="flex gap-4">
+                <button
+                  onClick={downloadWAFPDF}
+                  className="text-white border border-white rounded-md px-6 py-3 text-sm font-semibold shadow-sm hover:bg-gradient-to-r hover:from-[#00E0FF] hover:to-gray-800 hover:text-black transition duration-300"
+                >
+                  Download
+                </button>
+                <button
+                  onClick={() => openModal("Gasha WAF")}
+                  className="text-white border border-white rounded-md px-6 py-3 text-sm font-semibold shadow-sm hover:bg-gradient-to-r hover:from-[#00E0FF] hover:to-gray-800 hover:text-black transition duration-300"
+                >
+                  Send Request
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -865,4 +915,4 @@ function Gasha() {
   );
 }
 
-export default Gasha;
+export default Gasha; 

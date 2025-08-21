@@ -1,11 +1,12 @@
-import React from 'react'
+"use client ";
+import { ClerkProvider, SignIn } from "@clerk/nextjs";
 
-function page() {
+export default function LoginPage() {
   return (
-    <div>
-      <h1>hello</h1>
-    </div>
-  )
+    <ClerkProvider>
+      <div className="flex justify-center items-center h-screen">
+        <SignIn path="/login" routing="path" signUpUrl="/signup" />
+      </div>
+    </ClerkProvider>
+  );
 }
-
-export default page
