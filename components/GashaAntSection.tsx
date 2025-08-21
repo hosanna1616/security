@@ -68,7 +68,7 @@ function GashaAntSection() {
                 radius={100}
                 duration={1.2}
                 speed={0.5}
-                scrambleChars=".::."
+                scrambleChars=".:ኢንሳሂኡፍርፍቅወርትዩኢኦፕ"
               >
                 {" "}
                 A robust and intelligent defense system designed to safeguard

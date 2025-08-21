@@ -10,6 +10,7 @@ import GashaAntSection from '@/components/GashaAntSection'
 export default function Gasha() {
   return (
     <>
+    
       <HeroSection />
       <GashaAntSection />
       <GashaWAFSection />
