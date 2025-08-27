@@ -46,6 +46,10 @@ const Navbar = () => {
     { name: 'Biometrics', href: '/Biometrics' },
     { name: 'Contact us', href: '/Contact_us' },
     { name: 'Login', href: '/login' },
+    { name: 'Admin', href: '/Admin' },
+    { name: 'Manager', href: '/Manager' },
+    { name: 'Developer', href: '/Developer' },
+    { name: 'Marketing', href: '/Marketing' },
   ]
   const { theme, setTheme } = useTheme()
   return (

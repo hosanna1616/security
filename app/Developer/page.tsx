@@ -1,10 +1,10 @@
-import AdminDashboard from '@/components/AdminDashboard'
+import DeveloperDashboard from '@/components/DeveloperDashboard'
 import React from 'react'
 
 function page() {
   return (
     <div>
-      <AdminDashboard />
+      <DeveloperDashboard />
     </div>
   )
 }

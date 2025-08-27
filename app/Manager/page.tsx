@@ -1,10 +1,10 @@
-import AdminDashboard from '@/components/AdminDashboard'
+import MarketingDashboard from '@/components/MarketingDashboard'
 import React from 'react'
 
 function page() {
   return (
     <div>
-      <AdminDashboard />
+      <MarketingDashboard />
     </div>
   )
 }
