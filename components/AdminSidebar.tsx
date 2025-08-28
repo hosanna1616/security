@@ -1,35 +1,73 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import {
+  HomeIcon,
+  ArrowDownTrayIcon,
+  ChartBarIcon,
+  Cog6ToothIcon,
+  ClipboardDocumentListIcon,
+} from '@heroicons/react/24/outline'
 
-const links = [
-  { name: 'Dashboard', href: '/Admin' },
-  { name: 'Users', href: '/Admin/users' },
-  { name: 'Requests', href: '/Admin/requests' },
-  { name: 'Downloads', href: '/Admin/downloads' },
-  { name: 'Reports', href: '/Admin/reports' },
+const navItems = [
+  { name: 'Dashboard', href: '/Admin', icon: <HomeIcon className='h-6 w-6' /> },
+
+  {
+    name: 'Requests',
+    href: '/Admin/requests',
+    icon: <ClipboardDocumentListIcon className='h-6 w-6' />,
+  },
+  {
+    name: 'Downloads',
+    href: '/Admin/downloads',
+    icon: <ArrowDownTrayIcon className='h-6 w-6' />,
+  },
+  {
+    name: 'Reports',
+    href: '/Admin/reports',
+    icon: <ChartBarIcon className='h-6 w-6' />,
+  },
+  {
+    name: 'Settings',
+    href: '/Admin/settings',
+    icon: <Cog6ToothIcon className='h-6 w-6' />,
+  },
 ]
 
 export default function AdminSidebar() {
-  const pathname = usePathname()
+  const [collapsed, setCollapsed] = useState(false)
 
   return (
-    <aside className='w-64 bg-gray-900 text-white p-4 pt-10 space-y-2 min-h-screen'>
-      <h2 className='text-lg font-bold mb-6'>Admin Panel</h2>
-      <nav className='flex flex-col space-y-2'>
-        {links.map((link) => (
+    <div
+      className={`flex flex-col h-auto bg-gray-900 text-white transition-width duration-300
+      ${collapsed ? 'w-16' : 'w-64'}`}
+    >
+      {/* Toggle Button */}
+      <div className='flex justify-end p-2 border-b border-gray-700'>
+        <button
+          onClick={() => setCollapsed(!collapsed)}
+          className='p-1 rounded hover:bg-gray-700'
+        >
+          {collapsed ? '➤' : '⇐'}
+        </button>
+      </div>
+
+      {/* Navigation Items */}
+      <nav className='flex-1 mt-4'>
+        {navItems.map((item) => (
           <Link
-            key={link.href}
-            href={link.href}
-            className={`px-3 py-2 rounded-lg transition ${
-              pathname === link.href ? 'bg-blue-600' : 'hover:bg-gray-700'
+            key={item.name}
+            href={item.href}
+            className={`flex items-center gap-3 p-3 hover:bg-gray-700 transition-colors ${
+              collapsed ? 'justify-center' : ''
             }`}
           >
-            {link.name}
+            {item.icon}
+            {!collapsed && <span className='font-medium'>{item.name}</span>}
           </Link>
         ))}
       </nav>
-    </aside>
+    </div>
   )
 }

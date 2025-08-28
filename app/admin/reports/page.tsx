@@ -18,9 +18,11 @@ export default function ReportsPage() {
   ]
 
   return (
-    <div>
-      <h1 className='text-2xl font-bold mb-4'>Reports & Analytics</h1>
-      <div className='bg-gray-800 p-4 rounded-xl'>
+    <div className='p-4 sm:p-6'>
+      <h1 className='text-2xl sm:text-3xl font-bold mb-4 text-white'>
+        Reports & Analytics
+      </h1>
+      <div className='bg-gray-800 p-4 sm:p-6 rounded-xl w-full'>
         <ResponsiveContainer width='100%' height={300}>
           <BarChart data={data}>
             <XAxis dataKey='name' stroke='#ccc' />
