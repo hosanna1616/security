@@ -17,7 +17,7 @@ const AdminFooter = () => {
   }, [])
 
   return (
-    <footer className='w-full bg-gray-900 text-gray-300 py-6 border-t border-gray-700'>
+    <footer className='w-full bg-gray-900 text-gray-300 py-6 border-t border-gray-700 mb-0'>
       <div className='max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm'>
         {/* Left: Info */}
         <div className='text-center md:text-left'>

@@ -61,7 +61,7 @@ const AdminDashboard = () => {
 
   return (
     <>
-      <main className='pt-32 pb-16 px-6 max-w-7xl mx-auto'>
+      <main className='pt-12 pb-16 px-6 max-w-7xl mx-auto'>
         {/* Header */}
         <div className='mb-10 text-center'>
           <h1 className='text-4xl font-bold text-primary'>Admin Dashboard</h1>

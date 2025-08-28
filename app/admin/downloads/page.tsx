@@ -1,4 +1,3 @@
-// app/Admin/downloads/page.tsx
 'use client'
 
 export default function DownloadsPage() {
@@ -8,7 +7,7 @@ export default function DownloadsPage() {
   ]
 
   return (
-    <div className='p-4 sm:p-6'>
+    <div className='p-4 sm:p-6 mb-50'>
       <h1 className='text-2xl sm:text-3xl font-bold mb-4 text-white'>
         Downloads
       </h1>
