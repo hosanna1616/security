@@ -1,18 +1,12 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
-import Navbar from '@/components/Navbar'
 import { Providers } from './providers'
-import VideoBackground from '@/components/VideoBackground'
 import ThemeInitializer from '@/components/ThemeInitializer'
-import Footer from '@/components/Footer '
+import PublicChrome from '@/components/PublicChrome' // ✅ new
+// ❗ fix: no trailing space in the Footer import you had before
 
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-})
-
+const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
@@ -25,9 +19,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
    
       <html lang="en">
@@ -43,22 +37,17 @@ export default function RootLayout({
                 if (!storedTheme) localStorage.setItem('secure-shield-theme', 'dark');
               } catch (e) {}
             `,
-            }}
-          />
-        </head>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          <ThemeInitializer />
-          <Providers>
-            <VideoBackground />
-
-            <Navbar />
-            {children}
-            <Footer />
-          </Providers>
-        </body>
-      </html>
-    
-  );
+          }}
+        />
+      </head>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <ThemeInitializer />
+        <Providers>
+          <PublicChrome>{children}</PublicChrome>
+        </Providers>
+      </body>
+    </html>
+  )
 }
