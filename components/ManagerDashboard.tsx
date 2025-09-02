@@ -115,15 +115,15 @@ const ManagerDashboard = () => {
             <h4 className='font-medium text-gray-700 mb-3'>Top Performers</h4>
             <ul className='space-y-2'>
               <li className='flex justify-between items-center'>
-                <span>John Doe</span>
+                <span>hosanna</span>
                 <span className='text-green-600 font-medium'>98%</span>
               </li>
               <li className='flex justify-between items-center'>
-                <span>Jane Smith</span>
+                <span>feven</span>
                 <span className='text-green-600 font-medium'>95%</span>
               </li>
               <li className='flex justify-between items-center'>
-                <span>Mike Johnson</span>
+                <span>nahom</span>
                 <span className='text-green-600 font-medium'>92%</span>
               </li>
             </ul>

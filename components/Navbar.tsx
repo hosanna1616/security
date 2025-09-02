@@ -1,7 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Bars3Icon, MoonIcon, SunIcon } from "@heroicons/react/24/outline";
+import {
+  Bars3Icon,
+  XMarkIcon,
+  MoonIcon,
+  SunIcon,
+} from "@heroicons/react/24/outline";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import Image from "next/image";
@@ -41,7 +46,6 @@ const Navbar = () => {
       alert("Please fill in all fields");
       return;
     }
-
     setLoggedIn(true);
     setLoginModalOpen(false);
     router.push(`/${role}`);
@@ -66,6 +70,7 @@ const Navbar = () => {
           <Image src={logo} alt="Logo" className="h-28 w-28 mr-2" />
         </Link>
 
+        {/* Desktop Menu */}
         <div className="hidden lg:flex lg:items-center lg:gap-8">
           <div className="flex gap-8 items-center">
             {navigation.map((item) => (
@@ -116,6 +121,7 @@ const Navbar = () => {
           </button>
         </div>
 
+        {/* Mobile Menu Toggle */}
         <button
           type="button"
           className="lg:hidden p-2 rounded-md text-gray-900 dark:text-gray-100 hover:text-primary dark:hover:text-primary"
@@ -125,7 +131,61 @@ const Navbar = () => {
         </button>
       </nav>
 
-      {/* Login Modal with Glowing Effects */}
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden fixed inset-0 z-40 bg-black/70 backdrop-blur-sm flex flex-col items-center justify-center space-y-6 text-white">
+          <button
+            onClick={() => setMobileMenuOpen(false)}
+            className="absolute top-4 right-4 p-2"
+          >
+            <XMarkIcon className="h-6 w-6 text-white" />
+          </button>
+
+          {navigation.map((item) => (
+            <Link
+              key={item.name}
+              href={item.href}
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-lg font-medium hover:text-primary"
+            >
+              {item.name}
+            </Link>
+          ))}
+
+          {!loggedIn ? (
+            <button
+              onClick={() => {
+                setLoginModalOpen(true);
+                setMobileMenuOpen(false);
+              }}
+              className="text-lg font-medium hover:text-primary"
+            >
+              Login
+            </button>
+          ) : (
+            <div className="flex flex-col items-center space-y-2">
+              <Link
+                href={`/${role}`}
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-lg font-semibold px-4 py-2 rounded bg-primary text-white shadow-md hover:shadow-lg transition"
+              >
+                {role}
+              </Link>
+              <button
+                onClick={() => {
+                  handleLogout();
+                  setMobileMenuOpen(false);
+                }}
+                className="text-lg font-medium text-red-400 hover:text-red-600"
+              >
+                Logout
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Login Modal */}
       {loginModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-2xl w-full max-w-sm border border-primary">
@@ -163,7 +223,7 @@ const Navbar = () => {
                 onClick={handleLogin}
                 className="bg-primary text-white px-4 py-2 rounded shadow-[0_0_15px_rgba(0,123,255,0.7)] hover:shadow-[0_0_20px_rgba(0,123,255,0.9)] transition"
               >
-                Login
+                Login 
               </button>
               <button
                 onClick={() => setLoginModalOpen(false)}

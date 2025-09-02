@@ -14,8 +14,8 @@ const AdminDashboard = () => {
   const [totalUsers, setTotalUsers] = useState(245)
   const [downloads, setDownloads] = useState(1430)
   const [pendingRequests, setPendingRequests] = useState([
-    { id: 1, name: 'John Doe', email: 'john@example.com' },
-    { id: 2, name: 'Sara Kidane', email: 'sara@example.com' },
+    { id: 1, name: 'Hosanna walle', email: 'hosi@example.com' },
+    { id: 2, name: 'feven', email: 'fevi@example.com' },
   ])
   const [activityLog, setActivityLog] = useState([
     {
