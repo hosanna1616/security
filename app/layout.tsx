@@ -1,17 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-<<<<<<< HEAD
-import { Providers } from "./providers";
-import ThemeInitializer from "@/components/ThemeInitializer";
-import PublicChrome from "@/components/PublicChrome";
-import { RequestsProvider } from "@/contexts/RequestsContext"; // Import the RequestsProvider
-=======
+
 import { Providers } from "@/app/providers";
 import ThemeInitializer from "@/components/ThemeInitializer";
-import PublicChrome from "@/components/PublicChrome"; // ✅ new
-// ❗ fix: no trailing space in the Footer import you had before
->>>>>>> 1829da98d7affe6531aac32dd9c9df11bf0f073d
+import PublicChrome from "@/components/PublicChrome";
+import { RequestsProvider } from "@/contexts/RequestsContext";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({
@@ -35,16 +29,6 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html: `
-<<<<<<< HEAD
-            try {
-              const storedTheme = localStorage.getItem('secure-shield-theme');
-              const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-              const theme = storedTheme || (prefersDark ? 'dark' : 'dark'); // Force dark
-              document.documentElement.classList.toggle('dark', theme === 'dark');
-              if (!storedTheme) localStorage.setItem('secure-shield-theme', 'dark');
-            } catch (e) {}
-          `,
-=======
               try {
                 const storedTheme = localStorage.getItem('secure-shield-theme');
                 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -53,7 +37,6 @@ export default function RootLayout({
                 if (!storedTheme) localStorage.setItem('secure-shield-theme', 'dark');
               } catch (e) {}
             `,
->>>>>>> 1829da98d7affe6531aac32dd9c9df11bf0f073d
           }}
         />
       </head>
@@ -63,8 +46,6 @@ export default function RootLayout({
         <ThemeInitializer />
         <Providers>
           <RequestsProvider>
-            {" "}
-            {/* Wrap with RequestsProvider */}
             <PublicChrome>{children}</PublicChrome>
           </RequestsProvider>
         </Providers>
