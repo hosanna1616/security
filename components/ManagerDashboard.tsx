@@ -8,7 +8,7 @@ const ManagerDashboard = () => {
         <h2 className='text-2xl font-bold text-gray-800 dark:text-white'>
           Manager Dashboard
         </h2>
-        <p className='text-gray-600'>
+        <p className='text-gray-400'>
           Team management and performance monitoring
         </p>
       </div>
@@ -107,12 +107,12 @@ const ManagerDashboard = () => {
       </div>
 
       <div className='bg-white/10 backdrop-blur-md shadow rounded-lg p-6 mb-8'>
-        <h3 className='text-lg font-medium text-gray-900 mb-4'>
+        <h3 className='text-lg font-medium text-white mb-4'>
           Team Performance
         </h3>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
           <div>
-            <h4 className='font-medium text-gray-700 mb-3'>Top Performers</h4>
+            <h4 className='font-medium text-gray-400 mb-3'>Top Performers</h4>
             <ul className='space-y-2'>
               <li className='flex justify-between items-center'>
                 <span>hosanna</span>
@@ -129,14 +129,14 @@ const ManagerDashboard = () => {
             </ul>
           </div>
           <div>
-            <h4 className='font-medium text-gray-700 mb-3'>Team Progress</h4>
+            <h4 className='font-medium text-gray-400 mb-3'>Team Progress</h4>
             <div className='bg-gray-200 rounded-full h-4 mb-2'>
               <div
                 className='bg-blue-600 h-4 rounded-full'
                 style={{ width: '75%' }}
               ></div>
             </div>
-            <p className='text-sm text-gray-600'>
+            <p className='text-sm text-gray-500'>
               Quarterly target: 75% completed
             </p>
           </div>
@@ -144,11 +144,11 @@ const ManagerDashboard = () => {
       </div>
 
       <div className='bg-white/10 backdrop-blur-md shadow rounded-lg p-6'>
-        <h3 className='text-lg font-medium text-gray-900 mb-4'>
+        <h3 className='text-lg font-medium text-white mb-4'>
           Upcoming Reviews
         </h3>
         <div className='space-y-3'>
-          <div className='flex justify-between items-center p-3 bg-gray-50 rounded-lg'>
+          <div className='flex justify-between items-center p-3 bg-gray-400 rounded-lg'>
             <div>
               <p className='font-medium'>Monthly Performance Review</p>
               <p className='text-sm text-gray-600'>Due: Tomorrow, 10:00 AM</p>
@@ -157,7 +157,7 @@ const ManagerDashboard = () => {
               Start
             </button>
           </div>
-          <div className='flex justify-between items-center p-3 bg-gray-50 rounded-lg'>
+          <div className='flex justify-between items-center p-3 bg-gray-400 rounded-lg'>
             <div>
               <p className='font-medium'>Team Meeting</p>
               <p className='text-sm text-gray-600'>Due: Friday, 2:00 PM</p>
