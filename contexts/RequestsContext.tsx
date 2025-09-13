@@ -1,7 +1,13 @@
 // contexts/RequestsContext.tsx
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
 
 export interface RequestData {
   id: number;
@@ -19,9 +25,9 @@ export interface RequestData {
   officeNumber: string;
   jobTitle: string;
   department: string;
+  type: string;
   status: "Pending" | "Approved" | "Rejected";
   date: string;
-  type: string;
 }
 
 interface RequestsContextType {
@@ -56,25 +62,45 @@ export const RequestsProvider: React.FC<RequestsProviderProps> = ({
 }) => {
   const [requests, setRequests] = useState<RequestData[]>([]);
 
+  // Load requests from localStorage on component mount
+  useEffect(() => {
+    const storedRequests = localStorage.getItem("nisirRequests");
+    if (storedRequests) {
+      setRequests(JSON.parse(storedRequests));
+    }
+  }, []);
+
+  // Save requests to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem("nisirRequests", JSON.stringify(requests));
+  }, [requests]);
+
   const addRequest = (
     requestData: Omit<RequestData, "id" | "status" | "date" | "type">
   ) => {
     const newRequest: RequestData = {
       ...requestData,
-      id: requests.length + 1,
+      id: Date.now(),
       status: "Pending",
-      date: new Date().toISOString().split("T")[0],
+      date: new Date().toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
       type: "SIEM Request",
     };
-    setRequests((prev) => [...prev, newRequest]);
+
+    setRequests((prevRequests) => [newRequest, ...prevRequests]);
   };
 
   const updateRequestStatus = (
     id: number,
     status: "Pending" | "Approved" | "Rejected"
   ) => {
-    setRequests((prev) =>
-      prev.map((request) =>
+    setRequests((prevRequests) =>
+      prevRequests.map((request) =>
         request.id === id ? { ...request, status } : request
       )
     );

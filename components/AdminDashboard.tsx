@@ -100,7 +100,7 @@ const AdminDashboard = () => {
         </div>
 
         {/* Pending Requests */}
-        <section className='bg-white/10 dark:bg-gray-900/60 p-6 rounded-2xl shadow-lg mb-10'>
+        {/* <section className='bg-white/10 dark:bg-gray-900/60 p-6 rounded-2xl shadow-lg mb-10'>
           <h2 className='text-xl font-semibold mb-4 text-primary'>
             User Requests
           </h2>
@@ -135,7 +135,7 @@ const AdminDashboard = () => {
               ))}
             </div>
           )}
-        </section>
+        </section> */}
 
         {/* Activity Logs */}
         <section className='bg-white/10 dark:bg-gray-900/60 p-6 rounded-2xl shadow-lg'>

@@ -225,18 +225,18 @@ export default function RequestsPage() {
                         Reject
                       </button>
                     )}
-                    {request.status !== "Pending" &&
-                      request.status !== "Pending" && (
-                        <button
-                          onClick={() =>
-                            handleStatusUpdate(request.id, "Pending")
-                          }
-                          className={getButtonStyle("pending")}
-                          title="Mark as pending"
-                        >
-                          Pending
-                        </button>
-                      )}
+                    {(request.status === "Approved" ||
+                      request.status === "Rejected") && (
+                      <button
+                        onClick={() =>
+                          handleStatusUpdate(request.id, "Pending")
+                        }
+                        className={getButtonStyle("pending")}
+                        title="Mark as pending"
+                      >
+                        Pending
+                      </button>
+                    )}
                     <button
                       onClick={() => setSelectedRequest(request)}
                       className={getButtonStyle("details")}

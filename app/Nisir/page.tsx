@@ -83,8 +83,16 @@ function NisirSIEMSection() {
 
     const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
+
+      // Validate required fields
+      if (!formData.fullName || !formData.email) {
+        alert("Please fill in all required fields (Name and Email)");
+        return;
+      }
+
       addRequest(formData);
       setShowRequestForm(false);
+      alert("Your request has been submitted successfully!");
 
       // Reset form
       setFormData({
