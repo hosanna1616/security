@@ -4,7 +4,8 @@ import "./globals.css";
 import { Providers } from "./providers";
 import ThemeInitializer from "@/components/ThemeInitializer";
 import PublicChrome from "@/components/PublicChrome";
-import { RequestsProvider } from "@/contexts/RequestsContext"; // Import the RequestsProvider
+import { RequestsProvider } from "@/contexts/RequestsContext"; 
+import { DownloadsProvider } from "@/contexts/DownloadsContext";// Import the RequestsProvider
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({
@@ -47,7 +48,10 @@ export default function RootLayout({
           <RequestsProvider>
             {" "}
             {/* Wrap with RequestsProvider */}
-            <PublicChrome>{children}</PublicChrome>
+            <PublicChrome>
+              <DownloadsProvider>{children}</DownloadsProvider>
+              {/* {children} */}
+            </PublicChrome>
           </RequestsProvider>
         </Providers>
       </body>
