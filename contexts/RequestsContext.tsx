@@ -1,10 +1,132 @@
-// contexts/RequestsContext.tsx
+// // contexts/RequestsContext.tsx
+// "use client";
+
+// import React, {
+//   createContext,
+//   useContext,
+//   useState,
+//   useEffect,
+//   ReactNode,
+// } from "react";
+
+// export interface RequestData {
+//   id: number;
+//   fullName: string;
+//   email: string;
+//   company: string;
+//   message: string;
+//   companyName: string;
+//   totalAgentless: string;
+//   operatingSystem: string;
+//   osDetails: string;
+//   contactName: string;
+//   contactPhone: string;
+//   website: string;
+//   officeNumber: string;
+//   jobTitle: string;
+//   department: string;
+//   type: string;
+//   status: "Pending" | "Approved" | "Rejected";
+//   date: string;
+// }
+
+// interface RequestsContextType {
+//   requests: RequestData[];
+//   addRequest: (
+//     request: Omit<RequestData, "id" | "status" | "date" | "type">
+//   ) => void;
+//   updateRequestStatus: (
+//     id: number,
+//     status: "Pending" | "Approved" | "Rejected"
+//   ) => void;
+// }
+
+// const RequestsContext = createContext<RequestsContextType | undefined>(
+//   undefined
+// );
+
+// export const useRequests = () => {
+//   const context = useContext(RequestsContext);
+//   if (context === undefined) {
+//     throw new Error("useRequests must be used within a RequestsProvider");
+//   }
+//   return context;
+// };
+
+// interface RequestsProviderProps {
+//   children: ReactNode;
+// }
+
+// export const RequestsProvider: React.FC<RequestsProviderProps> = ({
+//   children,
+// }) => {
+//   const [requests, setRequests] = useState<RequestData[]>([]);
+
+//   // Load requests from localStorage on component mount
+//   useEffect(() => {
+//     const storedRequests = localStorage.getItem("nisirRequests");
+//     if (storedRequests) {
+//       setRequests(JSON.parse(storedRequests));
+//     }
+//   }, []);
+
+//   // Save requests to localStorage whenever they change
+//   useEffect(() => {
+//     localStorage.setItem("nisirRequests", JSON.stringify(requests));
+//   }, [requests]);
+
+//   const addRequest = (
+//     requestData: Omit<RequestData, "id" | "status" | "date" | "type">
+//   ) => {
+//     const newRequest: RequestData = {
+//       ...requestData,
+//       id: Date.now(),
+//       status: "Pending",
+//       date: new Date().toLocaleDateString("en-US", {
+//         year: "numeric",
+//         month: "short",
+//         day: "numeric",
+//         hour: "2-digit",
+//         minute: "2-digit",
+//       }),
+//       type: "SIEM Request",
+//     };
+
+//     setRequests((prevRequests) => [newRequest, ...prevRequests]);
+//   };
+
+//   const updateRequestStatus = (
+//     id: number,
+//     status: "Pending" | "Approved" | "Rejected"
+//   ) => {
+//     setRequests((prevRequests) =>
+//       prevRequests.map((request) =>
+//         request.id === id ? { ...request, status } : request
+//       )
+//     );
+//   };
+
+//   return (
+//     <RequestsContext.Provider
+//       value={{ requests, addRequest, updateRequestStatus }}
+//     >
+//       {children}
+//     </RequestsContext.Provider>
+//   );
+// };
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
+import { v4 as uuidv4 } from "uuid"; // Add uuid package for unique IDs
 
 export interface RequestData {
-  id: number;
+  id: string; // Changed to string for UUID
   fullName: string;
   email: string;
   company: string;
@@ -19,18 +141,19 @@ export interface RequestData {
   officeNumber: string;
   jobTitle: string;
   department: string;
+  type: string;
   status: "Pending" | "Approved" | "Rejected";
   date: string;
-  type: string;
 }
 
 interface RequestsContextType {
   requests: RequestData[];
   addRequest: (
-    request: Omit<RequestData, "id" | "status" | "date" | "type">
+    request: Omit<RequestData, "id" | "status" | "date" | "type"> &
+      Partial<Pick<RequestData, "status" | "type">>
   ) => void;
   updateRequestStatus: (
-    id: number,
+    id: string,
     status: "Pending" | "Approved" | "Rejected"
   ) => void;
 }
@@ -54,27 +177,53 @@ interface RequestsProviderProps {
 export const RequestsProvider: React.FC<RequestsProviderProps> = ({
   children,
 }) => {
-  const [requests, setRequests] = useState<RequestData[]>([]);
+  // Load initial requests from localStorage synchronously
+  const [requests, setRequests] = useState<RequestData[]>(() => {
+    const storedRequests = localStorage.getItem("nisirSecurityRequests");
+    if (storedRequests) {
+      try {
+        const parsedRequests = JSON.parse(storedRequests);
+        return Array.isArray(parsedRequests) ? parsedRequests : [];
+      } catch (error) {
+        console.error("Failed to parse stored requests:", error);
+        return [];
+      }
+    }
+    return [];
+  });
+
+  // Save requests to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem("nisirSecurityRequests", JSON.stringify(requests));
+  }, [requests]);
 
   const addRequest = (
-    requestData: Omit<RequestData, "id" | "status" | "date" | "type">
+    requestData: Omit<RequestData, "id" | "status" | "date" | "type"> &
+      Partial<Pick<RequestData, "status" | "type">>
   ) => {
     const newRequest: RequestData = {
       ...requestData,
-      id: requests.length + 1,
-      status: "Pending",
-      date: new Date().toISOString().split("T")[0],
-      type: "SIEM Request",
+      id: uuidv4(), // Use UUID for unique IDs
+      status: requestData.status || "Pending", // Allow custom status or default to Pending
+      date: new Date().toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+      type: requestData.type || "SIEM Request", // Allow custom type or default to SIEM Request
     };
-    setRequests((prev) => [...prev, newRequest]);
+
+    setRequests((prevRequests) => [newRequest, ...prevRequests]);
   };
 
   const updateRequestStatus = (
-    id: number,
+    id: string,
     status: "Pending" | "Approved" | "Rejected"
   ) => {
-    setRequests((prev) =>
-      prev.map((request) =>
+    setRequests((prevRequests) =>
+      prevRequests.map((request) =>
         request.id === id ? { ...request, status } : request
       )
     );
