@@ -112,7 +112,7 @@ const ManagerDashboard = () => {
         </h3>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
           <div>
-            <h4 className='font-medium text-gray-400 mb-3'>Top Performers</h4>
+            <h4 className='font-medium text-gray-300 mb-3'>Top Performers</h4>
             <ul className='space-y-2'>
               <li className='flex justify-between items-center'>
                 <span>hosanna</span>
@@ -129,7 +129,7 @@ const ManagerDashboard = () => {
             </ul>
           </div>
           <div>
-            <h4 className='font-medium text-gray-400 mb-3'>Team Progress</h4>
+            <h4 className='font-medium text-gray-300 mb-3'>Team Progress</h4>
             <div className='bg-gray-200 rounded-full h-4 mb-2'>
               <div
                 className='bg-blue-600 h-4 rounded-full'
