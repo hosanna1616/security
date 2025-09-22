@@ -1,16 +1,18 @@
 'use client'
-
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Textarea } from '@headlessui/react'
-import GlitchText from "../../components/GlitchText";
+import GlitchText from '../../components/GlitchText'
+
 gsap.registerPlugin(ScrollTrigger)
 
 const ContactSection = () => {
   const containerRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
+
   const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
   const [showError, setShowError] = useState(false)
 
   useEffect(() => {
@@ -33,28 +35,32 @@ const ContactSection = () => {
     }
   }, [])
 
-  const ShieldIcon = () => (
-    <svg
-      xmlns='http://www.w3.org/2000/svg'
-      className='w-6 h-6 text-[#00E0FF] transition duration-300 group-hover:drop-shadow-[0_0_6px_#00E0FF]'
-      viewBox='0 0 24 24'
-      fill='currentColor'
-    >
-      <path d='M12 11.55C9.64 9.35 6.48 8 3 8v11c3.48 0 6.64 1.35 9 3.55 2.36-2.19 5.52-3.55 9-3.55V8c-3.48 0-6.64 1.35-9 3.55zM12 8c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z' />
-    </svg>
-  )
-
-  const handleSend = () => {
-    if (!email.trim()) {
+  const handleSend = async () => {
+    if (!email.trim() || !message.trim()) {
       setShowError(true)
-      alert('Please enter your email before sending.')
+      alert('Please enter both email and message before sending.')
       return
     }
 
-    console.log('Sending email:', email)
-    setEmail('')
-    setShowError(false)
-    // Integrate with backend or email service here
+    try {
+      const res = await fetch('/api/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, message }),
+      })
+
+      if (res.ok) {
+        alert('Message sent successfully!')
+        setEmail('')
+        setMessage('')
+        setShowError(false)
+      } else {
+        alert('Failed to send message')
+      }
+    } catch (error) {
+      console.error(error)
+      alert('Something went wrong')
+    }
   }
 
   return (
@@ -62,35 +68,32 @@ const ContactSection = () => {
       ref={containerRef}
       className='relative w-full py-20 flex justify-center items-center overflow-hidden mt-23'
     >
-      {/*  Glowing Border Container */}
       <div
         className='relative z-10 max-w-3xl w-full px-8 py-12 bg-black/80 backdrop-blur-md rounded-xl border border-primary group transition-all duration-500'
-        style={{
-          boxShadow: '0 0 40px rgba(0, 224, 255, 0.4)', // Static glow
-        }}
+        style={{ boxShadow: '0 0 40px rgba(0, 224, 255, 0.4)' }}
       >
         <div ref={contentRef} className='space-y-6 text-white text-center'>
-          {/* <h2 className='text-3xl font-bold flex justify-center items-center gap-3 group'>
-            We’d love to hear from you
-          </h2> */}
-<GlitchText
+          <GlitchText
             speed={1}
             enableShadows={true}
             enableOnHover={true}
-            className="custom-class"
+            className='custom-class'
           >
             We’d love to hear from you
           </GlitchText>
-          <p className='text-lg text-gray-300 flex justify-center items-start gap-3 group'>
+
+          <p className='text-lg text-gray-300'>
             Reach out to us and let’s explore how we can help secure your
             digital future.
           </p>
+
           <Textarea
-            className='px-8 py-8 w-full rounded-lg bg-gray-950 border 
-            text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary border-primary'
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            className='px-8 py-8 w-full rounded-lg bg-gray-950 border text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary border-primary'
             placeholder='Your message...'
           />
-          {/* Email Input + Send Button */}
+
           <div className='flex justify-center items-center gap-4 pt-4'>
             <input
               type='email'
