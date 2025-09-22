@@ -5,24 +5,36 @@ type Message = {
   email: string
   message: string
   date: string
+  seen: boolean
 }
 
 const ManagerDashboard = () => {
   const [messages, setMessages] = useState<Message[]>([])
 
-  useEffect(() => {
-    const fetchMessages = async () => {
-      try {
-        const res = await fetch('/api/messages')
-        if (res.ok) {
-          setMessages(await res.json())
-        }
-      } catch (error) {
-        console.error('Failed to fetch messages', error)
-      }
+  // Fetch messages
+  const fetchMessages = async () => {
+    const res = await fetch('/api/messages')
+    if (res.ok) {
+      setMessages(await res.json())
     }
+  }
+
+  useEffect(() => {
     fetchMessages()
   }, [])
+
+  // Mark message as read
+  const markAsRead = async (index: number) => {
+    await fetch('/api/messages', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ index }),
+    })
+    fetchMessages() // refresh
+  }
+
+  const unseen = messages.filter((msg) => !msg.seen)
+  const seen = messages.filter((msg) => msg.seen)
 
   return (
     <div className='p-6 mt-25'>
@@ -35,8 +47,62 @@ const ManagerDashboard = () => {
         </p>
       </div>
 
+      {/* 🔹 Unseen Messages */}
+      <div className='bg-white/10 backdrop-blur-md shadow rounded-lg p-6 mb-8'>
+        <h3 className='text-lg font-medium text-white mb-4'>
+          Unseen Messages ({unseen.length})
+        </h3>
+        {unseen.length === 0 ? (
+          <p className='text-gray-400'>No unseen messages 🎉</p>
+        ) : (
+          <ul className='space-y-3'>
+            {unseen.map((msg, index) => (
+              <li
+                key={index}
+                className='p-4 bg-red-900 rounded-lg text-white flex justify-between items-start'
+              >
+                <div>
+                  <p className='text-sm text-gray-400 mb-1'>
+                    {new Date(msg.date).toLocaleString()}
+                  </p>
+                  <p className='font-semibold'>{msg.email}</p>
+                  <p className='text-gray-200'>{msg.message}</p>
+                </div>
+                <button
+                  onClick={() => markAsRead(messages.indexOf(msg))}
+                  className='ml-4 px-3 py-1 bg-green-600 rounded hover:bg-green-700 text-sm'
+                >
+                  Mark as Read
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      {/* 🔹 Seen Messages */}
+      <div className='bg-white/10 backdrop-blur-md shadow rounded-lg p-6'>
+        <h3 className='text-lg font-medium text-white mb-4'>
+          Seen Messages ({seen.length})
+        </h3>
+        {seen.length === 0 ? (
+          <p className='text-gray-400'>No messages read yet.</p>
+        ) : (
+          <ul className='space-y-3'>
+            {seen.map((msg, index) => (
+              <li key={index} className='p-4 bg-gray-800 rounded-lg text-white'>
+                <p className='text-sm text-gray-400 mb-1'>
+                  {new Date(msg.date).toLocaleString()}
+                </p>
+                <p className='font-semibold'>{msg.email}</p>
+                <p className='text-gray-200'>{msg.message}</p>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
       {/* Manager-specific content */}
-      <div className='grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 mb-8'>
+      <div className='grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 my-8'>
         <div className='bg-white/10 backdrop-blur-md overflow-hidden shadow rounded-lg'>
           <div className='px-4 py-5 sm:p-6'>
             <div className='flex items-center'>
@@ -190,33 +256,8 @@ const ManagerDashboard = () => {
           </div>
         </div>
       </div>
-
-      {/* 🔹 NEW SECTION: Contact Messages */}
-      <div className='bg-white/10 backdrop-blur-md shadow rounded-lg p-6 mt-8'>
-        <h3 className='text-lg font-medium text-white mb-4'>
-          Contact Messages
-        </h3>
-
-        {messages.length === 0 ? (
-          <p className='text-gray-400'>No messages yet.</p>
-        ) : (
-          <ul className='space-y-3'>
-            {messages.map((msg, index) => (
-              <li
-                key={index}
-                className='p-4 bg-gray-800 rounded-lg text-white shadow-md'
-              >
-                <p className='text-sm text-gray-400 mb-1'>
-                  {new Date(msg.date).toLocaleString()}
-                </p>
-                <p className='font-semibold'>{msg.email}</p>
-                <p className='text-gray-200'>{msg.message}</p>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
     </div>
   )
 }
+
 export default ManagerDashboard
