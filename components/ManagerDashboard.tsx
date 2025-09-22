@@ -1,7 +1,29 @@
-// components/ManagerDashboard.tsx
-import React from 'react'
+'use client'
+import React, { useEffect, useState } from 'react'
+
+type Message = {
+  email: string
+  message: string
+  date: string
+}
 
 const ManagerDashboard = () => {
+  const [messages, setMessages] = useState<Message[]>([])
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const res = await fetch('/api/messages')
+        if (res.ok) {
+          setMessages(await res.json())
+        }
+      } catch (error) {
+        console.error('Failed to fetch messages', error)
+      }
+    }
+    fetchMessages()
+  }, [])
+
   return (
     <div className='p-6 mt-25'>
       <div className='mb-6'>
@@ -168,8 +190,33 @@ const ManagerDashboard = () => {
           </div>
         </div>
       </div>
+
+      {/* 🔹 NEW SECTION: Contact Messages */}
+      <div className='bg-white/10 backdrop-blur-md shadow rounded-lg p-6 mt-8'>
+        <h3 className='text-lg font-medium text-white mb-4'>
+          Contact Messages
+        </h3>
+
+        {messages.length === 0 ? (
+          <p className='text-gray-400'>No messages yet.</p>
+        ) : (
+          <ul className='space-y-3'>
+            {messages.map((msg, index) => (
+              <li
+                key={index}
+                className='p-4 bg-gray-800 rounded-lg text-white shadow-md'
+              >
+                <p className='text-sm text-gray-400 mb-1'>
+                  {new Date(msg.date).toLocaleString()}
+                </p>
+                <p className='font-semibold'>{msg.email}</p>
+                <p className='text-gray-200'>{msg.message}</p>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   )
 }
-
 export default ManagerDashboard
