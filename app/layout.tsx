@@ -5,7 +5,8 @@ import { Providers } from './providers'
 import ThemeInitializer from '@/components/ThemeInitializer'
 import PublicChrome from '@/components/PublicChrome'
 import { RequestsProvider } from '@/contexts/RequestsContext'
-import { DownloadsProvider } from '@/contexts/DownloadsContext' // Import the RequestsProvider
+import { DownloadsProvider } from '@/contexts/DownloadsContext'
+import { Toaster } from 'react-hot-toast'
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
 const geistMono = Geist_Mono({
@@ -49,7 +50,30 @@ export default function RootLayout({
             {' '}
             {/* Wrap with RequestsProvider */}
             <PublicChrome>
-              <DownloadsProvider>{children}</DownloadsProvider>
+              <DownloadsProvider>
+                {children}
+                <Toaster
+                  position='top-center'
+                  toastOptions={{
+                    success: {
+                      style: {
+                        background: '#0f172a',
+                        color: '#00E0FF',
+                        border: '1px solid #00E0FF',
+                        borderRadius: '10px',
+                      },
+                    },
+                    error: {
+                      style: {
+                        background: '#1c1917',
+                        color: '#ff4444',
+                        border: '1px solid #ff4444',
+                        borderRadius: '10px',
+                      },
+                    },
+                  }}
+                />
+              </DownloadsProvider>
               {/* {children} */}
             </PublicChrome>
           </RequestsProvider>

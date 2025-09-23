@@ -4,6 +4,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Textarea } from '@headlessui/react'
 import GlitchText from '../../components/GlitchText'
+import toast from 'react-hot-toast'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -35,10 +36,20 @@ const ContactSection = () => {
     }
   }, [])
 
+  const isValidEmail = (email: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  }
+
   const handleSend = async () => {
     if (!email.trim() || !message.trim()) {
       setShowError(true)
-      alert('Please enter both email and message before sending.')
+      toast.error('Please enter both email and message!')
+      return
+    }
+
+    if (!isValidEmail(email)) {
+      setShowError(true)
+      toast.error('Please enter a valid email address!')
       return
     }
 
@@ -50,16 +61,16 @@ const ContactSection = () => {
       })
 
       if (res.ok) {
-        alert('Message sent successfully!')
+        toast.success('Message sent successfully 🎉')
         setEmail('')
         setMessage('')
         setShowError(false)
       } else {
-        alert('Failed to send message')
+        toast.error('Failed to send message 😢')
       }
     } catch (error) {
       console.error(error)
-      alert('Something went wrong')
+      toast.error('Something went wrong 🚨')
     }
   }
 
