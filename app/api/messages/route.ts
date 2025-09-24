@@ -1,44 +1,39 @@
 import { NextResponse } from 'next/server'
-
-type Message = { email: string; message: string; date: string; seen: boolean }
-
-// Attach messages to globalThis for dev HMR safety
-declare global {
-  var __messages__: Message[] | undefined
-}
-const messages: Message[] =
-  globalThis.__messages__ ?? (globalThis.__messages__ = [])
-
-export async function GET() {
-  return NextResponse.json(messages)
-}
+import { prisma } from '@/lib/prisma'
 
 export async function POST(req: Request) {
-  const { email, message } = await req.json()
-  if (!email || !message) {
+  try {
+    const { email, message } = await req.json()
+
+    // Simple email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      return NextResponse.json(
+        { error: 'Invalid email format' },
+        { status: 400 }
+      )
+    }
+
+    if (!message || message.trim().length < 5) {
+      return NextResponse.json(
+        { error: 'Message must be at least 5 characters long' },
+        { status: 400 }
+      )
+    }
+
+    const newMessage = await prisma.message.create({
+      data: {
+        email,
+        content: message,
+      },
+    })
+
     return NextResponse.json(
-      { error: 'Email and message required' },
-      { status: 400 }
+      { success: true, data: newMessage },
+      { status: 201 }
     )
+  } catch (error) {
+    console.error(error)
+    return NextResponse.json({ error: 'Server error' }, { status: 500 })
   }
-
-  const newMsg: Message = {
-    email,
-    message,
-    date: new Date().toISOString(),
-    seen: false,
-  }
-  messages.push(newMsg)
-  return NextResponse.json({ success: true, message: newMsg })
-}
-
-// PATCH /api/messages to mark as read
-export async function PATCH(req: Request) {
-  const { index } = await req.json() // message index for now
-  if (index === undefined || index < 0 || index >= messages.length) {
-    return NextResponse.json({ error: 'Invalid index' }, { status: 400 })
-  }
-
-  messages[index].seen = true
-  return NextResponse.json({ success: true, message: messages[index] })
 }

@@ -4,7 +4,6 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Textarea } from '@headlessui/react'
 import GlitchText from '../../components/GlitchText'
-import toast from 'react-hot-toast'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -15,6 +14,7 @@ const ContactSection = () => {
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
   const [showError, setShowError] = useState(false)
+  const [status, setStatus] = useState<'success' | 'error' | null>(null)
 
   useEffect(() => {
     if (containerRef.current && contentRef.current) {
@@ -36,20 +36,10 @@ const ContactSection = () => {
     }
   }, [])
 
-  const isValidEmail = (email: string) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-  }
-
   const handleSend = async () => {
     if (!email.trim() || !message.trim()) {
       setShowError(true)
-      toast.error('Please enter both email and message!')
-      return
-    }
-
-    if (!isValidEmail(email)) {
-      setShowError(true)
-      toast.error('Please enter a valid email address!')
+      setStatus('error')
       return
     }
 
@@ -61,17 +51,20 @@ const ContactSection = () => {
       })
 
       if (res.ok) {
-        toast.success('Message sent successfully 🎉')
         setEmail('')
         setMessage('')
         setShowError(false)
+        setStatus('success')
       } else {
-        toast.error('Failed to send message 😢')
+        setStatus('error')
       }
     } catch (error) {
       console.error(error)
-      toast.error('Something went wrong 🚨')
+      setStatus('error')
     }
+
+    // Hide after 3 seconds
+    setTimeout(() => setStatus(null), 3000)
   }
 
   return (
@@ -80,9 +73,23 @@ const ContactSection = () => {
       className='relative w-full py-20 flex justify-center items-center overflow-hidden mt-23'
     >
       <div
-        className='relative z-10 max-w-3xl w-full px-8 py-12 bg-black/80 backdrop-blur-md rounded-xl border border-primary group transition-all duration-500'
+        className='relative z-10 max-w-3xl w-full px-8 py-12 bg-black/80 backdrop-blur-md rounded-xl border border-primary transition-all duration-500'
         style={{ boxShadow: '0 0 40px rgba(0, 224, 255, 0.4)' }}
       >
+        {status && (
+          <div
+            className={`mb-4 p-3 rounded-lg text-center font-semibold ${
+              status === 'success'
+                ? 'bg-green-600 text-white'
+                : 'bg-red-600 text-white'
+            }`}
+          >
+            {status === 'success'
+              ? '✅ Message sent successfully!'
+              : '❌ Failed to send message. Please try again.'}
+          </div>
+        )}
+
         <div ref={contentRef} className='space-y-6 text-white text-center'>
           <GlitchText
             speed={1}
