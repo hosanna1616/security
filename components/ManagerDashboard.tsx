@@ -65,7 +65,7 @@ export default function ManagerDashboard() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           to: email,
-          subject: 'Reply from Manager',
+          subject: 'Reply from Manager page',
           reply: replyText,
         }),
       })
@@ -89,7 +89,8 @@ export default function ManagerDashboard() {
 
   return (
     <div className='p-6 pt-35 text-white min-h-screen bg-gray-900'>
-      <h2 className='text-2xl font-bold mb-6'>📨 Manager Dashboard</h2>
+      <h1 className='text-2xl font-bold mb-6'>Manager Dashboard</h1>
+      <h2 className='text-2xl font-bold mb-6'>📨 Messages </h2>
 
       <div className='overflow-x-auto rounded-lg border border-gray-700'>
         <table className='min-w-full text-left text-sm'>
