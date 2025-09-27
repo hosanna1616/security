@@ -3,6 +3,10 @@ import AnalyticsOverview from '@/components/dashboard/AnalyticsOverview'
 import ServiceMonitor from '@/components/ServiceMonitor'
 import ThreatIntel from '@/components/ThreatIntel'
 import SIEMDashboard from '@/components/SIEMDashboard'
+import Messages from '@/components/Messages'
+import BiometricMonitor from '@/components/BiometricMonitor'
+import SecurityLogs from '@/components/SecurityLogs'
+import ScheduledReviews from '@/components/ScheduledReviews'
 
 const ManagerDashboard = () => {
   return (
@@ -37,6 +41,25 @@ const ManagerDashboard = () => {
         {/* SIEM Dashboard (half width) */}
         <div className='lg:col-span-6'>
           <SIEMDashboard />
+        </div>
+        {/* Biometric Monitor (half width) */}
+        <div className='lg:col-span-6'>
+          <BiometricMonitor />
+        </div>
+
+        {/* Security Logs (full width row) */}
+        <div className='lg:col-span-12'>
+          <SecurityLogs />
+        </div>
+
+        {/* Messages (two-thirds width) */}
+        <div className='lg:col-span-8'>
+          <Messages />
+        </div>
+
+        {/* Scheduled Reviews (one-third width) */}
+        <div className='lg:col-span-4'>
+          <ScheduledReviews />
         </div>
       </div>
     </div>
