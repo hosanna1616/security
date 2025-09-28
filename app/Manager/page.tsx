@@ -10,7 +10,7 @@ import ScheduledReviews from '@/components/ScheduledReviews'
 
 const ManagerDashboard = () => {
   return (
-    <div className='p-6 bg-gray-50 dark:bg-gray-900 min-h-screen'>
+    <div className='p-6 pt-30 bg-gray-50 dark:bg-gray-900 min-h-screen'>
       {/* Header */}
       <header className='mb-8'>
         <h1 className='text-3xl font-bold text-gray-900 dark:text-white'>

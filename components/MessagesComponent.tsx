@@ -84,9 +84,7 @@ export default function MessagesComponent() {
   }
 
   return (
-    <div className='p-6  bg-gray-900 min-h-screen text-white'>
-      {/* Header */}
-      <h2>Messsage</h2>
+    <div>
       {/* Messages Table */}
       <div className='overflow-x-auto rounded-lg border border-gray-700'>
         <table className='min-w-full text-left text-sm'>
