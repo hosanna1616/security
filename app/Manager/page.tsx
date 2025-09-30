@@ -21,28 +21,34 @@ const ManagerDashboard = () => {
         </p>
       </header>
 
+      {/* Messages FIRST, Full Width */}
+      <div className='mb-6'>
+        <Messages />
+      </div>
+
       {/* Responsive Grid */}
       <div className='grid grid-cols-1 lg:grid-cols-12 gap-6'>
-        {/* Analytics Overview (full width on small, spans 4 on large) */}
+        {/* Analytics Overview */}
         <div className='lg:col-span-4'>
           <AnalyticsOverview />
         </div>
 
-        {/* Service Monitor (spans 4) */}
+        {/* Service Monitor */}
         <div className='lg:col-span-4'>
           <ServiceMonitor />
         </div>
 
-        {/* Threat Intel (spans 4) */}
+        {/* Threat Intel */}
         <div className='lg:col-span-4'>
           <ThreatIntel />
         </div>
 
-        {/* SIEM Dashboard (half width) */}
+        {/* SIEM Dashboard */}
         <div className='lg:col-span-6'>
           <SIEMDashboard />
         </div>
-        {/* Biometric Monitor (half width) */}
+
+        {/* Biometric Monitor */}
         <div className='lg:col-span-6'>
           <BiometricMonitor />
         </div>
@@ -50,11 +56,6 @@ const ManagerDashboard = () => {
         {/* Security Logs (full width row) */}
         <div className='lg:col-span-12'>
           <SecurityLogs />
-        </div>
-
-        {/* Messages (two-thirds width) */}
-        <div className='lg:col-span-8'>
-          <Messages />
         </div>
 
         {/* Scheduled Reviews (one-third width) */}
