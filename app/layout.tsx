@@ -74,7 +74,6 @@ export default function RootLayout({
                   }}
                 />
               </DownloadsProvider>
-              {/* {children} */}
             </PublicChrome>
           </RequestsProvider>
         </Providers>
