@@ -33,10 +33,10 @@ const SecurityLogs = () => {
             key={idx}
             className={`p-3 rounded-lg flex justify-between items-center ${
               log.severity === 'High'
-                ? 'bg-secondary text-white'
+                ? 'bg-gray-900 text-white'
                 : log.severity === 'Medium'
-                ? 'bg-secondary text-black'
-                : 'bg-secondary text-white'
+                ? 'bg-gray-600 text-black'
+                : 'bg-gray-900 text-white'
             }`}
           >
             <div>

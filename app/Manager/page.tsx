@@ -17,7 +17,7 @@ const ManagerDashboard = () => {
           Security System – Manager Dashboard
         </h1>
         <p className='text-gray-600 dark:text-gray-400'>
-          Monitor all security services
+          Monitor all security services.
         </p>
       </header>
 
@@ -29,12 +29,12 @@ const ManagerDashboard = () => {
       {/* Responsive Grid */}
       <div className='grid grid-cols-1 lg:grid-cols-12 gap-6'>
         {/* SIEM Dashboard */}
-        <div className='lg:col-span-6'>
+        <div className='lg:col-span-12'>
           <SIEMDashboard />
         </div>
 
         {/* Biometric Monitor */}
-        <div className='lg:col-span-6'>
+        <div className='lg:col-span-12'>
           <BiometricMonitor />
         </div>
 
@@ -51,14 +51,13 @@ const ManagerDashboard = () => {
         <div className='lg:col-span-4'>
           <ServiceMonitor />
         </div> */}
-        {/* Scheduled Reviews (one-third width) */}
-        <div className='lg:col-span-6'>
-          <ScheduledReviews />
-        </div>
-
         {/* Threat Intel */}
         <div className='lg:col-span-6'>
           <ThreatIntel />
+        </div>
+        {/* Scheduled Reviews (one-third width) */}
+        <div className='lg:col-span-6'>
+          <ScheduledReviews />
         </div>
       </div>
     </div>

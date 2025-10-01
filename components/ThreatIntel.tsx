@@ -18,10 +18,10 @@ const ThreatIntel = () => {
             key={idx}
             className={`flex justify-between p-3 rounded-lg ${
               t.risk === 'High'
-                ? 'bg-gray-800 text-white'
+                ? 'bg-gray-900 text-white'
                 : t.risk === 'Medium'
-                ? 'bg-gray-400 text-black'
-                : 'bg-gray-700 text-white'
+                ? 'bg-gray-900 text-black'
+                : 'bg-gray-900 text-white'
             }`}
           >
             <span>{t.name}</span>

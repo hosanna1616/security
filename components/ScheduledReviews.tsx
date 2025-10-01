@@ -8,14 +8,14 @@ const reviews = [
 const ScheduledReviews = () => {
   return (
     <div className='bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-md'>
-      <h2 className='text-lg font-semibold text-gray-800 dark:text-white mb-2'>
+      <h2 className='text-lg py-3 font-semibold text-gray-800 dark:text-white mb-2'>
         Scheduled Reviews
       </h2>
       <ul className='space-y-2'>
         {reviews.map((r, idx) => (
           <li
             key={idx}
-            className='flex justify-between items-center p-3 bg-gray-100 dark:bg-gray-700 rounded-lg'
+            className='flex justify-between items-center p-3 dark:bg-gray-900 rounded-lg'
           >
             <div>
               <p className='font-medium text-gray-800 dark:text-white'>
