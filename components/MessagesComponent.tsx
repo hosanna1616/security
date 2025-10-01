@@ -7,6 +7,7 @@ interface Message {
   content: string
   seen: boolean
   createdAt: string
+  replied?: boolean // new field in UI state (not in DB)
 }
 
 export default function MessagesComponent() {
@@ -18,6 +19,9 @@ export default function MessagesComponent() {
   const [replyMode, setReplyMode] = useState<number | null>(null)
   const [replyText, setReplyText] = useState('')
   const [replySending, setReplySending] = useState(false)
+
+  // Popup notification
+  const [popup, setPopup] = useState<string | null>(null)
 
   const fetchMessages = async () => {
     try {
@@ -57,7 +61,7 @@ export default function MessagesComponent() {
     fetchMessages()
   }
 
-  const sendReply = async (email: string) => {
+  const sendReply = async (email: string, id: number) => {
     setReplySending(true)
     try {
       const res = await fetch('/api/messages/all', {
@@ -71,20 +75,42 @@ export default function MessagesComponent() {
       })
 
       if (res.ok) {
+        // Close modal + clear text
         setReplyMode(null)
         setReplyText('')
+
+        // Update local state: mark as seen + replied
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === id ? { ...msg, seen: true, replied: true } : msg
+          )
+        )
+
+        // Show success popup
+        setPopup('Reply sent successfully ✅')
+        setTimeout(() => setPopup(null), 3000)
       } else {
-        alert('Failed to send reply ❌')
+        setPopup('Failed to send reply ❌')
+        setTimeout(() => setPopup(null), 3000)
       }
     } catch (err) {
       console.error(err)
+      setPopup('Error while sending reply ❌')
+      setTimeout(() => setPopup(null), 3000)
     } finally {
       setReplySending(false)
     }
   }
 
   return (
-    <div>
+    <div className='relative'>
+      {/* Popup Notification */}
+      {popup && (
+        <div className='fixed top-4 right-4 bg-gray-800 text-white px-4 py-2 rounded-lg shadow-lg animate-fade-in'>
+          {popup}
+        </div>
+      )}
+
       {/* Messages Table */}
       <div className='overflow-x-auto rounded-lg border border-gray-700'>
         <table className='min-w-full text-left text-sm'>
@@ -127,7 +153,11 @@ export default function MessagesComponent() {
                   <td className='px-4 py-3'>{msg.email}</td>
                   <td className='px-4 py-3'>{msg.content}</td>
                   <td className='px-4 py-3'>
-                    {msg.seen ? (
+                    {msg.replied ? (
+                      <span className='text-blue-400 font-semibold'>
+                        Replied
+                      </span>
+                    ) : msg.seen ? (
                       <span className='text-green-400 font-semibold'>Seen</span>
                     ) : (
                       <span className='text-yellow-400 font-semibold'>
@@ -139,7 +169,7 @@ export default function MessagesComponent() {
                     {new Date(msg.createdAt).toLocaleString()}
                   </td>
                   <td className='px-4 py-3 space-x-2'>
-                    {!msg.seen && (
+                    {!msg.seen && !msg.replied && (
                       <button
                         onClick={() => markAsRead(msg.id)}
                         className='px-3 py-1 text-sm bg-blue-600 hover:bg-blue-700 rounded-lg'
@@ -190,7 +220,8 @@ export default function MessagesComponent() {
                 disabled={replySending}
                 onClick={() =>
                   sendReply(
-                    messages.find((m) => m.id === replyMode)?.email || ''
+                    messages.find((m) => m.id === replyMode)?.email || '',
+                    replyMode
                   )
                 }
                 className='px-3 py-1 bg-green-600 hover:bg-green-700 rounded-lg disabled:opacity-50'

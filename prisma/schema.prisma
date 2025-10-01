@@ -18,7 +18,9 @@ model Message {
 model Service {
   id        Int      @id @default(autoincrement())
   name      String
-  status    String   // "running" | "degraded" | "down"
+  status    String   // e.g., "running", "down", "degraded"
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
 

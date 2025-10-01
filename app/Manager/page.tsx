@@ -47,19 +47,18 @@ const ManagerDashboard = () => {
           <AnalyticsOverview />
         </div>
 
-        {/* Service Monitor */}
+        {/* Service Monitor
         <div className='lg:col-span-4'>
           <ServiceMonitor />
+        </div> */}
+        {/* Scheduled Reviews (one-third width) */}
+        <div className='lg:col-span-4'>
+          <ScheduledReviews />
         </div>
 
         {/* Threat Intel */}
         <div className='lg:col-span-4'>
           <ThreatIntel />
-        </div>
-
-        {/* Scheduled Reviews (one-third width) */}
-        <div className='lg:col-span-4'>
-          <ScheduledReviews />
         </div>
       </div>
     </div>
