@@ -17,7 +17,7 @@ export default function LoginPage() {
     try {
       await loginWithEmail(email)
       const normalized = email.trim().toLowerCase()
-      if (normalized.includes('admin')) router.replace('/admin')
+      if (normalized.includes('admin')) router.replace('/Admin')
       else if (normalized.includes('manager')) router.replace('/Manager')
       else if (normalized.includes('developer')) router.replace('/Developer')
       else if (normalized.includes('marketing')) router.replace('/Marketing')
@@ -51,7 +51,7 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className='w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary'
-              placeholder='admin@example.com'
+              // placeholder='admin@example.com'
             />
           </div>
           {error && (
