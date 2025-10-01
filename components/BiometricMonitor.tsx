@@ -18,8 +18,8 @@ const BiometricMonitor = () => {
             key={idx}
             className={`flex justify-between p-3 rounded-lg ${
               b.status === 'Success'
-                ? 'bg-green-500 text-white'
-                : 'bg-red-600 text-white'
+                ? 'bg-secondary text-white'
+                : 'bg-transparent text-white'
             }`}
           >
             <span>{b.type}</span>

@@ -14,3 +14,11 @@ model Message {
   seen      Boolean  @default(false)
   createdAt DateTime @default(now())
 }
+
+model Service {
+  id        Int      @id @default(autoincrement())
+  name      String
+  status    String   // "running" | "degraded" | "down"
+  updatedAt DateTime @updatedAt
+}
+
