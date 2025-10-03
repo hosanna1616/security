@@ -31,4 +31,13 @@ model sIEMIncident {
   updatedAt DateTime @updatedAt
 }
 
+model sIEMRequest {
+  id           Int      @id @default(autoincrement())
+  fullName     String
+  email        String
+  status       String   @default("Pending") // Pending | Approved | Completed
+  downloadLink String?  // Optional: License/Installer link
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
 
