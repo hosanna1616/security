@@ -52,7 +52,7 @@ export default function DownloadsPage() {
       <h1 className="text-2xl sm:text-3xl font-bold mb-4 text-white">
         Downloads
       </h1>
-      <div className="overflow-x-auto bg-gray-800 rounded-xl">
+      <div className="overflow-x-auto bg-gray-400 rounded-xl">
         <table className="min-w-full divide-y divide-gray-700">
           <thead className="bg-gray-700 text-white text-left">
             <tr>
