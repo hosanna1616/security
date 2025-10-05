@@ -65,7 +65,7 @@ export default function DownloadsPage() {
           <tbody className="divide-y divide-gray-700">
             {downloads.length > 0 ? (
               downloads.map((d, i) => (
-                <tr key={i} className="hover:bg-gray-700">
+                <tr key={i} className="hover:bg-gray-300">
                   <td className="px-3 py-2">{d.file}</td>
                   <td className="px-3 py-2">{d.size}</td>
                   <td className="px-3 py-2">{d.count}</td>
