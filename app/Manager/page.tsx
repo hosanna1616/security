@@ -34,31 +34,31 @@ const ManagerDashboard = () => {
         </div>
 
         {/* Biometric Monitor */}
-        <div className='lg:col-span-12'>
+        {/* <div className='lg:col-span-12'>
           <BiometricMonitor />
         </div>
 
         {/* Security Logs (full width row) */}
-        <div className='lg:col-span-12'>
+        {/* <div className='lg:col-span-12'>
           <SecurityLogs />
-        </div>
+        </div> */}
         {/* Analytics Overview */}
-        <div className='lg:col-span-12'>
+        {/* <div className='lg:col-span-12'>
           <AnalyticsOverview />
-        </div>
+        </div> */}
 
         {/* Service Monitor
         <div className='lg:col-span-4'>
           <ServiceMonitor />
         </div> */}
         {/* Threat Intel */}
-        <div className='lg:col-span-6'>
+        {/* <div className='lg:col-span-6'>
           <ThreatIntel />
         </div>
-        {/* Scheduled Reviews (one-third width) */}
+         Scheduled Reviews (one-third width) 
         <div className='lg:col-span-6'>
-          <ScheduledReviews />
-        </div>
+          <ScheduledReviews /> 
+        {/* </div> */}
       </div>
     </div>
   )
