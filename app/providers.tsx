@@ -3,6 +3,7 @@
 import { ThemeProvider } from "next-themes";
 import { useEffect, useMemo, useState, createContext, useContext } from "react";
 import { useRouter } from "next/navigation";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
 type UserRole = "admin" | "manager" | "developer" | "marketing";
 
@@ -105,7 +106,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
       enableSystem={false}
       storageKey="secure-shield-theme"
     >
-      <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+      <LanguageProvider>
+        <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+      </LanguageProvider>
     </ThemeProvider>
   );
 }

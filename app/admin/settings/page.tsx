@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface AdminProfile {
   id: string;
@@ -39,6 +40,7 @@ const simpleHash = (password: string): string => {
 };
 
 export default function SettingsPage() {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState<"profile" | "security" | "system">(
     "profile"
   );
@@ -550,7 +552,7 @@ export default function SettingsPage() {
   return (
     <div className="p-4 sm:p-6 max-w-4xl mx-auto">
       <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-white text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400">
-        Admin Settings
+        {t("admin_settings_title")}
       </h1>
 
       {/* Status Message */}
@@ -578,7 +580,7 @@ export default function SettingsPage() {
               : "bg-gray-700 text-gray-300 hover:bg-gray-600"
           }`}
         >
-          Profile
+          {t("admin_tab_profile")}
         </button>
         <button
           onClick={() => setActiveTab("security")}
@@ -588,7 +590,7 @@ export default function SettingsPage() {
               : "bg-gray-700 text-gray-300 hover:bg-gray-600"
           }`}
         >
-          Security
+          {t("admin_tab_security")}
         </button>
         <button
           onClick={() => setActiveTab("system")}
@@ -598,7 +600,7 @@ export default function SettingsPage() {
               : "bg-gray-700 text-gray-300 hover:bg-gray-600"
           }`}
         >
-          System
+          {t("admin_tab_system")}
         </button>
       </div>
 
@@ -608,7 +610,7 @@ export default function SettingsPage() {
           <div className="space-y-6">
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-semibold text-white">
-                Profile Settings
+                {t("admin_profile_settings")}
               </h2>
               <span className="px-3 py-1 bg-blue-900/30 text-blue-300 rounded-full text-xs font-medium">
                 {profile.role}
@@ -645,7 +647,7 @@ export default function SettingsPage() {
 
                 <div className="flex-grow">
                   <label className="block mb-2 text-gray-300">
-                    Profile Photo
+                    {t("admin_profile_photo")}
                   </label>
                   <input
                     type="file"
@@ -654,7 +656,7 @@ export default function SettingsPage() {
                     className="w-full text-gray-300 bg-gray-700 px-4 py-2 rounded-lg border border-gray-600/50 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-medium file:bg-blue-500 file:text-white hover:file:bg-blue-600 transition-colors"
                   />
                   <p className="text-xs text-gray-500 mt-1">
-                    JPG, PNG or GIF. Max 5MB. Changes apply immediately.
+                    {t("admin_profile_photo_hint")}
                   </p>
                 </div>
               </div>
@@ -692,13 +694,13 @@ export default function SettingsPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-400">
                 <div>
-                  <span className="block mb-1">Member Since</span>
+                  <span className="block mb-1">{t("admin_member_since")}</span>
                   <span className="text-gray-300">
                     {formatDate(profile.createdAt)}
                   </span>
                 </div>
                 <div>
-                  <span className="block mb-1">Last Login</span>
+                  <span className="block mb-1">{t("admin_last_login")}</span>
                   <span className="text-gray-300">
                     {formatDate(profile.lastLogin)}
                   </span>
@@ -710,7 +712,7 @@ export default function SettingsPage() {
                 disabled={isLoading}
                 className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 disabled:opacity-50 text-white px-6 py-2 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-blue-500/20"
               >
-                {isLoading ? "Saving..." : "Save Profile"}
+                {isLoading ? t("admin_saving") : t("admin_save_profile")}
               </button>
             </form>
           </div>
@@ -720,14 +722,14 @@ export default function SettingsPage() {
           <div className="space-y-6">
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-semibold text-white">
-                Security Settings
+                {t("admin_security_settings")}
               </h2>
               <button
                 onClick={resetToDefaultPassword}
                 className="px-3 py-1 bg-yellow-900/30 text-yellow-300 rounded-full text-xs font-medium hover:bg-yellow-800/30 transition-colors"
                 title="Reset password to default (admin123)"
               >
-                Reset Password
+                {t("admin_reset_password")}
               </button>
             </div>
 
@@ -735,12 +737,12 @@ export default function SettingsPage() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <h3 className="text-lg font-medium text-gray-300">
-                    Password Management
+                    {t("admin_password_management")}
                   </h3>
 
                   <div>
                     <label className="block mb-2 text-gray-300">
-                      Current Password *
+                      {t("admin_current_password")} *
                     </label>
                     <input
                       type="password"
@@ -752,14 +754,14 @@ export default function SettingsPage() {
                       required
                     />
                     <p className="text-xs text-gray-500 mt-1">
-                      Default password:{" "}
+                      {t("admin_default_password")}{" "}
                       <code className="bg-gray-700 px-1 rounded">admin123</code>
                     </p>
                   </div>
 
                   <div>
                     <label className="block mb-2 text-gray-300">
-                      New Password
+                      {t("admin_new_password")}
                     </label>
                     <input
                       type="password"
@@ -776,7 +778,7 @@ export default function SettingsPage() {
                       <div className="mt-2">
                         <div className="flex justify-between text-xs mb-1">
                           <span className="text-gray-400">
-                            Password Strength:
+                            {t("admin_password_strength")}
                           </span>
                           <span
                             className={`${
@@ -810,7 +812,7 @@ export default function SettingsPage() {
 
                   <div>
                     <label className="block mb-2 text-gray-300">
-                      Confirm New Password
+                      {t("admin_confirm_new_password")}
                     </label>
                     <input
                       type="password"
@@ -839,14 +841,16 @@ export default function SettingsPage() {
                         >
                           {securityForm.newPassword ===
                           securityForm.confirmPassword
-                            ? "✓ Passwords match"
-                            : "✗ Passwords do not match"}
+                            ? t("admin_passwords_match")
+                            : t("admin_passwords_do_not_match")}
                         </p>
                       )}
                   </div>
 
                   <div className="text-sm text-gray-400">
-                    <span className="block mb-1">Last Changed</span>
+                    <span className="block mb-1">
+                      {t("admin_last_changed")}
+                    </span>
                     <span className="text-gray-300">
                       {formatDate(security.passwordLastChanged)}
                     </span>
@@ -855,7 +859,7 @@ export default function SettingsPage() {
 
                 <div className="space-y-4">
                   <h3 className="text-lg font-medium text-gray-300">
-                    Security Features
+                    {t("admin_security_features")}
                   </h3>
 
                   <div className="flex items-center gap-3 p-4 bg-gray-700/50 rounded-lg border border-gray-600/30">
@@ -868,12 +872,12 @@ export default function SettingsPage() {
                     />
                     <div>
                       <label className="text-gray-200 font-medium">
-                        Two-Factor Authentication
+                        {t("admin_two_factor_auth")}
                       </label>
                       <p className="text-sm text-gray-400 mt-1">
                         {securityForm.twoFactorEnabled
-                          ? "🟢 Enabled"
-                          : "🔴 Disabled"}{" "}
+                          ? `🟢 ${t("admin_enabled")}`
+                          : `🔴 ${t("admin_disabled")}`}{" "}
                         • Add an extra layer of security
                       </p>
                     </div>
@@ -889,10 +893,12 @@ export default function SettingsPage() {
                     />
                     <div>
                       <label className="text-gray-200 font-medium">
-                        Login Alerts
+                        {t("admin_login_alerts")}
                       </label>
                       <p className="text-sm text-gray-400 mt-1">
-                        {securityForm.loginAlerts ? "🟢 Active" : "🔴 Inactive"}{" "}
+                        {securityForm.loginAlerts
+                          ? `🟢 ${t("admin_active")}`
+                          : `🔴 ${t("admin_inactive")}`}{" "}
                         • Get notified of new sign-ins
                       </p>
                     </div>
@@ -901,12 +907,12 @@ export default function SettingsPage() {
                   {/* Real-time Security Status */}
                   <div className="p-4 bg-gray-700/30 rounded-lg border border-gray-600/30">
                     <h4 className="text-gray-200 font-medium mb-2">
-                      Security Status
+                      {t("admin_security_status")}
                     </h4>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
                         <span className="text-gray-400">
-                          Password Strength:
+                          {t("admin_password_strength")}:
                         </span>
                         <span
                           className={
@@ -927,7 +933,9 @@ export default function SettingsPage() {
                         </span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-400">2FA Status:</span>
+                        <span className="text-gray-400">
+                          {t("admin_2fa_status")}:
+                        </span>
                         <span
                           className={
                             securityForm.twoFactorEnabled
@@ -936,12 +944,14 @@ export default function SettingsPage() {
                           }
                         >
                           {securityForm.twoFactorEnabled
-                            ? "Enabled"
-                            : "Disabled"}
+                            ? t("admin_enabled")
+                            : t("admin_disabled")}
                         </span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-400">Login Alerts:</span>
+                        <span className="text-gray-400">
+                          {t("admin_login_alerts")}:
+                        </span>
                         <span
                           className={
                             securityForm.loginAlerts
@@ -949,7 +959,9 @@ export default function SettingsPage() {
                               : "text-red-400"
                           }
                         >
-                          {securityForm.loginAlerts ? "Active" : "Inactive"}
+                          {securityForm.loginAlerts
+                            ? t("admin_active")
+                            : t("admin_inactive")}
                         </span>
                       </div>
                     </div>
@@ -962,7 +974,9 @@ export default function SettingsPage() {
                 disabled={isLoading}
                 className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 disabled:opacity-50 text-white px-6 py-2 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-blue-500/20"
               >
-                {isLoading ? "Updating..." : "Update Security Settings"}
+                {isLoading
+                  ? "Updating..."
+                  : t("admin_update_security_settings")}
               </button>
             </form>
           </div>
@@ -971,14 +985,16 @@ export default function SettingsPage() {
         {activeTab === "system" && (
           <div className="space-y-6">
             <h2 className="text-xl font-semibold text-white">
-              System Preferences
+              {t("admin_system_preferences")}
             </h2>
 
             <form onSubmit={saveSystem} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <div>
-                    <label className="block mb-2 text-gray-300">Theme</label>
+                    <label className="block mb-2 text-gray-300">
+                      {t("admin_theme")}
+                    </label>
                     <select
                       name="theme"
                       value={systemForm.theme}
@@ -989,9 +1005,11 @@ export default function SettingsPage() {
                       }
                       className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white border border-gray-600/50 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                     >
-                      <option value="dark">Dark</option>
-                      <option value="light">Light</option>
-                      <option value="system">System Default</option>
+                      <option value="dark">{t("option_dark")}</option>
+                      <option value="light">{t("option_light")}</option>
+                      <option value="system">
+                        {t("option_system_default")}
+                      </option>
                     </select>
                   </div>
 
@@ -1005,10 +1023,10 @@ export default function SettingsPage() {
                     />
                     <div>
                       <label className="text-gray-200 font-medium">
-                        Automatic Backups
+                        {t("admin_automatic_backups")}
                       </label>
                       <p className="text-sm text-gray-400 mt-1">
-                        Automatically backup system data
+                        {t("admin_auto_backup_hint")}
                       </p>
                     </div>
                   </div>
@@ -1016,7 +1034,7 @@ export default function SettingsPage() {
                   {systemForm.autoBackup && (
                     <div>
                       <label className="block mb-2 text-gray-300">
-                        Backup Frequency
+                        {t("admin_backup_frequency")}
                       </label>
                       <select
                         name="backupFrequency"
@@ -1042,7 +1060,7 @@ export default function SettingsPage() {
                   type="submit"
                   className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-6 py-2 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-blue-500/20"
                 >
-                  Save Preferences
+                  {t("admin_save_preferences")}
                 </button>
               </div>
             </form>

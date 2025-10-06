@@ -1,4 +1,3 @@
-
 // "use client";
 
 // import { useState, useEffect } from "react";
@@ -508,9 +507,11 @@
 
 import { useState, useEffect } from "react";
 import { useRequests, type RequestData } from "@/contexts/RequestsContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function RequestsPage() {
   const { requests, updateRequestStatus } = useRequests();
+  const { t } = useLanguage();
   const [selectedRequest, setSelectedRequest] = useState<RequestData | null>(
     null
   );
@@ -583,7 +584,7 @@ export default function RequestsPage() {
   return (
     <div className="p-4 sm:p-6 min-h-screen bg-gradient-to-br from-gray-900 to-gray-800">
       <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-white text-center">
-        Security Requests Dashboard
+        {t("security_requests_dashboard")}
       </h1>
 
       {/* Status message */}
@@ -641,7 +642,7 @@ export default function RequestsPage() {
                 <div className="text-gray-400">{request.email}</div>
                 <div className="text-gray-400">{request.company}</div>
                 <div className="flex items-center gap-2">
-                  <span className="text-gray-400">Status:</span>
+                  <span className="text-gray-400">{t("status_label")}:</span>
                   <span
                     className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
                       request.status === "Approved"
@@ -663,7 +664,7 @@ export default function RequestsPage() {
                     onClick={() => handleStatusUpdate(request.id, "Approved")}
                     className={getButtonStyle("approve")}
                   >
-                    Approve
+                    {t("btn_approve")}
                   </button>
                 )}
                 {request.status !== "Rejected" && (
@@ -671,7 +672,7 @@ export default function RequestsPage() {
                     onClick={() => handleStatusUpdate(request.id, "Rejected")}
                     className={getButtonStyle("reject")}
                   >
-                    Reject
+                    {t("btn_reject")}
                   </button>
                 )}
                 {(request.status === "Approved" ||
@@ -680,21 +681,21 @@ export default function RequestsPage() {
                     onClick={() => handleStatusUpdate(request.id, "Pending")}
                     className={getButtonStyle("pending")}
                   >
-                    Pending
+                    {t("btn_pending")}
                   </button>
                 )}
                 <button
                   onClick={() => setSelectedRequest(request)}
                   className={getButtonStyle("details")}
                 >
-                  Details
+                  {t("btn_details")}
                 </button>
               </div>
             </div>
           ))
         ) : (
           <div className="text-center text-gray-400 py-12">
-            No requests found
+            {t("no_requests_found")}
           </div>
         )}
       </div>
@@ -704,7 +705,9 @@ export default function RequestsPage() {
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
           <div className="bg-gray-900 rounded-xl p-6 max-w-2xl w-full border border-gray-700/50 shadow-xl overflow-y-auto max-h-[90vh]">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold text-white">Request Details</h2>
+              <h2 className="text-xl font-bold text-white">
+                {t("request_details")}
+              </h2>
               <button
                 onClick={() => setSelectedRequest(null)}
                 className="text-gray-400 hover:text-white"
@@ -714,14 +717,29 @@ export default function RequestsPage() {
             </div>
 
             <div className="space-y-2 text-sm text-gray-300">
-              <DetailItem label="ID" value={selectedRequest.id} />
-              <DetailItem label="Name" value={selectedRequest.fullName} />
-              <DetailItem label="Email" value={selectedRequest.email} />
-              <DetailItem label="Company" value={selectedRequest.company} />
-              <DetailItem label="Type" value={selectedRequest.type} />
-              <DetailItem label="Date" value={selectedRequest.date} />
+              <DetailItem label={t("label_id")} value={selectedRequest.id} />
               <DetailItem
-                label="Message"
+                label={t("label_name")}
+                value={selectedRequest.fullName}
+              />
+              <DetailItem
+                label={t("label_email")}
+                value={selectedRequest.email}
+              />
+              <DetailItem
+                label={t("label_company")}
+                value={selectedRequest.company}
+              />
+              <DetailItem
+                label={t("label_type")}
+                value={selectedRequest.type}
+              />
+              <DetailItem
+                label={t("label_date")}
+                value={selectedRequest.date}
+              />
+              <DetailItem
+                label={t("message_label")}
                 value={selectedRequest.message || "No message"}
               />
             </div>
@@ -731,7 +749,7 @@ export default function RequestsPage() {
                 onClick={() => setSelectedRequest(null)}
                 className="px-3 py-1.5 rounded-md bg-gray-700 text-gray-300 hover:bg-gray-600"
               >
-                Close
+                {t("btn_close")}
               </button>
             </div>
           </div>

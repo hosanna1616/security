@@ -8,6 +8,7 @@ import Image from "next/image";
 import logo from "../public/image/logo.png";
 import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/app/providers";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -20,6 +21,7 @@ const Navbar = () => {
   const router = useRouter();
   const pathname = usePathname();
   const { user, loginWithCredentials, logout } = useAuth();
+  const { language, toggleLanguage, t } = useLanguage();
 
   // State for notification
   const [notification, setNotification] = useState<{
@@ -116,12 +118,12 @@ const Navbar = () => {
         <div className="hidden lg:flex lg:items-center lg:gap-8">
           <div className="flex gap-8 items-center">
             {[
-              { name: "Gasha", href: "/Gasha" },
-              { name: "Nisir", href: "/Nisir" },
-              { name: "Enyuma IAM", href: "/Enyuma_IAM" },
-              { name: "Code Protection", href: "/Code_Protection" },
-              { name: "Biometrics", href: "/Biometrics" },
-              { name: "Contact us", href: "/Contact_us" },
+              { name: t("nav_gasha"), href: "/Gasha" },
+              { name: t("nav_nisir"), href: "/Nisir" },
+              { name: t("nav_enyuma"), href: "/Enyuma_IAM" },
+              { name: t("nav_code_protection"), href: "/Code_Protection" },
+              { name: t("nav_biometrics"), href: "/Biometrics" },
+              { name: t("nav_contact_us"), href: "/Contact_us" },
             ].map((item) => (
               <Link
                 key={item.name}
@@ -137,7 +139,7 @@ const Navbar = () => {
                 onClick={() => setLoginModalOpen(true)}
                 className="text-sm font-medium dark:text-gray-100 text-primary hover:text-gray-100 dark:hover:text-primary"
               >
-                Login
+                {t("nav_login")}
               </button>
             ) : (
               <div className="flex items-center gap-4">
@@ -151,22 +153,35 @@ const Navbar = () => {
                   }`}
                   className="text-sm font-semibold px-3 py-1 rounded bg-primary text-white shadow-md hover:shadow-lg transition"
                 >
-                  {user.role}
+                  {user.role === "admin"
+                    ? t("nav_role_admin")
+                    : user.role === "manager"
+                    ? t("nav_role_manager")
+                    : user.role}
                 </Link>
                 <button
                   onClick={handleLogout}
                   className="text-sm font-medium text-red-500 hover:text-red-700"
                 >
-                  Logout
+                  {t("nav_logout")}
                 </button>
               </div>
             )}
           </div>
 
           <button
+            onClick={toggleLanguage}
+            className="p-2 rounded-md border border-gray-300 dark:border-gray-700 text-xs mr-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+            aria-label="Toggle language"
+            title={`Switch to ${language === "en" ? "Amharic" : "English"}`}
+          >
+            {language === "en" ? "AM" : "EN"}
+          </button>
+
+          <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-            aria-label="Toggle theme"
+            aria-label={t("aria_toggle_theme")}
           >
             {theme === "dark" ? (
               <SunIcon className="h-5 w-5 text-yellow-300" />
@@ -191,12 +206,12 @@ const Navbar = () => {
         <div className="lg:hidden bg-white/90 dark:bg-gray-900/80 backdrop-blur border-t border-gray-200 dark:border-gray-800">
           <div className="px-4 py-3 space-y-3">
             {[
-              { name: "Gasha", href: "/Gasha" },
-              { name: "Nisir", href: "/Nisir" },
-              { name: "Enyuma IAM", href: "/Enyuma_IAM" },
-              { name: "Code Protection", href: "/Code_Protection" },
-              { name: "Biometrics", href: "/Biometrics" },
-              { name: "Contact us", href: "/Contact_us" },
+              { name: t("nav_gasha"), href: "/Gasha" },
+              { name: t("nav_nisir"), href: "/Nisir" },
+              { name: t("nav_enyuma"), href: "/Enyuma_IAM" },
+              { name: t("nav_code_protection"), href: "/Code_Protection" },
+              { name: t("nav_biometrics"), href: "/Biometrics" },
+              { name: t("nav_contact_us"), href: "/Contact_us" },
             ].map((item) => (
               <Link
                 key={item.name}
@@ -215,7 +230,7 @@ const Navbar = () => {
                   setMobileMenuOpen(false);
                 }}
               >
-                Login
+                {t("nav_login")}
               </button>
             ) : (
               <div className="flex items-center gap-4">
@@ -230,7 +245,11 @@ const Navbar = () => {
                   className="text-sm font-semibold px-3 py-1 rounded bg-primary text-white shadow-md"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  {user.role}
+                  {user.role === "admin"
+                    ? t("nav_role_admin")
+                    : user.role === "manager"
+                    ? t("nav_role_manager")
+                    : user.role}
                 </Link>
                 <button
                   onClick={() => {
@@ -239,7 +258,7 @@ const Navbar = () => {
                   }}
                   className="text-sm font-medium text-red-500"
                 >
-                  Logout
+                  {t("nav_logout")}
                 </button>
               </div>
             )}
