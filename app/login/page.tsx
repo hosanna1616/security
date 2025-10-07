@@ -1,43 +1,4 @@
-// "use client";
-// import { FormEvent, useState } from "react";
-// import { useRouter, useSearchParams } from "next/navigation";
-// import { useAuth } from "@/app/providers";
-// // Note: Server API handles password validation
 
-// // Redirect this page to home since Navbar handles login modal now
-// export default function LoginPage() {
-//   const { loginWithCredentials } = useAuth();
-//   const router = useRouter();
-//   const search = useSearchParams();
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const [error, setError] = useState<string | null>(null);
-//   const [loading, setLoading] = useState(false);
-
-//   const onSubmit = async (e: FormEvent) => {
-//     e.preventDefault();
-//     setError(null);
-//     setLoading(true);
-//     try {
-//       const { role } = await loginWithCredentials(email, password);
-//       const redirect = search?.get("redirect");
-//       if (redirect && redirect.startsWith("/")) {
-//         router.replace(redirect);
-//       } else {
-//         router.replace(
-//           role === "admin" ? "/Admin" : role === "manager" ? "/Manager" : "/"
-//         );
-//       }
-//     } catch (err: any) {
-//       setError(err?.message || "Login failed");
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   // Minimal safe UI to avoid duplicate login page usage
-//   return null;
-// }
 "use client";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
