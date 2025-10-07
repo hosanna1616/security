@@ -88,8 +88,12 @@ const Navbar = () => {
       router.push(
         role === "admin" ? "/Admin" : role === "manager" ? "/Manager" : "/"
       );
-    } catch (e: any) {
-      setNotification({ message: e?.message || "Login failed", type: "error" });
+    } catch (e: unknown) {
+      const errorMessage =
+        e && typeof e === "object" && "message" in e && typeof (e as { message?: string }).message === "string"
+          ? (e as { message: string }).message
+          : "Login failed";
+      setNotification({ message: errorMessage, type: "error" });
       setTimeout(() => setNotification(null), 3000);
     }
   };
